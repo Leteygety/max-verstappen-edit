@@ -15,6 +15,11 @@ yt=(yt-dlp --no-playlist --ignore-errors --no-overwrites --max-downloads 1)
 if ! command -v deno >/dev/null && command -v node >/dev/null; then
   yt+=(--js-runtimes "node:$(command -v node)")
 fi
+# YouTube asks datacenter IPs to sign in; pass exported browser cookies if given.
+cookies="${YTDLP_COOKIES:-$out/cookies.txt}"
+if [ -f "$cookies" ]; then
+  yt+=(--cookies "$cookies" --sleep-requests 1 --sleep-interval 3)
+fi
 
 fetch() {  # name target
   local name="$1" target="$2" rc=0
