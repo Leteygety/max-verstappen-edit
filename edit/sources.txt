@@ -1,0 +1,18 @@
+# name | yt-dlp target (URL or ytsearchN:query)
+# Real races / moments only. Prefer official FORMULA 1 / Oracle Red Bull Racing uploads (1080p50-4K).
+music          | ytsearch1:FUNK CRIMINAL 2 slowed
+brazil24_wet   | ytsearch2:Max Verstappen Sao Paulo 2024 wet race highlights P17 to win
+brazil24_ob    | ytsearch1:Verstappen onboard Sao Paulo 2024 rain
+abudhabi21     | ytsearch1:Abu Dhabi 2021 final lap Verstappen world champion
+zandvoort21    | ytsearch1:Verstappen wins Dutch Grand Prix 2021 Zandvoort crowd
+suzuka23_pole  | ytsearch1:Verstappen pole lap onboard Suzuka 2023
+suzuka22_title | ytsearch1:Verstappen champion Suzuka 2022 rain
+vegas23_night  | ytsearch1:Verstappen Las Vegas Grand Prix 2023 highlights night
+brazil19_ovt   | ytsearch1:Verstappen overtakes Hamilton Brazil 2019
+austria19      | ytsearch1:Verstappen overtakes Leclerc Austria 2019
+brazil16_wet   | ytsearch1:Verstappen Brazil 2016 wet masterclass
+rb_car_4k      | ytsearch2:Red Bull Racing RB19 4K cinematic
+max_helmet     | ytsearch1:Max Verstappen helmet close up cinematic 4K
+podium_trophy  | ytsearch1:Max Verstappen podium trophy celebration champagne 4K
+pitstop        | ytsearch1:Red Bull Racing pit stop slow motion 4K
+start_launch   | ytsearch1:Verstappen race start onboard launch
