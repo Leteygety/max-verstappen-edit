@@ -13,7 +13,7 @@ mkdir -p "$out/clips" "$out/music"
 # YouTube extraction needs a JS runtime; use node when there is no deno.
 yt=(yt-dlp --no-playlist --ignore-errors --no-overwrites --max-downloads 1)
 if ! command -v deno >/dev/null && command -v node >/dev/null; then
-  yt+=(--js-runtimes "node:$(command -v node)")
+  yt+=(--js-runtimes node)  # yt-dlp finds node on PATH (also on Windows)
 fi
 # YouTube asks datacenter IPs to sign in; pass exported browser cookies if given.
 cookies="${YTDLP_COOKIES:-$out/cookies.txt}"
@@ -38,7 +38,7 @@ fetch() {  # name target
   [ "$rc" = 0 ] || [ "$rc" = 101 ] || [ "$rc" = 1 ]
 }
 
-grep -v '^\s*#' "$here/sources.txt" | grep -v '^\s*$' | while IFS='|' read -r name rest; do
+tr -d '\r' < "$here/sources.txt" | grep -v '^\s*#' | grep -v '^\s*$' | while IFS='|' read -r name rest; do
   name="$(echo "$name" | xargs)"
   ok=0
   IFS=$'\n' read -r -d '' -a alts < <(echo "$rest" | sed 's/^|//; s/||/\n/g'; printf '\0') || true

@@ -1,0 +1,3 @@
+# Keep shell scripts and the source list LF-only so Git Bash on Windows can run them.
+*.sh text eol=lf
+edit/sources.txt text eol=lf

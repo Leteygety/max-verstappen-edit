@@ -19,3 +19,22 @@ RGB split, glitch/tearing, strobe, ghost, invert/threshold impact frames), grain
 and encodes once (x264 High, CRF 15, bt709, AAC 320k).
 
 Timeline times accept seconds, beat refs (`"b12.5"`) or bass-hit refs (`"h7"`).
+
+## Downloading media locally on Windows
+
+YouTube blocks downloads from cloud IPs, so fetch the media on your own machine.
+`fetch_sources.sh` runs unchanged in Git Bash (same `sources.txt`, same quality filters).
+
+```powershell
+winget install --id Git.Git -e
+winget install --id yt-dlp.yt-dlp -e
+winget install --id Gyan.FFmpeg -e
+winget install --id OpenJS.NodeJS.LTS -e
+# open a NEW PowerShell window so PATH updates, then:
+git clone -b main-edit-pipeline https://github.com/leteygety/max-verstappen-edit.git
+cd max-verstappen-edit
+& "C:\Program Files\Git\bin\bash.exe" edit/fetch_sources.sh
+```
+
+Output lands in `media\clips\*.mkv` and `media\music\*.wav`; any `FAILED: <name>` line
+means every candidate for that entry was rejected (the rest still download).
