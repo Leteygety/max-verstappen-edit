@@ -11,7 +11,7 @@ Output JSON:
   sections         [start, end, mean_energy] split at large energy changes
   silences         gaps where the track drops out (pauses / pre-drop breaks)
 
-Usage: analyze_audio.py music.wav beats.json [--start S] [--duration D]
+Usage: analyze_audio.py music.wav beats.json [--start S] [--duration D] [--fixed-tempo]
 """
 import argparse
 import json
@@ -38,6 +38,8 @@ def main():
     ap.add_argument("out")
     ap.add_argument("--start", type=float, default=0.0)
     ap.add_argument("--duration", type=float, default=None)
+    ap.add_argument("--fixed-tempo", action="store_true",
+                    help="fit one constant beat grid (slowed / resampled tracks)")
     a = ap.parse_args()
 
     y, sr = librosa.load(a.audio, sr=44100, mono=True, offset=a.start, duration=a.duration)
@@ -81,6 +83,25 @@ def main():
                 b = hit_t[j]
         beats.append(b)
     beats = np.array(beats)
+    if a.fixed_tempo:
+        # Slowed/resampled tracks hold one exact tempo; the tracker above drifts and can
+        # lock onto off-beat snares. Fit a single period + phase to kick/onset energy.
+        env = low_flux + 0.5 * norm(onset)
+        def score(per, ph):
+            g = np.arange(ph, dur, per)
+            return np.interp(g, t, env).mean()
+        p0 = 60.0 / tempo
+        best = max(((score(per, ph), per, ph)
+                    for per in np.arange(p0 * 0.92, p0 * 1.08, 0.0005)
+                    for ph in np.linspace(0, per, 40, endpoint=False)))
+        _, per, ph = best
+        best = max(((score(p2, h2), p2, h2)
+                    for p2 in np.arange(per - 0.0006, per + 0.0006, 0.00002)
+                    for h2 in np.linspace(ph - 0.02, ph + 0.02, 41)))
+        _, per, ph = best
+        ph %= per
+        tempo = 60.0 / per
+        beats = np.arange(ph, dur, per)
     beat_frames = librosa.time_to_frames(beats, sr=sr, hop_length=hop)
 
     # Downbeat phase: the beat offset (0..3) whose beats carry the most bass.

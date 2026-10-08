@@ -443,6 +443,22 @@ def _finish(img, vig, noise, dither, grain, out):
             out[yy, xx, 2] = int(min(max((b + n * amp) * 255.0 + dd + 0.5, 0.0), 255.0))
 
 
+# ---------------------------------------------------------------- audio
+
+def loudnorm(music, start, length, target, true_peak):
+    """Two-pass EBU R128: measure the used segment, return a linear (constant
+    gain) loudnorm filter hitting `target` LUFS under the true-peak ceiling."""
+    log = subprocess.run(["ffmpeg", "-nostats", "-ss", f"{start:.4f}", "-t", f"{length:.4f}",
+                          "-i", music, "-af",
+                          f"loudnorm=I={target}:TP={true_peak}:LRA=20:print_format=json",
+                          "-f", "null", "-"], capture_output=True, text=True).stderr
+    m = json.loads(log[log.rfind("{"):log.rfind("}") + 1])
+    return (f"loudnorm=I={target}:TP={true_peak}:LRA=20:linear=true"
+            f":measured_I={m['input_i']}:measured_TP={m['input_tp']}"
+            f":measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}"
+            f":offset={m['target_offset']}")
+
+
 # ---------------------------------------------------------------- renderer
 
 class Renderer:
@@ -629,8 +645,12 @@ class Renderer:
                 "-color_range", "tv", "-g", str(fps * 2), "-movflags", "+faststart"]
         if music:
             fade = tl.get("fade_out", 0.12)
-            cmd += ["-af", f"afade=t=out:st={max(0, t_to - t_from - fade):.3f}:d={fade}",
-                    "-c:a", "aac", "-b:a", "320k", "-ar", "48000"]
+            af = [f"afade=t=in:d={tl.get('fade_in', 0.02)}",
+                  f"afade=t=out:st={max(0, t_to - t_from - fade):.3f}:d={fade}"]
+            if tl.get("loudness") is not None:
+                af.insert(0, loudnorm(music, mstart, t_to - t_from, tl["loudness"],
+                                      tl.get("true_peak", -1.0)))
+            cmd += ["-af", ",".join(af), "-c:a", "aac", "-b:a", "320k", "-ar", "48000"]
         cmd += ["-shortest", out]
         enc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
         cache = {}

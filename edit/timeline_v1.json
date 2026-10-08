@@ -1,0 +1,2015 @@
+{
+ "fps": 30,
+ "width": 1080,
+ "height": 1920,
+ "music": "../media/music/FUNK CRIMINAL 2 (SLOWED).wav",
+ "music_start": 0.0,
+ "duration": 45.12,
+ "fade_out": 1.2,
+ "grain": 0.045,
+ "loudness": -10.0,
+ "true_peak": -1.0,
+ "crf": 15,
+ "shots": [
+  {
+   "src": "../media/work/sr/x4/rb_car_4k__vxysg1Qptqc_004.png",
+   "t0": 0.0,
+   "t1": 3.0667,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.12
+    ]
+   ],
+   "grade": "cold"
+  },
+  {
+   "src": "../media/work/sr/x4/rb_car_4k__vxysg1Qptqc_009.png",
+   "t0": 3.0667,
+   "t1": 4.1,
+   "focus": 0.55,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "cold"
+  },
+  {
+   "src": "../media/work/sr/x4/max_helmet__RkpQvhg-IWw_028.png",
+   "t0": 4.1,
+   "t1": 5.1333,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "night"
+  },
+  {
+   "src": "../media/work/sr/x4/rb_car_4k__vxysg1Qptqc_017.png",
+   "t0": 5.1333,
+   "t1": 6.1333,
+   "focus": [
+    [
+     0,
+     0.525
+    ],
+    [
+     1,
+     0.575
+    ]
+   ],
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.06
+    ],
+    [
+     1,
+     1.06
+    ]
+   ],
+   "grade": "cold",
+   "exposure": 0.3
+  },
+  {
+   "src": "../media/work/sr/x4/max_helmet__RkpQvhg-IWw_007.png",
+   "t0": 6.1333,
+   "t1": 7.1667,
+   "focus": 0.38,
+   "fy": 0.0,
+   "zoom": [
+    [
+     0,
+     1.28
+    ],
+    [
+     1,
+     1.3824
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/suzuka23_pole__CPCu4n5LIeg_040.png",
+   "t0": 7.1667,
+   "t1": 7.4333,
+   "focus": 0.62,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/suzuka23_pole__CPCu4n5LIeg_043.png",
+   "t0": 7.4333,
+   "t1": 7.7,
+   "focus": 0.62,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/suzuka23_pole__CPCu4n5LIeg_048.png",
+   "t0": 7.7,
+   "t1": 7.9333,
+   "focus": 0.62,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/suzuka23_pole__CPCu4n5LIeg_052.png",
+   "t0": 7.9333,
+   "t1": 8.2,
+   "focus": 0.62,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/abudhabi21__MTe12fH2xtQ_039.png",
+   "t0": 8.2,
+   "t1": 9.2333,
+   "focus": 0.72,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/max_helmet__RkpQvhg-IWw_015.png",
+   "t0": 9.2333,
+   "t1": 10.2333,
+   "focus": 0.56,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/suzuka23_pole__CPCu4n5LIeg_005.png",
+   "t0": 10.2333,
+   "t1": 11.2667,
+   "focus": [
+    [
+     0,
+     0.605
+    ],
+    [
+     1,
+     0.635
+    ]
+   ],
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.06
+    ],
+    [
+     1,
+     1.06
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/abudhabi21__MTe12fH2xtQ_012.png",
+   "t0": 11.2667,
+   "t1": 11.8,
+   "focus": [
+    [
+     0,
+     0.785
+    ],
+    [
+     1,
+     0.735
+    ]
+   ],
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.06
+    ],
+    [
+     1,
+     1.06
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/abudhabi21__MTe12fH2xtQ_013.png",
+   "t0": 11.8,
+   "t1": 12.3,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/austria19__cV0G1zN8kJU_047.png",
+   "t0": 12.3,
+   "t1": 13.3333,
+   "focus": [
+    [
+     0,
+     0.655
+    ],
+    [
+     1,
+     0.705
+    ]
+   ],
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.06
+    ],
+    [
+     1,
+     1.06
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/max_helmet__RkpQvhg-IWw_014.png",
+   "t0": 13.3333,
+   "t1": 13.8333,
+   "focus": 0.57,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/austria19__cV0G1zN8kJU_035.png",
+   "t0": 13.8333,
+   "t1": 14.3667,
+   "focus": [
+    [
+     0,
+     0.575
+    ],
+    [
+     1,
+     0.625
+    ]
+   ],
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.06
+    ],
+    [
+     1,
+     1.06
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/suzuka23_pole__CPCu4n5LIeg_016.png",
+   "t0": 14.3667,
+   "t1": 14.8667,
+   "focus": 0.62,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/rb_car_4k__vxysg1Qptqc_023.png",
+   "t0": 14.8667,
+   "t1": 15.3667,
+   "focus": 0.55,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "cold",
+   "exposure": 0.6
+  },
+  {
+   "src": "../media/work/sr/x4/austria19__cV0G1zN8kJU_016.png",
+   "t0": 15.3667,
+   "t1": 15.6333,
+   "focus": 0.66,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/austria19__cV0G1zN8kJU_012.png",
+   "t0": 15.6333,
+   "t1": 15.9,
+   "focus": 0.55,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/rb_car_4k__vxysg1Qptqc_015.png",
+   "t0": 15.9,
+   "t1": 16.4,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "cold",
+   "exposure": 0.7
+  },
+  {
+   "src": "../media/work/sr/x4/abudhabi21__MTe12fH2xtQ_008.png",
+   "t0": 16.4,
+   "t1": 17.4333,
+   "focus": [
+    [
+     0,
+     0.695
+    ],
+    [
+     1,
+     0.745
+    ]
+   ],
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.06
+    ],
+    [
+     1,
+     1.06
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/max_helmet__RkpQvhg-IWw_005.png",
+   "t0": 17.4333,
+   "t1": 18.4667,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "night"
+  },
+  {
+   "src": "../media/work/sr/x4/suzuka23_pole__CPCu4n5LIeg_021.png",
+   "t0": 18.4667,
+   "t1": 18.9667,
+   "focus": 0.62,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/austria19__cV0G1zN8kJU_027.png",
+   "t0": 18.9667,
+   "t1": 19.4667,
+   "focus": [
+    [
+     0,
+     0.595
+    ],
+    [
+     1,
+     0.645
+    ]
+   ],
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.06
+    ],
+    [
+     1,
+     1.06
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/abudhabi21__MTe12fH2xtQ_024.png",
+   "t0": 19.4667,
+   "t1": 20.0,
+   "focus": [
+    [
+     0,
+     0.775
+    ],
+    [
+     1,
+     0.725
+    ]
+   ],
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.06
+    ],
+    [
+     1,
+     1.06
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/max_helmet__RkpQvhg-IWw_013.png",
+   "t0": 20.0,
+   "t1": 20.5,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/austria19__cV0G1zN8kJU_058.png",
+   "t0": 20.5,
+   "t1": 21.5333,
+   "focus": 0.6,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/rb_car_4k__vxysg1Qptqc_024.png",
+   "t0": 21.5333,
+   "t1": 22.0333,
+   "focus": [
+    [
+     0,
+     0.5225
+    ],
+    [
+     1,
+     0.5375
+    ]
+   ],
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.06
+    ],
+    [
+     1,
+     1.06
+    ]
+   ],
+   "grade": "cold",
+   "exposure": 0.4
+  },
+  {
+   "src": "../media/work/sr/x4/abudhabi21__MTe12fH2xtQ_046.png",
+   "t0": 22.0333,
+   "t1": 22.5667,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/suzuka23_pole__CPCu4n5LIeg_026.png",
+   "t0": 22.5667,
+   "t1": 23.0667,
+   "focus": 0.62,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/austria19__cV0G1zN8kJU_030.png",
+   "t0": 23.0667,
+   "t1": 23.5667,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/max_helmet__RkpQvhg-IWw_021.png",
+   "t0": 23.5667,
+   "t1": 23.8333,
+   "focus": 0.6,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.02
+    ],
+    [
+     1,
+     1.04
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/suzuka23_pole__CPCu4n5LIeg_031.png",
+   "t0": 23.8333,
+   "t1": 24.1,
+   "focus": 0.62,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/max_helmet__RkpQvhg-IWw_011.png",
+   "t0": 24.1,
+   "t1": 24.3667,
+   "focus": 0.55,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "cold"
+  },
+  {
+   "src": "../media/work/sr/x4/max_helmet__RkpQvhg-IWw_001.png",
+   "t0": 24.3667,
+   "t1": 24.6,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/abudhabi21__MTe12fH2xtQ_021.png",
+   "t0": 24.6,
+   "t1": 25.6333,
+   "focus": 0.62,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/austria19__cV0G1zN8kJU_025.png",
+   "t0": 25.6333,
+   "t1": 26.1333,
+   "focus": [
+    [
+     0,
+     0.5225
+    ],
+    [
+     1,
+     0.5375
+    ]
+   ],
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.06
+    ],
+    [
+     1,
+     1.06
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/suzuka23_pole__CPCu4n5LIeg_034.png",
+   "t0": 26.1333,
+   "t1": 26.6667,
+   "focus": 0.62,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/rb_car_4k__vxysg1Qptqc_020.png",
+   "t0": 26.6667,
+   "t1": 27.1667,
+   "focus": [
+    [
+     0,
+     0.725
+    ],
+    [
+     1,
+     0.675
+    ]
+   ],
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.06
+    ],
+    [
+     1,
+     1.06
+    ]
+   ],
+   "grade": "cold",
+   "exposure": 0.6
+  },
+  {
+   "src": "../media/work/sr/x4/austria19__cV0G1zN8kJU_051.png",
+   "t0": 27.1667,
+   "t1": 27.7,
+   "focus": 0.54,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/abudhabi21__MTe12fH2xtQ_015.png",
+   "t0": 27.7,
+   "t1": 27.9333,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/abudhabi21__MTe12fH2xtQ_051.png",
+   "t0": 27.9333,
+   "t1": 28.2,
+   "focus": 0.55,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/max_helmet__RkpQvhg-IWw_024.png",
+   "t0": 28.2,
+   "t1": 28.7,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/brazil24_wet__SJ3Z6jw34hw_031.png",
+   "t0": 28.7,
+   "t1": 29.7333,
+   "focus": 0.61,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "cold"
+  },
+  {
+   "src": "../media/work/sr/x4/brazil24_wet__SJ3Z6jw34hw_025.png",
+   "t0": 29.7333,
+   "t1": 30.2333,
+   "focus": [
+    [
+     0,
+     0.735
+    ],
+    [
+     1,
+     0.785
+    ]
+   ],
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.06
+    ],
+    [
+     1,
+     1.06
+    ]
+   ],
+   "grade": "cold"
+  },
+  {
+   "src": "../media/work/sr/x4/max_helmet__RkpQvhg-IWw_022.png",
+   "t0": 30.2333,
+   "t1": 30.7667,
+   "focus": 0.55,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "cold"
+  },
+  {
+   "src": "../media/work/sr/x4/brazil24_wet__SJ3Z6jw34hw_034.png",
+   "t0": 30.7667,
+   "t1": 31.2667,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "cold"
+  },
+  {
+   "src": "../media/work/sr/x4/brazil24_wet__SJ3Z6jw34hw_026.png",
+   "t0": 31.2667,
+   "t1": 31.8,
+   "focus": [
+    [
+     0,
+     0.695
+    ],
+    [
+     1,
+     0.745
+    ]
+   ],
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.06
+    ],
+    [
+     1,
+     1.06
+    ]
+   ],
+   "grade": "cold"
+  },
+  {
+   "src": "../media/work/sr/x4/suzuka23_pole__CPCu4n5LIeg_037.png",
+   "t0": 31.8,
+   "t1": 32.0333,
+   "focus": 0.62,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/suzuka23_pole__CPCu4n5LIeg_010.png",
+   "t0": 32.0333,
+   "t1": 32.3,
+   "focus": 0.62,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/austria19__cV0G1zN8kJU_068.png",
+   "t0": 32.3,
+   "t1": 32.8,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/rb_car_4k__vxysg1Qptqc_036.png",
+   "t0": 32.8,
+   "t1": 33.3333,
+   "focus": 0.72,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "teal"
+  },
+  {
+   "src": "../media/work/sr/x4/austria19__cV0G1zN8kJU_054.png",
+   "t0": 33.3333,
+   "t1": 33.8333,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "teal"
+  },
+  {
+   "src": "../media/work/sr/x4/max_helmet__RkpQvhg-IWw_003.png",
+   "t0": 33.8333,
+   "t1": 34.3667,
+   "focus": 0.6,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "teal"
+  },
+  {
+   "src": "../media/work/sr/x4/rb_car_4k__vxysg1Qptqc_037.png",
+   "t0": 34.3667,
+   "t1": 34.8667,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "teal"
+  },
+  {
+   "src": "../media/work/sr/x4/austria19__cV0G1zN8kJU_046.png",
+   "t0": 34.8667,
+   "t1": 35.1333,
+   "focus": 0.56,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "teal"
+  },
+  {
+   "src": "../media/work/sr/x4/brazil24_wet__SJ3Z6jw34hw_028.png",
+   "t0": 35.1333,
+   "t1": 35.3667,
+   "focus": 0.56,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "teal"
+  },
+  {
+   "src": "../media/work/sr/x4/suzuka23_pole__CPCu4n5LIeg_050.png",
+   "t0": 35.3667,
+   "t1": 35.6333,
+   "focus": 0.62,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "teal"
+  },
+  {
+   "src": "../media/work/sr/x4/suzuka23_pole__CPCu4n5LIeg_014.png",
+   "t0": 35.6333,
+   "t1": 35.9,
+   "focus": 0.62,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "teal"
+  },
+  {
+   "src": "../media/work/sr/x4/abudhabi21__MTe12fH2xtQ_056.png",
+   "t0": 35.9,
+   "t1": 36.4,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "teal"
+  },
+  {
+   "src": "../media/work/sr/x4/rb_car_4k__vxysg1Qptqc_039.png",
+   "t0": 36.4,
+   "t1": 36.9,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "teal"
+  },
+  {
+   "src": "../media/work/sr/x4/austria19__cV0G1zN8kJU_031.png",
+   "t0": 36.9,
+   "t1": 37.4333,
+   "focus": 0.56,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/suzuka23_pole__CPCu4n5LIeg_022.png",
+   "t0": 37.4333,
+   "t1": 37.7,
+   "focus": 0.62,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/suzuka23_pole__CPCu4n5LIeg_028.png",
+   "t0": 37.7,
+   "t1": 37.9333,
+   "focus": 0.62,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/rb_car_4k__vxysg1Qptqc_048.png",
+   "t0": 37.9333,
+   "t1": 38.4667,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/austria19__cV0G1zN8kJU_021.png",
+   "t0": 38.4667,
+   "t1": 38.9667,
+   "focus": 0.3,
+   "fy": 0.0,
+   "zoom": [
+    [
+     0,
+     1.28
+    ],
+    [
+     1,
+     1.3824
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/suzuka23_pole__CPCu4n5LIeg_046.png",
+   "t0": 38.9667,
+   "t1": 39.4667,
+   "focus": 0.62,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/austria19__cV0G1zN8kJU_066.png",
+   "t0": 39.4667,
+   "t1": 40.5,
+   "focus": 0.56,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/work/sr/x4/max_helmet__RkpQvhg-IWw_002.png",
+   "t0": 40.5,
+   "t1": 42.0333,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.12
+    ]
+   ],
+   "grade": "bw"
+  },
+  {
+   "src": "../media/work/sr/x4/max_helmet__RkpQvhg-IWw_008.png",
+   "t0": 42.0333,
+   "t1": 43.5667,
+   "focus": 0.53,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.12
+    ]
+   ],
+   "grade": "bw"
+  },
+  {
+   "src": "../media/work/sr/x4/max_helmet__RkpQvhg-IWw_027.png",
+   "t0": 43.5667,
+   "t1": 45.12,
+   "focus": 0.62,
+   "fy": 0.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.12
+    ]
+   ],
+   "grade": "bw"
+  }
+ ],
+ "fx": [
+  {
+   "type": "exposure",
+   "t": 0.0,
+   "dur": 0.6,
+   "amt": -4.0,
+   "env": "out"
+  },
+  {
+   "type": "shake",
+   "t": 0.0,
+   "t_end": 45.12,
+   "amt": 0.12,
+   "freq": 0.6,
+   "env": "hold"
+  },
+  {
+   "type": "dip",
+   "t": 3.0,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "dip",
+   "t": 4.0333,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "punch",
+   "t": 4.1,
+   "dur": 0.3,
+   "amt": 0.4,
+   "env": "decay"
+  },
+  {
+   "type": "bloom",
+   "t": 4.1,
+   "dur": 0.9,
+   "amt": 0.4,
+   "env": "decay"
+  },
+  {
+   "type": "dip",
+   "t": 6.0667,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "strobe",
+   "t": 7.1667,
+   "dur": 0.2667,
+   "amt": 0.5,
+   "period": 1,
+   "env": "hold"
+  },
+  {
+   "type": "strobe",
+   "t": 7.4333,
+   "dur": 0.2667,
+   "amt": 0.5,
+   "period": 1,
+   "env": "hold"
+  },
+  {
+   "type": "strobe",
+   "t": 7.7,
+   "dur": 0.2333,
+   "amt": 0.6,
+   "period": 1,
+   "env": "hold"
+  },
+  {
+   "type": "rgb",
+   "t": 7.7,
+   "dur": 0.2333,
+   "amt": 1.0,
+   "jitter": true
+  },
+  {
+   "type": "glitch",
+   "t": 7.9333,
+   "dur": 0.2667,
+   "amt": 0.5,
+   "env": "hold"
+  },
+  {
+   "type": "rgb",
+   "t": 7.9333,
+   "dur": 0.2667,
+   "amt": 0.8,
+   "jitter": true,
+   "env": "hold"
+  },
+  {
+   "type": "zoomtrans",
+   "t": 8.08,
+   "dur": 0.24,
+   "amt": 1.0
+  },
+  {
+   "type": "flash",
+   "t": 8.2,
+   "dur": 0.16,
+   "amt": 0.85,
+   "env": "decay"
+  },
+  {
+   "type": "bloom",
+   "t": 8.2,
+   "dur": 0.6,
+   "amt": 0.6,
+   "env": "decay"
+  },
+  {
+   "type": "punch",
+   "t": 8.2,
+   "dur": 0.3,
+   "amt": 0.8,
+   "env": "decay"
+  },
+  {
+   "type": "shake",
+   "t": 8.2,
+   "dur": 1.0333,
+   "amt": 0.9,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "dip",
+   "t": 9.1667,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "shake",
+   "t": 9.2333,
+   "dur": 1.0,
+   "amt": 0.3,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "whip",
+   "t": 10.1333,
+   "dur": 0.2,
+   "amt": 1.0,
+   "angle": 0
+  },
+  {
+   "type": "punch",
+   "t": 11.8,
+   "dur": 0.3,
+   "amt": 0.8,
+   "env": "decay"
+  },
+  {
+   "type": "shake",
+   "t": 11.8,
+   "dur": 0.5,
+   "amt": 0.8,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "whip",
+   "t": 12.2,
+   "dur": 0.2,
+   "amt": 1.0,
+   "angle": 0
+  },
+  {
+   "type": "shake",
+   "t": 12.3,
+   "dur": 1.0333,
+   "amt": 0.4,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "dip",
+   "t": 13.2667,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "dip",
+   "t": 14.8,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "rgb",
+   "t": 15.6333,
+   "dur": 0.25,
+   "amt": 1.0,
+   "jitter": true
+  },
+  {
+   "type": "punch",
+   "t": 15.9,
+   "dur": 0.3,
+   "amt": 0.8,
+   "env": "decay"
+  },
+  {
+   "type": "shake",
+   "t": 15.9,
+   "dur": 0.5,
+   "amt": 0.8,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "dip",
+   "t": 16.3333,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "shake",
+   "t": 16.4,
+   "dur": 1.0333,
+   "amt": 0.4,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "bloom",
+   "t": 17.4333,
+   "dur": 0.9,
+   "amt": 0.4,
+   "env": "decay"
+  },
+  {
+   "type": "whip",
+   "t": 18.3667,
+   "dur": 0.2,
+   "amt": 1.0,
+   "angle": 0
+  },
+  {
+   "type": "whip",
+   "t": 19.3667,
+   "dur": 0.2,
+   "amt": 1.0,
+   "angle": 0
+  },
+  {
+   "type": "punch",
+   "t": 20.0,
+   "dur": 0.3,
+   "amt": 0.8,
+   "env": "decay"
+  },
+  {
+   "type": "shake",
+   "t": 20.0,
+   "dur": 0.5,
+   "amt": 0.8,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "bloom",
+   "t": 20.0,
+   "dur": 0.5,
+   "amt": 0.4,
+   "env": "decay"
+  },
+  {
+   "type": "dip",
+   "t": 20.4333,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "shake",
+   "t": 20.5,
+   "dur": 1.0333,
+   "amt": 0.4,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "dip",
+   "t": 23.0,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "glitch",
+   "t": 23.5667,
+   "dur": 0.2667,
+   "amt": 0.7,
+   "env": "hold"
+  },
+  {
+   "type": "rgb",
+   "t": 23.5667,
+   "dur": 0.2667,
+   "amt": 0.8,
+   "jitter": true,
+   "env": "hold"
+  },
+  {
+   "type": "strobe",
+   "t": 23.8333,
+   "dur": 0.2667,
+   "amt": 0.8,
+   "period": 1,
+   "env": "hold"
+  },
+  {
+   "type": "glitch",
+   "t": 24.1,
+   "dur": 0.2667,
+   "amt": 0.8,
+   "env": "hold"
+  },
+  {
+   "type": "rgb",
+   "t": 24.1,
+   "dur": 0.2667,
+   "amt": 0.8,
+   "jitter": true,
+   "env": "hold"
+  },
+  {
+   "type": "strobe",
+   "t": 24.3667,
+   "dur": 0.2333,
+   "amt": 0.8,
+   "period": 1,
+   "env": "hold"
+  },
+  {
+   "type": "rgb",
+   "t": 24.3667,
+   "dur": 0.2333,
+   "amt": 1.0,
+   "jitter": true
+  },
+  {
+   "type": "flash",
+   "t": 24.6,
+   "dur": 0.16,
+   "amt": 0.85,
+   "env": "decay"
+  },
+  {
+   "type": "bloom",
+   "t": 24.6,
+   "dur": 0.6,
+   "amt": 0.6,
+   "env": "decay"
+  },
+  {
+   "type": "punch",
+   "t": 24.6,
+   "dur": 0.3,
+   "amt": 0.8,
+   "env": "decay"
+  },
+  {
+   "type": "shake",
+   "t": 24.6,
+   "dur": 1.0333,
+   "amt": 0.9,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "whip",
+   "t": 25.5333,
+   "dur": 0.2,
+   "amt": 1.0,
+   "angle": 0
+  },
+  {
+   "type": "rgb",
+   "t": 27.9333,
+   "dur": 0.25,
+   "amt": 1.0,
+   "jitter": true
+  },
+  {
+   "type": "punch",
+   "t": 28.2,
+   "dur": 0.3,
+   "amt": 0.8,
+   "env": "decay"
+  },
+  {
+   "type": "shake",
+   "t": 28.2,
+   "dur": 0.5,
+   "amt": 0.8,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "dip",
+   "t": 28.6333,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "shake",
+   "t": 28.7,
+   "dur": 1.0333,
+   "amt": 0.4,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "rgb",
+   "t": 32.0333,
+   "dur": 0.25,
+   "amt": 1.0,
+   "jitter": true
+  },
+  {
+   "type": "punch",
+   "t": 32.3,
+   "dur": 0.3,
+   "amt": 0.8,
+   "env": "decay"
+  },
+  {
+   "type": "shake",
+   "t": 32.3,
+   "dur": 0.5,
+   "amt": 0.8,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "dip",
+   "t": 32.7333,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "bloom",
+   "t": 33.8333,
+   "dur": 0.5333,
+   "amt": 0.4,
+   "env": "decay"
+  },
+  {
+   "type": "rgb",
+   "t": 35.6333,
+   "dur": 0.25,
+   "amt": 1.0,
+   "jitter": true
+  },
+  {
+   "type": "punch",
+   "t": 36.4,
+   "dur": 0.3,
+   "amt": 0.8,
+   "env": "decay"
+  },
+  {
+   "type": "shake",
+   "t": 36.4,
+   "dur": 0.5,
+   "amt": 0.8,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "dip",
+   "t": 36.8333,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "whip",
+   "t": 37.8333,
+   "dur": 0.2,
+   "amt": 1.0,
+   "angle": 0
+  },
+  {
+   "type": "glitch",
+   "t": 38.9667,
+   "dur": 0.5,
+   "amt": 0.5,
+   "env": "hold"
+  },
+  {
+   "type": "rgb",
+   "t": 38.9667,
+   "dur": 0.5,
+   "amt": 0.8,
+   "jitter": true,
+   "env": "hold"
+  },
+  {
+   "type": "flash",
+   "t": 39.4667,
+   "dur": 0.16,
+   "amt": 0.6,
+   "env": "decay"
+  },
+  {
+   "type": "bloom",
+   "t": 39.4667,
+   "dur": 0.6,
+   "amt": 0.6,
+   "env": "decay"
+  },
+  {
+   "type": "shake",
+   "t": 39.4667,
+   "dur": 1.0333,
+   "amt": 0.6,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "dip",
+   "t": 40.4333,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "dip",
+   "t": 41.9667,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "dip",
+   "t": 43.5,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "exposure",
+   "t": 43.92,
+   "dur": 1.2,
+   "amt": -5.0,
+   "env": "in"
+  }
+ ]
+}

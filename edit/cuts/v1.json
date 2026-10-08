@@ -1,0 +1,102 @@
+{
+ "_doc": "v1 - FUNK CRIMINAL 2 (SLOWED), 117.00 BPM, song time = video time, bN = song beat N. Intro b0-b7 (no bass) -> bass in b7 -> riser gap b13-b14 -> DROP b15 -> 808 accents on the last beat of each 8-beat phrase (b22 b30 b38 b54 b62 b70) -> gap b45-b46 -> restart b47 -> teal pop b63-b70 -> bass drops out b77 -> breakdown outro b78-b87.",
+ "music": "../../media/music/FUNK CRIMINAL 2 (SLOWED).wav",
+ "music_start": 0.0,
+ "beats": "../../media/work/v1/beats.json",
+ "framing": "../framing.json",
+ "frames": ["../../media/work/sr/x4", "../../media/selected"],
+ "end": "b87",
+ "fade_out": 1.2,
+ "grain": 0.045,
+ "grade": "base",
+ "shots": [
+  ["0",     "rb_car_4k_004",     "slowpush", {"grade": "cold", "fx": ["fadein:0.6"]}],
+  ["b5",    "rb_car_4k_009",     "push",     {"grade": "cold", "fx": ["dip"]}],
+
+  ["b7",    "max_helmet_028",    "push",     {"grade": "night", "fx": ["dip", "punch:0.4", "bloom:0.4"]}],
+  ["b9",    "rb_car_4k_017",     "panr",     {"grade": "cold", "exposure": 0.3}],
+  ["b11",   "max_helmet_007",    "push",     {"fx": ["dip"]}],
+
+  ["b13",   "suzuka23_pole_040", "pushfast", {"fx": ["strobe:0.5"]}],
+  ["b13.5", "suzuka23_pole_043", "pushfast", {"fx": ["strobe:0.5"]}],
+  ["b14",   "suzuka23_pole_048", "pushfast", {"fx": ["strobe:0.6", "rgb"]}],
+  ["b14.5", "suzuka23_pole_052", "pushfast", {"fx": ["glitch:0.5"]}],
+
+  ["b15",   "abudhabi21_039",    "push",     {"fx": ["flash", "punch:0.8", "shake:0.9", "zoomtrans"]}],
+  ["b17",   "max_helmet_015",    "push",     {"fx": ["dip", "shake:0.3"]}],
+  ["b19",   "suzuka23_pole_005", "panr",     {"fx": ["whip"]}],
+  ["b21",   "abudhabi21_012",    "panl",     {}],
+  ["b22",   "abudhabi21_013",    "pushfast", {"fx": ["punch:0.8", "shake:0.8"]}],
+
+  ["b23",   "austria19_047",     "panr",     {"fx": ["whip", "shake:0.4"]}],
+  ["b25",   "max_helmet_014",    "push",     {"fx": ["dip"]}],
+  ["b26",   "austria19_035",     "panr",     {}],
+  ["b27",   "suzuka23_pole_016", "pushfast", {}],
+  ["b28",   "rb_car_4k_023",     "push",     {"grade": "cold", "exposure": 0.6, "fx": ["dip"]}],
+  ["b29",   "austria19_016",     "push",     {}],
+  ["b29.5", "austria19_012",     "push",     {"fx": ["rgb"]}],
+  ["b30",   "rb_car_4k_015",     "pushfast", {"grade": "cold", "exposure": 0.7, "fx": ["punch:0.8", "shake:0.8"]}],
+
+  ["b31",   "abudhabi21_008",    "panr",     {"fx": ["dip", "shake:0.4"]}],
+  ["b33",   "max_helmet_005",    "push",     {"grade": "night", "fx": ["bloom:0.4"]}],
+  ["b35",   "suzuka23_pole_021", "pushfast", {"fx": ["whip"]}],
+  ["b36",   "austria19_027",     "panr",     {}],
+  ["b37",   "abudhabi21_024",    "panl",     {"fx": ["whip"]}],
+  ["b38",   "max_helmet_013",    "pushfast", {"fx": ["punch:0.8", "shake:0.8", "bloom:0.4"]}],
+
+  ["b39",   "austria19_058",     "push",     {"fx": ["dip", "shake:0.4"]}],
+  ["b41",   "rb_car_4k_024",     "panr",     {"grade": "cold", "exposure": 0.4}],
+  ["b42",   "abudhabi21_046",    "push",     {}],
+  ["b43",   "suzuka23_pole_026", "pushfast", {}],
+  ["b44",   "austria19_030",     "push",     {"fx": ["dip"]}],
+
+  ["b45",   "max_helmet_021",    "hold",     {"fx": ["glitch:0.7"]}],
+  ["b45.5", "suzuka23_pole_031", "pushfast", {"fx": ["strobe:0.8"]}],
+  ["b46",   "max_helmet_011",    "pushfast", {"grade": "cold", "fx": ["glitch:0.8"]}],
+  ["b46.5", "max_helmet_001",    "pushfast", {"fx": ["strobe:0.8", "rgb"]}],
+
+  ["b47",   "abudhabi21_021",    "push",     {"fx": ["flash", "punch:0.8", "shake:0.9"]}],
+  ["b49",   "austria19_025",     "panr",     {"fx": ["whip"]}],
+  ["b50",   "suzuka23_pole_034", "pushfast", {}],
+  ["b51",   "rb_car_4k_020",     "panl",     {"grade": "cold", "exposure": 0.6}],
+  ["b52",   "austria19_051",     "push",     {}],
+  ["b53",   "abudhabi21_015",    "push",     {}],
+  ["b53.5", "abudhabi21_051",    "pushfast", {"fx": ["rgb"]}],
+  ["b54",   "max_helmet_024",    "pushfast", {"fx": ["punch:0.8", "shake:0.8"]}],
+
+  ["b55",   "brazil24_wet_031",  "push",     {"grade": "cold", "fx": ["dip", "shake:0.4"]}],
+  ["b57",   "brazil24_wet_025",  "panr",     {"grade": "cold"}],
+  ["b58",   "max_helmet_022",    "push",     {"grade": "cold"}],
+  ["b59",   "brazil24_wet_034",  "push",     {"grade": "cold"}],
+  ["b60",   "brazil24_wet_026",  "panr",     {"grade": "cold"}],
+  ["b61",   "suzuka23_pole_037", "pushfast", {}],
+  ["b61.5", "suzuka23_pole_010", "pushfast", {"fx": ["rgb"]}],
+  ["b62",   "austria19_068",     "pushfast", {"fx": ["punch:0.8", "shake:0.8"]}],
+
+  ["b63",   "rb_car_4k_036",     "push",     {"grade": "teal", "fx": ["dip"]}],
+  ["b64",   "austria19_054",     "push",     {"grade": "teal"}],
+  ["b65",   "max_helmet_003",    "push",     {"grade": "teal", "fx": ["bloom:0.4"]}],
+  ["b66",   "rb_car_4k_037",     "push",     {"grade": "teal"}],
+  ["b67",   "austria19_046",     "pushfast", {"grade": "teal"}],
+  ["b67.5", "brazil24_wet_028",  "pushfast", {"grade": "teal"}],
+  ["b68",   "suzuka23_pole_050", "pushfast", {"grade": "teal"}],
+  ["b68.5", "suzuka23_pole_014", "pushfast", {"grade": "teal", "fx": ["rgb"]}],
+  ["b69",   "abudhabi21_056",    "push",     {"grade": "teal"}],
+  ["b70",   "rb_car_4k_039",     "pushfast", {"grade": "teal", "fx": ["punch:0.8", "shake:0.8"]}],
+
+  ["b71",   "austria19_031",     "push",     {"fx": ["dip"]}],
+  ["b72",   "suzuka23_pole_022", "pushfast", {}],
+  ["b72.5", "suzuka23_pole_028", "pushfast", {}],
+  ["b73",   "rb_car_4k_048",     "push",     {"fx": ["whip"]}],
+  ["b74",   "austria19_021",     "push",     {}],
+  ["b75",   "suzuka23_pole_046", "pushfast", {"fx": ["glitch:0.5"]}],
+  ["b76",   "austria19_066",     "push",     {"fx": ["flash:0.6", "shake:0.6"]}],
+
+  ["b78",   "max_helmet_002",    "slowpush", {"grade": "bw", "fx": ["dip"]}],
+  ["b81",   "max_helmet_008",    "slowpush", {"grade": "bw", "fx": ["dip"]}],
+  ["b84",   "max_helmet_027",    "slowpush", {"grade": "bw", "fx": ["dip", "fadeout:1.2"]}]
+ ],
+ "fx": [
+  {"type": "shake", "t": 0.0, "t_end": "b87", "amt": 0.12, "freq": 0.6, "env": "hold"}
+ ]
+}

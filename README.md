@@ -38,3 +38,22 @@ cd max-verstappen-edit
 
 Output lands in `media\clips\*.mkv` and `media\music\*.wav`; any `FAILED: <name>` line
 means every candidate for that entry was rejected (the rest still download).
+
+## Still-frame edits (media/selected)
+
+The two TikTok edits are cut from the approved still pool in `media/selected/` (640x360 JPGs,
+never modified). Every frame has a burned-in timecode box, so each one gets a non-destructive
+9:16 crop in `edit/framing.json` that keeps it (and other broadcast overlays) out of frame.
+
+```
+edit/check_framing.py edit/framing.json media/selected media/work/sheets/crops.jpg   # crops clear of text?
+edit/upscale.py media/selected media/work/sr/x4 --weights realesr-general-x4v3.pth   # 4x Real-ESRGAN copies
+edit/analyze_audio.py "media/music/<track>" media/work/v1/beats.json --fixed-tempo     # constant beat grid
+edit/build_timeline.py edit/cuts/v1.json edit/timeline_v1.json                       # cut list -> timeline
+edit/render.py edit/timeline_v1.json media/output/verstappen_edit_v1.mp4
+edit/verify_render.py edit/timeline_v1.json media/output/verstappen_edit_v1.mp4 media/work/sheets/v1.jpg
+```
+
+`edit/cuts/v1.json` (FUNK CRIMINAL 2, slowed) and `edit/cuts/v2.json` (FALL FROM THE SKY PT. 2)
+are separate cut lists built on each track's own beat grid and structure; see their `_doc` notes.
+Audio is loudness-normalised per segment (`loudness`, default -10 LUFS, -1 dBTP).
