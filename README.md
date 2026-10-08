@@ -73,6 +73,12 @@ edit/verify_render.py edit/timeline_v1_16x9.json media/output/verstappen_edit_v1
 edit/style_metrics.py media/output/verstappen_edit_v1_16x9.mp4 edit/timeline_v1_16x9.json --per-shot
 ```
 
+`edit/make_title.py media/title` draws the v2 title layers (VERSTAPPEN in Bahnschrift, the MV
+logo redrawn as vectors, a soft scrim); the cut list places them as `overlay` fx that fade in
+out of a blur and dissolve into the drop. v2 also sets the renderer's quality keys:
+`frame_blend: slowmo` (whole source frames at real-time speed, no ghosting), `sharpen` (Lanczos
+upscales with adaptive sharpening), lighter grain and CRF 14 / 40 Mb/s.
+
 A video cut list places source moments on the song's fixed beat grid
 (`[beat, source, in-point, options]`, beats are song beats such as `"b15"`); the builder checks
 every shot against the source's scene cuts (from `scan_motion.py`) and keeps the reframed window

@@ -14,7 +14,8 @@ Options are passed through to render.py (speed, reverse, stutter, mblur,
 interp, focus, fy, zoom, grade, exposure) plus "fx": a list of cut-effect
 macros ("dip", "flash:0.9", "punch:0.8", "white:0.3", ...) or full fx dicts
 whose time is either "t"/"t_end" (beat refs) or "u0"/"u1" (fractions of the
-shot). Free-form fx at the top level use beat refs.
+shot). Free-form fx at the top level use beat refs; an "overlay" fx (title layer)
+names its RGBA image in "src", relative to the cut list.
 
 Every shot is checked against the source: the consumed source range must fit
 in the clip and should not cross a scene cut found by scan_motion.py
@@ -214,6 +215,8 @@ def main():
                 fx += fx_macro(kind, float(amt) if amt else None, t0, t1, fps)
     for f in spec.get("fx", []):
         f = dict(f)
+        if "src" in f:  # overlay layers: path relative to the timeline, like shot sources
+            f["src"] = to_out(rel(f["src"]))
         f["t"] = t(f["t"])
         if "t_end" in f:
             f["dur"] = t(f.pop("t_end")) - f["t"]
@@ -221,6 +224,7 @@ def main():
     for f in fx:
         f["t"] = round(max(0.0, f["t"]), 4)
         f["dur"] = round(f.get("dur", 0.1), 4)
+    extra = {k: spec[k] for k in ("frame_blend", "sharpen") if k in spec}
     tl = dict(fps=fps, width=spec.get("width", 1920), height=spec.get("height", 1080),
               music=to_out(rel(spec["music"])), music_start=round(t_start, 4),
               duration=round(end, 4), fade_in=spec.get("fade_in", 0.02),
@@ -228,7 +232,7 @@ def main():
               loudness=spec.get("loudness", -10.0), true_peak=spec.get("true_peak", -1.0),
               crf=spec.get("crf", 17), maxrate=spec.get("maxrate", "20M"),
               bufsize=spec.get("bufsize", "40M"), src_max_h=spec.get("src_max_h", 1620),
-              shots=shots, fx=sorted(fx, key=lambda f: f["t"]))
+              **extra, shots=shots, fx=sorted(fx, key=lambda f: f["t"]))
     with open(a.out, "w", encoding="utf-8") as fh:
         json.dump(tl, fh, indent=1)
     lens = np.diff([s["t0"] for s in shots] + [end])
