@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-200 -40 6000 1080" width="6000" height="1080">
+  <!-- Side profile of a ground-effect-era Red Bull F1 car, drawn in millimetres
+       (x: rear wing = 0 .. front wing tip = 5600, y: 1000 = ground). Facing right. -->
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#26315e"/>
+      <stop offset=".45" stop-color="#121a3c"/>
+      <stop offset="1" stop-color="#070a18"/>
+    </linearGradient>
+    <linearGradient id="nose" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f7c400" stop-opacity="0"/>
+      <stop offset=".35" stop-color="#f7c400"/>
+      <stop offset="1" stop-color="#ffd84a"/>
+    </linearGradient>
+    <linearGradient id="swoosh" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#d0142c" stop-opacity="0"/>
+      <stop offset=".4" stop-color="#d0142c"/>
+      <stop offset="1" stop-color="#ff3a3a"/>
+    </linearGradient>
+    <radialGradient id="hub" cx=".42" cy=".38" r=".7">
+      <stop offset="0" stop-color="#3a3f4c"/>
+      <stop offset=".6" stop-color="#15171d"/>
+      <stop offset="1" stop-color="#08090c"/>
+    </radialGradient>
+    <radialGradient id="tyre" cx=".5" cy=".5" r=".5">
+      <stop offset=".78" stop-color="#101114"/>
+      <stop offset=".93" stop-color="#16171b"/>
+      <stop offset="1" stop-color="#050506"/>
+    </radialGradient>
+    <!-- top-edge rim light: shape minus itself shifted down -->
+    <filter id="rim" x="-5%" y="-20%" width="110%" height="140%">
+      <feOffset in="SourceAlpha" dx="-10" dy="22" result="sh"/>
+      <feComposite in="SourceAlpha" in2="sh" operator="out" result="edge"/>
+      <feGaussianBlur in="edge" stdDeviation="4" result="soft"/>
+      <feFlood flood-color="#fff1dc"/>
+      <feComposite in2="soft" operator="in" result="lit"/>
+      <feGaussianBlur in="lit" stdDeviation="18" result="glow"/>
+      <feMerge><feMergeNode in="glow"/><feMergeNode in="lit"/><feMergeNode in="lit"/></feMerge>
+    </filter>
+    <filter id="trail" x="-60%" y="-20%" width="160%" height="140%">
+      <feGaussianBlur stdDeviation="160 6"/>
+    </filter>
+    <filter id="spin" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+    <radialGradient id="floorglow" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#ff5a2a" stop-opacity=".55"/>
+      <stop offset=".5" stop-color="#b8142a" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#b8142a" stop-opacity="0"/>
+    </radialGradient>
+
+    <g id="shape">
+      <!-- rear wing endplate, mainplane + flap, beam wing, swan-neck pylon -->
+      <path d="M0 60 L330 45 L370 120 L330 540 L250 600 L120 590 L20 520 Z"/>
+      <path d="M420 640 L250 600 L230 560 L410 590 Z"/>
+      <path d="M80 590 L440 610 L450 650 L90 640 Z"/>
+      <!-- gearbox / crash structure + diffuser kick -->
+      <path d="M380 640 L640 600 L700 760 L560 960 L400 900 Z"/>
+      <!-- engine cover, airbox, sidepod with undercut -->
+      <path d="M430 640 C800 590 1300 520 1700 470 C2100 420 2400 360 2610 280
+               L2690 50 C2720 30 2800 28 2830 60 L2880 190 L2895 330
+               L3190 360 C3240 380 3270 420 3270 450 L3250 690
+               C3150 800 3020 830 2900 832 L2200 860 L1200 850 L700 790 L440 720 Z"/>
+      <!-- chassis + nose -->
+      <path d="M2880 330 L3400 310 C3600 315 3800 360 4100 440 C4500 545 4900 640 5200 690
+               L5345 725 L5348 775 L5000 785 L4400 770 L3800 770 L3300 820 L2900 832 Z"/>
+      <!-- front wing: endplate + stacked elements -->
+      <path d="M4820 940 L5560 940 L5600 880 L5590 700 L5470 670 L5300 760 L5060 860 Z"/>
+      <!-- mirror -->
+      <path d="M3380 250 C3420 210 3520 205 3560 240 C3540 280 3420 290 3380 250 Z"/>
+      <path d="M3440 270 L3470 330 L3500 330 L3480 270 Z"/>
+      <!-- suspension -->
+      <path d="M3980 520 L4360 600 L4360 625 L3980 560 Z"/>
+      <path d="M3960 700 L4360 660 L4360 685 L3960 735 Z"/>
+      <path d="M1250 600 L760 610 L760 635 L1250 640 Z"/>
+      <path d="M1250 780 L760 680 L760 705 L1250 815 Z"/>
+    </g>
+  </defs>
+
+  <!-- light pool + motion trail behind the car -->
+  <ellipse cx="2600" cy="985" rx="3000" ry="70" fill="url(#floorglow)"/>
+  <g filter="url(#trail)" opacity=".55" transform="translate(-520 0)">
+    <use href="#shape" fill="#2a3a8a"/>
+    <path d="M800 540 L2600 380 L2620 440 L820 600 Z" fill="#ff2338"/>
+  </g>
+
+  <!-- wheels (behind body edges) -->
+  <g>
+    <circle cx="760" cy="640" r="360" fill="url(#tyre)"/>
+    <circle cx="760" cy="640" r="330" fill="none" stroke="#c9a400" stroke-opacity=".35" stroke-width="10" filter="url(#spin)"/>
+    <circle cx="760" cy="640" r="232" fill="url(#hub)"/>
+    <circle cx="760" cy="640" r="232" fill="none" stroke="#5a6070" stroke-opacity=".5" stroke-width="6"/>
+    <circle cx="4360" cy="640" r="360" fill="url(#tyre)"/>
+    <circle cx="4360" cy="640" r="330" fill="none" stroke="#c9a400" stroke-opacity=".35" stroke-width="10" filter="url(#spin)"/>
+    <circle cx="4360" cy="640" r="232" fill="url(#hub)"/>
+    <circle cx="4360" cy="640" r="232" fill="none" stroke="#5a6070" stroke-opacity=".5" stroke-width="6"/>
+    <!-- front wheel deflector -->
+    <path d="M4130 300 C4300 240 4480 250 4600 300 L4590 320 C4470 280 4300 275 4140 325 Z" fill="#0d1330"/>
+  </g>
+
+  <!-- floor / plank -->
+  <path d="M520 905 L4250 915 L4250 960 L560 965 Z" fill="#05060c"/>
+  <path d="M600 905 L4250 915" stroke="#3a4a8a" stroke-opacity=".35" stroke-width="6"/>
+
+  <!-- body -->
+  <use href="#shape" fill="url(#body)"/>
+  <!-- sidepod undercut shadow + panel lines for volume -->
+  <path d="M3230 470 C3180 640 3060 780 2900 832 L2200 860 L1200 850 L700 790
+           C1300 780 2200 760 2750 700 C3000 660 3150 580 3230 470 Z" fill="#03040a" opacity=".75"/>
+  <path d="M800 615 C1400 545 2000 470 2600 330" fill="none" stroke="#8fa2ff" stroke-opacity=".18" stroke-width="10"/>
+  <path d="M3420 330 C3700 340 4200 470 5250 700" fill="none" stroke="#8fa2ff" stroke-opacity=".22" stroke-width="10"/>
+
+  <!-- livery: red swoosh along sidepod/engine cover, yellow nose tip, sun disc -->
+  <path d="M900 640 C1500 560 2100 470 2620 330 L2650 400 C2150 530 1550 620 940 700 Z" fill="url(#swoosh)" opacity=".9"/>
+  <path d="M2950 520 C3050 500 3150 510 3220 540 L3215 600 C3120 575 3030 575 2950 590 Z" fill="#d0142c" opacity=".8"/>
+  <circle cx="2380" cy="610" r="62" fill="#f2b705" opacity=".75"/>
+  <path d="M4980 650 L5200 690 L5345 725 L5348 775 L5000 785 Z" fill="url(#nose)"/>
+  <path d="M5300 760 L5470 670 L5590 700 L5600 880 L5560 940 L5500 940 Z" fill="#d0142c" opacity=".75"/>
+  <path d="M20 520 L120 590 L250 600 L330 540 L340 470 Z" fill="#d0142c" opacity=".7"/>
+
+  <!-- helmet + halo -->
+  <ellipse cx="3060" cy="250" rx="110" ry="95" fill="#1d2a6a"/>
+  <path d="M2960 245 C3020 215 3110 215 3165 240 L3160 270 C3100 250 3020 252 2965 278 Z" fill="#ff5a1f"/>
+  <path d="M3090 215 C3140 222 3168 245 3170 262 L3110 250 Z" fill="#05060a"/>
+  <path d="M2860 330 C2930 120 3250 110 3430 300" fill="none" stroke="#0b1026" stroke-width="58" stroke-linecap="round"/>
+  <path d="M3400 285 L3440 330" stroke="#0b1026" stroke-width="58" stroke-linecap="round"/>
+
+  <!-- rim light on top edges (backlit, warm) -->
+  <g filter="url(#rim)">
+    <use href="#shape" fill="#000"/>
+    <path d="M2860 330 C2930 120 3250 110 3430 300" fill="none" stroke="#000" stroke-width="58" stroke-linecap="round"/>
+    <ellipse cx="3060" cy="250" rx="110" ry="95"/>
+    <path d="M4130 300 C4300 240 4480 250 4600 300 L4590 320 C4470 280 4300 275 4140 325 Z"/>
+    <circle cx="760" cy="640" r="360"/>
+    <circle cx="4360" cy="640" r="360"/>
+  </g>
+</svg>
