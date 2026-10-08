@@ -77,6 +77,10 @@ def probe(path):
     return int(s["width"]), int(s["height"]), float(n) / float(d), s.get("color_space")
 
 
+def is_still(path):
+    return os.path.splitext(path)[1].lower() in (".jpg", ".jpeg", ".png", ".webp", ".bmp")
+
+
 def load_frames(path, start, length, crop, scale_h=None, interp=None):
     """Decode [start, start+length) of a source, cropped to crop=(x, y, w, h)."""
     w0, h0, fps, cs = probe(path)
@@ -92,7 +96,9 @@ def load_frames(path, start, length, crop, scale_h=None, interp=None):
         vf.append(f"minterpolate=fps={fps}:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1")
     matrix = "bt709" if (cs in (None, "unknown", "bt709") and h0 >= 720) else "bt601"
     vf.append(f"scale=in_color_matrix={matrix}:in_range=tv:out_range=pc")
-    cmd = ["ffmpeg", "-v", "error", "-ss", f"{max(0, start):.4f}", "-t", f"{length:.4f}",
+    # a still image is a single frame at t=0: decode it whole (sample() holds it)
+    seek = [] if is_still(path) else ["-ss", f"{max(0, start):.4f}", "-t", f"{length:.4f}"]
+    cmd = ["ffmpeg", "-v", "error", *seek,
            "-i", path, "-an", "-vf", ",".join(vf), "-pix_fmt", "rgb24", "-f", "rawvideo", "-"]
     raw = subprocess.run(cmd, capture_output=True, check=True).stdout
     frames = np.frombuffer(raw, np.uint8).reshape(-1, h, w, 3)
