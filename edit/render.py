@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
-"""Render a beat-synced vertical edit from a timeline JSON.
+"""Render a beat-synced edit (9:16 or 16:9) from a timeline JSON.
 
 Every output frame is built in one pass: source frames are time-remapped
-(speed ramps, freezes, reverse, stutter), reframed to 9:16 with a single
-affine resample (focus pan + zoom + shake + rotation), graded, run through
-the effect stack and piped straight into the final encoder, so the footage
-is decoded once and encoded once.
+(speed ramps, freezes, reverse, stutter), reframed to the output aspect with
+a single affine resample (focus pan + zoom + shake + rotation), graded, run
+through the effect stack and piped straight into the final encoder, so the
+footage is decoded once and encoded once. Sources taller than `src_max_h`
+(default 1.5x the output height) are decoded downscaled to that height,
+which keeps 4K shots in memory and still leaves headroom for punch-ins.
 
 Time fields in the timeline accept seconds (1.25), beat positions ("b12",
 "b12.5" -- fractional beats interpolate the grid) or bass hits ("h7").
 
-Usage: render.py timeline.json out.mp4 [--preview] [--from S] [--to S]
+Usage: render.py timeline.json out.mp4 [--preview] [--from S] [--to S] [--no-fx]
 """
 import argparse
 import json
@@ -130,7 +132,7 @@ def auto_focus(path, start, length):
 # ---------------------------------------------------------------- shot prep
 
 class Shot:
-    def __init__(self, spec, clock, W, H, fps, preview):
+    def __init__(self, spec, clock, W, H, fps, preview, src_max_h=None):
         self.s = spec
         self.t0, self.t1 = clock(spec["t0"]), clock(spec["t1"])
         self.W, self.H, self.fps = W, H, fps
@@ -173,6 +175,8 @@ class Shot:
         scale_h = None
         if preview and sh > H:
             scale_h = H + H % 2
+        elif src_max_h and sh > src_max_h:
+            scale_h = int(src_max_h) + int(src_max_h) % 2
         frames, self.sfps = load_frames(self.src, self.load_t, hi - self.load_t + margin,
                                         (x0, 0, x1 - x0, sh), scale_h, spec.get("interp"))
         self.k = frames.shape[1] / sh  # strip pixels per source pixel
@@ -217,12 +221,14 @@ class Shot:
 GRADES = {
     # sat: base saturation, keep: saturation kept on Red Bull hues + skin,
     # con: contrast strength, pivot, cool: shadow blue push, warm: highlight warmth,
-    # gain: exposure (stops), black: black point
+    # gain: exposure (stops), black: black point, tint: (r, g, b) shift of mids/highlights
     "base":   dict(sat=0.55, keep=0.9, con=5.0, pivot=0.42, cool=0.05, warm=0.04, gain=0.0, black=0.03),
     "cold":   dict(sat=0.35, keep=0.7, con=5.5, pivot=0.45, cool=0.08, warm=0.0, gain=-0.15, black=0.035),
     "warm":   dict(sat=0.7, keep=1.0, con=5.0, pivot=0.42, cool=0.03, warm=0.09, gain=0.1, black=0.03),
     "bw":     dict(sat=0.0, keep=0.12, con=6.5, pivot=0.45, cool=0.02, warm=0.0, gain=0.0, black=0.035),
-    "teal":   dict(sat=1.05, keep=1.15, con=5.0, pivot=0.42, cool=0.12, warm=0.06, gain=0.1, black=0.02),
+    # teal: one colour-pop insert; tint pushes mids/highlights to cyan, skin/red stays warm
+    "teal":   dict(sat=1.3, keep=1.3, con=5.0, pivot=0.42, cool=0.06, warm=0.0, gain=0.1, black=0.02,
+                   tint=(-0.16, 0.07, 0.05)),
     "bleach": dict(sat=0.25, keep=0.5, con=3.5, pivot=0.35, cool=0.03, warm=0.05, gain=0.9, black=0.0),
     "night":  dict(sat=0.6, keep=1.0, con=6.0, pivot=0.4, cool=0.1, warm=0.06, gain=-0.1, black=0.03),
     "none":   None,
@@ -248,7 +254,7 @@ def _curve(v, black, con, pivot, s0, s1):
 
 
 @njit(parallel=True, cache=True, fastmath=True)
-def _grade_kernel(img, out, gain, sat, keep, con, pivot, cool, warm, black):
+def _grade_kernel(img, out, gain, sat, keep, con, pivot, cool, warm, black, tr, tg, tb):
     H, W = img.shape[0], img.shape[1]
     s0 = 1.0 / (1.0 + math.exp(con * pivot))
     s1 = 1.0 / (1.0 + math.exp(-con * (1.0 - pivot)))
@@ -289,9 +295,10 @@ def _grade_kernel(img, out, gain, sat, keep, con, pivot, cool, warm, black):
             y = min(max(y, 0.0), 1.0)
             sh = (1.0 - y) * (1.0 - y) * cool
             hi = y * y * warm
-            out[yy, xx, 0] = min(max(o0 - 0.6 * sh + 0.7 * hi, 0.0), 1.0)
-            out[yy, xx, 1] = min(max(o1 - 0.1 * sh + 0.25 * hi, 0.0), 1.0)
-            out[yy, xx, 2] = min(max(o2 + 0.7 * sh - 0.6 * hi, 0.0), 1.0)
+            tw = min(y * 2.0, 1.0) * (1.0 - k * 0.7)  # tint mids/highlights, spare kept hues
+            out[yy, xx, 0] = min(max(o0 - 0.6 * sh + 0.7 * hi + tr * tw, 0.0), 1.0)
+            out[yy, xx, 1] = min(max(o1 - 0.1 * sh + 0.25 * hi + tg * tw, 0.0), 1.0)
+            out[yy, xx, 2] = min(max(o2 + 0.7 * sh - 0.6 * hi + tb * tw, 0.0), 1.0)
 
 
 def grade(img, name, extra_stops=0.0):
@@ -301,7 +308,7 @@ def grade(img, name, extra_stops=0.0):
     out = np.empty_like(img, dtype=np.float32)
     _grade_kernel(np.ascontiguousarray(img, dtype=np.float32), out,
                   2 ** float(g["gain"] + extra_stops), g["sat"], g["keep"], g["con"],
-                  g["pivot"], g["cool"], g["warm"], g["black"])
+                  g["pivot"], g["cool"], g["warm"], g["black"], *g.get("tint", (0.0, 0.0, 0.0)))
     return out
 
 
@@ -488,9 +495,12 @@ class Renderer:
         self.prev = None
         self.grain_rng = np.random.default_rng(7)
 
-    def shot_at(self, t):
+    def shot_at(self, fi):
+        # decide by frame index, the same rounding Shot uses for its length: comparing
+        # seconds let a t0 stored as 1.2667 (frame 38.001) start one frame late and
+        # repeat the outgoing shot's last frame
         for k, s in enumerate(self.shots):
-            if self.clock(s["t0"]) <= t + 1e-6 < self.clock(s["t1"]):
+            if round(self.clock(s["t0"]) * self.fps) <= fi < round(self.clock(s["t1"]) * self.fps):
                 return k
         return len(self.shots) - 1
 
@@ -656,12 +666,13 @@ class Renderer:
         cache = {}
         for fi in range(f0, f1):
             t = fi / fps
-            k = self.shot_at(t)
+            k = self.shot_at(fi)
             if k not in cache:
                 cache.clear()
                 spec = self.shots[k]
                 spec["t0"] = self.clock(spec["t0"])
-                cache[k] = Shot(spec, self.clock, W, H, fps, self.preview)
+                cache[k] = Shot(spec, self.clock, W, H, fps, self.preview,
+                                tl.get("src_max_h", int(H * 1.5)))
                 sys.stderr.write(f"\r[{t:6.2f}s] shot {k + 1}/{len(self.shots)} "
                                  f"{os.path.basename(spec['src'])}          ")
             shot = cache[k]
@@ -683,9 +694,13 @@ def main():
     ap.add_argument("--preview", action="store_true", help="half resolution, fast encode")
     ap.add_argument("--from", dest="t_from", type=float, default=0.0)
     ap.add_argument("--to", dest="t_to", type=float, default=None)
+    ap.add_argument("--no-fx", action="store_true",
+                    help="skip the fx list (QC: cut positions without dips/flashes around them)")
     a = ap.parse_args()
     with open(a.timeline) as fh:
         tl = json.load(fh)
+    if a.no_fx:
+        tl["fx"] = []
     base = os.path.dirname(os.path.abspath(a.timeline))
     for key in ("beats", "music"):
         if tl.get(key) and not os.path.isabs(tl[key]):

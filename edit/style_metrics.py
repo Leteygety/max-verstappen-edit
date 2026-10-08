@@ -10,7 +10,7 @@ Reference edit (media/reference/ref.mov, 11 s, 16:9) measured with this script:
 Without a timeline the cut detector also counts flashes/negatives as cuts (the
 reference reads 38 cuts, 0.17 s median), so pass the timeline for your own edits.
 
-Usage: style_metrics.py video.mp4 [timeline.json]
+Usage: style_metrics.py video.mp4 [timeline.json] [--per-shot]
 """
 import json
 import subprocess
@@ -38,7 +38,7 @@ def main():
     luma = Y.mean((1, 2))
     chroma = np.sqrt((f[:, 1] - 128) ** 2 + (f[:, 2] - 128) ** 2).mean((1, 2))
     d = np.r_[0, np.abs(np.diff(Y, axis=0)).mean((1, 2))]
-    if len(sys.argv) > 2:
+    if len(sys.argv) > 2 and sys.argv[2].endswith(".json"):
         tl = json.load(open(sys.argv[2]))
         cuts = [int(round(s["t0"] * fps)) for s in tl["shots"][1:]]
     else:
@@ -53,13 +53,21 @@ def main():
     for c in cuts:
         near[max(0, c - 3):c + 4] = True
     g = [cv2.GaussianBlur(y.astype(np.uint8), (0, 0), 1.2) for y in Y]
-    mags = []
+    mags, at = [], []
     for i in range(1, n):
         if near[i] or near[i - 1]:
             continue
         fl = cv2.calcOpticalFlowFarneback(g[i - 1], g[i], None, 0.5, 3, 15, 3, 5, 1.2, 0)
         mags.append(np.median(np.linalg.norm(fl, axis=2)) / W * 100)
+        at.append(i)
     mags = np.array(mags) if mags else np.zeros(1)
+    if "--per-shot" in sys.argv:  # which shots read as static / fast
+        bounds = [0] + cuts + [n]
+        for k, (a, b) in enumerate(zip(bounds[:-1], bounds[1:])):
+            m = np.array([v for v, i in zip(mags, at) if a <= i < b])
+            if len(m):
+                print(f"  shot {k:2d} {a / fps:6.2f}s  measured {len(m):3d}f  motion {np.median(m):.2f}  "
+                      f"static {np.mean(m < 0.1) * 100:3.0f}%  fast {np.mean(m > 1) * 100:3.0f}%")
     lens = np.diff([0] + cuts + [n]) / fps
     dur = n / fps
     print(f"{path}: {info['width']}x{info['height']} {fps:.2f}fps {dur:.1f}s, "

@@ -29,7 +29,8 @@ def main():
     v = next(s for s in info["streams"] if s["codec_type"] == "video")
     au = [s for s in info["streams"] if s["codec_type"] == "audio"]
     W, H = v["width"], v["height"]
-    print(f"video {v['codec_name']} {W}x{H} ({W / H:.4f}, 9:16 = {9 / 16:.4f}) {v['r_frame_rate']} "
+    print(f"video {v['codec_name']} {W}x{H} ({W / H:.4f}; 16:9 = {16 / 9:.4f}, 9:16 = {9 / 16:.4f}) "
+          f"{v['r_frame_rate']} "
           f"{v['pix_fmt']}, {float(info['format']['duration']):.2f}s, "
           f"{int(info['format']['bit_rate']) / 1e6:.1f} Mb/s")
     print("audio", [f"{s['codec_name']} {s['sample_rate']}Hz {s['channels']}ch" for s in au])
@@ -91,10 +92,11 @@ def main():
         ok, img = cap.read()
         if not ok:
             continue
-        img = cv2.resize(img, (108, 192), interpolation=cv2.INTER_AREA)
+        tw = 108 if H > W else 192  # tile keeps the video's aspect
+        img = cv2.resize(img, (tw, int(round(tw * H / W))), interpolation=cv2.INTER_AREA)
         cv2.putText(img, f"{t:.1f}", (3, 12), cv2.FONT_HERSHEY_SIMPLEX, 0.38, (0, 255, 255), 1)
         tiles.append(img)
-    cols = 16
+    cols = 16 if H > W else 10
     while len(tiles) % cols:
         tiles.append(np.zeros_like(tiles[0]))
     cv2.imwrite(a.sheet, np.vstack([np.hstack(tiles[i:i + cols]) for i in range(0, len(tiles), cols)]))
