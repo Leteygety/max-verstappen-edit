@@ -1,16 +1,25 @@
 #!/usr/bin/env python3
-"""Render a beat-synced vertical edit from a timeline JSON.
+"""Render a beat-synced edit (9:16 or 16:9) from a timeline JSON.
 
 Every output frame is built in one pass: source frames are time-remapped
-(speed ramps, freezes, reverse, stutter), reframed to 9:16 with a single
-affine resample (focus pan + zoom + shake + rotation), graded, run through
-the effect stack and piped straight into the final encoder, so the footage
-is decoded once and encoded once.
+(speed ramps, freezes, reverse, stutter), reframed to the output aspect with
+a single affine resample (focus pan + zoom + shake + rotation), graded, run
+through the effect stack and piped straight into the final encoder, so the
+footage is decoded once and encoded once. Sources taller than `src_max_h`
+(default 1.5x the output height) are decoded downscaled to that height,
+which keeps 4K shots in memory and still leaves headroom for punch-ins.
+
+Optional quality keys: "frame_blend": "slowmo" takes whole source frames at or
+above real-time speed (mixing two frames only for slow motion), "sharpen": N
+switches upscales to Lanczos with a base sharpen N plus more as the zoom grows.
+Title layers are "overlay" fx: an RGBA PNG ("src"), width "w" (fraction of the
+frame), "x"/"y" centre, "opacity", "fade_in"/"fade_out" (s), "blur" (px at the
+fade edges) and "scale" keyframes.
 
 Time fields in the timeline accept seconds (1.25), beat positions ("b12",
 "b12.5" -- fractional beats interpolate the grid) or bass hits ("h7").
 
-Usage: render.py timeline.json out.mp4 [--preview] [--from S] [--to S]
+Usage: render.py timeline.json out.mp4 [--preview] [--from S] [--to S] [--no-fx]
 """
 import argparse
 import json
@@ -77,6 +86,10 @@ def probe(path):
     return int(s["width"]), int(s["height"]), float(n) / float(d), s.get("color_space")
 
 
+def is_still(path):
+    return os.path.splitext(path)[1].lower() in (".jpg", ".jpeg", ".png", ".webp", ".bmp")
+
+
 def load_frames(path, start, length, crop, scale_h=None, interp=None):
     """Decode [start, start+length) of a source, cropped to crop=(x, y, w, h)."""
     w0, h0, fps, cs = probe(path)
@@ -92,7 +105,9 @@ def load_frames(path, start, length, crop, scale_h=None, interp=None):
         vf.append(f"minterpolate=fps={fps}:mi_mode=mci:mc_mode=aobmc:me_mode=bidir:vsbmc=1")
     matrix = "bt709" if (cs in (None, "unknown", "bt709") and h0 >= 720) else "bt601"
     vf.append(f"scale=in_color_matrix={matrix}:in_range=tv:out_range=pc")
-    cmd = ["ffmpeg", "-v", "error", "-ss", f"{max(0, start):.4f}", "-t", f"{length:.4f}",
+    # a still image is a single frame at t=0: decode it whole (sample() holds it)
+    seek = [] if is_still(path) else ["-ss", f"{max(0, start):.4f}", "-t", f"{length:.4f}"]
+    cmd = ["ffmpeg", "-v", "error", *seek,
            "-i", path, "-an", "-vf", ",".join(vf), "-pix_fmt", "rgb24", "-f", "rawvideo", "-"]
     raw = subprocess.run(cmd, capture_output=True, check=True).stdout
     frames = np.frombuffer(raw, np.uint8).reshape(-1, h, w, 3)
@@ -124,8 +139,9 @@ def auto_focus(path, start, length):
 # ---------------------------------------------------------------- shot prep
 
 class Shot:
-    def __init__(self, spec, clock, W, H, fps, preview):
+    def __init__(self, spec, clock, W, H, fps, preview, src_max_h=None, blend="always"):
         self.s = spec
+        self.blend = blend
         self.t0, self.t1 = clock(spec["t0"]), clock(spec["t1"])
         self.W, self.H, self.fps = W, H, fps
         n = max(1, int(round(self.t1 * fps)) - int(round(self.t0 * fps)))
@@ -167,6 +183,8 @@ class Shot:
         scale_h = None
         if preview and sh > H:
             scale_h = H + H % 2
+        elif src_max_h and sh > src_max_h:
+            scale_h = int(src_max_h) + int(src_max_h) % 2
         frames, self.sfps = load_frames(self.src, self.load_t, hi - self.load_t + margin,
                                         (x0, 0, x1 - x0, sh), scale_h, spec.get("interp"))
         self.k = frames.shape[1] / sh  # strip pixels per source pixel
@@ -189,6 +207,10 @@ class Shot:
                           0, nf - 1).astype(int)
             acc = self.frames[ids].astype(np.float32).mean(0)
             return acc / 255.0
+        if self.blend == "slowmo" and step >= 0.95:
+            # at or above real time a 50/60 fps source has a frame close enough to
+            # every output instant: take it whole instead of mixing two (which ghosts)
+            return self.frames[int(np.clip(round(idx), 0, nf - 1))].astype(np.float32) / 255.0
         a = int(math.floor(idx))
         fr = idx - a
         a = int(np.clip(a, 0, nf - 1))
@@ -211,12 +233,14 @@ class Shot:
 GRADES = {
     # sat: base saturation, keep: saturation kept on Red Bull hues + skin,
     # con: contrast strength, pivot, cool: shadow blue push, warm: highlight warmth,
-    # gain: exposure (stops), black: black point
+    # gain: exposure (stops), black: black point, tint: (r, g, b) shift of mids/highlights
     "base":   dict(sat=0.55, keep=0.9, con=5.0, pivot=0.42, cool=0.05, warm=0.04, gain=0.0, black=0.03),
     "cold":   dict(sat=0.35, keep=0.7, con=5.5, pivot=0.45, cool=0.08, warm=0.0, gain=-0.15, black=0.035),
     "warm":   dict(sat=0.7, keep=1.0, con=5.0, pivot=0.42, cool=0.03, warm=0.09, gain=0.1, black=0.03),
     "bw":     dict(sat=0.0, keep=0.12, con=6.5, pivot=0.45, cool=0.02, warm=0.0, gain=0.0, black=0.035),
-    "teal":   dict(sat=1.05, keep=1.15, con=5.0, pivot=0.42, cool=0.12, warm=0.06, gain=0.1, black=0.02),
+    # teal: one colour-pop insert; tint pushes mids/highlights to cyan, skin/red stays warm
+    "teal":   dict(sat=1.3, keep=1.3, con=5.0, pivot=0.42, cool=0.06, warm=0.0, gain=0.1, black=0.02,
+                   tint=(-0.16, 0.07, 0.05)),
     "bleach": dict(sat=0.25, keep=0.5, con=3.5, pivot=0.35, cool=0.03, warm=0.05, gain=0.9, black=0.0),
     "night":  dict(sat=0.6, keep=1.0, con=6.0, pivot=0.4, cool=0.1, warm=0.06, gain=-0.1, black=0.03),
     "none":   None,
@@ -242,7 +266,7 @@ def _curve(v, black, con, pivot, s0, s1):
 
 
 @njit(parallel=True, cache=True, fastmath=True)
-def _grade_kernel(img, out, gain, sat, keep, con, pivot, cool, warm, black):
+def _grade_kernel(img, out, gain, sat, keep, con, pivot, cool, warm, black, tr, tg, tb):
     H, W = img.shape[0], img.shape[1]
     s0 = 1.0 / (1.0 + math.exp(con * pivot))
     s1 = 1.0 / (1.0 + math.exp(-con * (1.0 - pivot)))
@@ -283,9 +307,10 @@ def _grade_kernel(img, out, gain, sat, keep, con, pivot, cool, warm, black):
             y = min(max(y, 0.0), 1.0)
             sh = (1.0 - y) * (1.0 - y) * cool
             hi = y * y * warm
-            out[yy, xx, 0] = min(max(o0 - 0.6 * sh + 0.7 * hi, 0.0), 1.0)
-            out[yy, xx, 1] = min(max(o1 - 0.1 * sh + 0.25 * hi, 0.0), 1.0)
-            out[yy, xx, 2] = min(max(o2 + 0.7 * sh - 0.6 * hi, 0.0), 1.0)
+            tw = min(y * 2.0, 1.0) * (1.0 - k * 0.7)  # tint mids/highlights, spare kept hues
+            out[yy, xx, 0] = min(max(o0 - 0.6 * sh + 0.7 * hi + tr * tw, 0.0), 1.0)
+            out[yy, xx, 1] = min(max(o1 - 0.1 * sh + 0.25 * hi + tg * tw, 0.0), 1.0)
+            out[yy, xx, 2] = min(max(o2 + 0.7 * sh - 0.6 * hi + tb * tw, 0.0), 1.0)
 
 
 def grade(img, name, extra_stops=0.0):
@@ -295,7 +320,7 @@ def grade(img, name, extra_stops=0.0):
     out = np.empty_like(img, dtype=np.float32)
     _grade_kernel(np.ascontiguousarray(img, dtype=np.float32), out,
                   2 ** float(g["gain"] + extra_stops), g["sat"], g["keep"], g["con"],
-                  g["pivot"], g["cool"], g["warm"], g["black"])
+                  g["pivot"], g["cool"], g["warm"], g["black"], *g.get("tint", (0.0, 0.0, 0.0)))
     return out
 
 
@@ -437,6 +462,22 @@ def _finish(img, vig, noise, dither, grain, out):
             out[yy, xx, 2] = int(min(max((b + n * amp) * 255.0 + dd + 0.5, 0.0), 255.0))
 
 
+# ---------------------------------------------------------------- audio
+
+def loudnorm(music, start, length, target, true_peak):
+    """Two-pass EBU R128: measure the used segment, return a linear (constant
+    gain) loudnorm filter hitting `target` LUFS under the true-peak ceiling."""
+    log = subprocess.run(["ffmpeg", "-nostats", "-ss", f"{start:.4f}", "-t", f"{length:.4f}",
+                          "-i", music, "-af",
+                          f"loudnorm=I={target}:TP={true_peak}:LRA=20:print_format=json",
+                          "-f", "null", "-"], capture_output=True, text=True).stderr
+    m = json.loads(log[log.rfind("{"):log.rfind("}") + 1])
+    return (f"loudnorm=I={target}:TP={true_peak}:LRA=20:linear=true"
+            f":measured_I={m['input_i']}:measured_TP={m['input_tp']}"
+            f":measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}"
+            f":offset={m['target_offset']}")
+
+
 # ---------------------------------------------------------------- renderer
 
 class Renderer:
@@ -464,11 +505,54 @@ class Renderer:
         r = np.sqrt(((xx / self.W - 0.5) * 1.1) ** 2 + ((yy / self.H - 0.5) * 0.9) ** 2)
         self.vignette = (1 - np.clip((r - 0.35) * 0.9, 0, 0.45))[..., None].astype(np.float32)
         self.prev = None
+        self.layers = {}
         self.grain_rng = np.random.default_rng(7)
 
-    def shot_at(self, t):
+    def overlay_layer(self, f):
+        """Premultiplied RGBA float layer of an overlay PNG at its base width (w * frame)."""
+        key = (f["src"], f.get("w", 0.5))
+        if key not in self.layers:
+            im = cv2.imread(f["src"], cv2.IMREAD_UNCHANGED)
+            if im is None or im.shape[2] != 4:
+                raise SystemExit(f"overlay {f['src']}: need an RGBA image")
+            im = cv2.cvtColor(im, cv2.COLOR_BGRA2RGBA).astype(np.float32) / 255
+            bw = max(2, int(round(f.get("w", 0.5) * self.W)))
+            bh = max(2, int(round(im.shape[0] * bw / im.shape[1])))
+            im = cv2.resize(im, (bw, bh), interpolation=cv2.INTER_AREA)
+            im[..., :3] *= im[..., 3:4]
+            self.layers[key] = im
+        return self.layers[key]
+
+    def overlay(self, img, f, u):
+        """Composite a title layer: opacity with smooth fade in / out, a blur that
+        clears as it fades in and returns as it fades out, slow scale and drift
+        (scale / x / y keyframes over the overlay's own 0..1)."""
+        T = f["_d"]
+        tt = u * T
+        fin, fout = f.get("fade_in", 0.5), f.get("fade_out", 0.5)
+        e_in = smooth(min(max(tt / fin, 0.0), 1.0)) if fin > 0 else 1.0
+        e_out = smooth(min(max((T - tt) / fout, 0.0), 1.0)) if fout > 0 else 1.0
+        a = f.get("opacity", 1.0) * e_in * e_out
+        if a < 0.002:
+            return img
+        lay = self.overlay_layer(f)
+        bh, bw = lay.shape[:2]
+        sc = kf(f.get("scale", 1.0), u)
+        cx, cy = kf(f.get("x", 0.5), u) * self.W, kf(f.get("y", 0.5), u) * self.H
+        m = np.float32([[sc, 0, cx - sc * bw / 2], [0, sc, cy - sc * bh / 2]])
+        layer = cv2.warpAffine(lay, m, (self.W, self.H), flags=cv2.INTER_LINEAR,
+                               borderMode=cv2.BORDER_CONSTANT, borderValue=0)
+        blur = f.get("blur", 0.0) * (1 - min(e_in, e_out)) * self.W / 1920
+        if blur > 0.3:
+            layer = cv2.GaussianBlur(layer, (0, 0), blur)
+        return img * (1 - layer[..., 3:4] * a) + layer[..., :3] * a
+
+    def shot_at(self, fi):
+        # decide by frame index, the same rounding Shot uses for its length: comparing
+        # seconds let a t0 stored as 1.2667 (frame 38.001) start one frame late and
+        # repeat the outgoing shot's last frame
         for k, s in enumerate(self.shots):
-            if self.clock(s["t0"]) <= t + 1e-6 < self.clock(s["t1"]):
+            if round(self.clock(s["t0"]) * self.fps) <= fi < round(self.clock(s["t1"]) * self.fps):
                 return k
         return len(self.shots) - 1
 
@@ -485,6 +569,7 @@ class Renderer:
         dblur, dangle, rblur, rgb_px, rgb_rad = 0.0, 0.0, 0.0, 0.0, 0.0
         stops, flash, dip, bl, gl, ghost, inv, thr = 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
         act = list(self.active(t))
+        overlays = []
         for f, e, u in act:
             a = f.get("amt", 1.0) * e
             typ = f["type"]
@@ -546,6 +631,8 @@ class Renderer:
                 inv = max(inv, a)
             elif typ == "threshold":
                 thr = max(thr, a)
+            elif typ == "overlay":
+                overlays.append((f, u))
         # ---- one resample: crop window + zoom + shake + rotation
         src = shot.sample(i)
         k = shot.k
@@ -558,10 +645,16 @@ class Renderer:
         m = cv2.getRotationMatrix2D((cx, cy), rot, s)
         m[0, 2] += W / 2 - cx + dx
         m[1, 2] += H / 2 - cy + dy
-        interp = cv2.INTER_CUBIC if s > 1.05 else cv2.INTER_AREA if s < 0.7 else cv2.INTER_LINEAR
+        sharpen = self.tl.get("sharpen")
+        up = cv2.INTER_LANCZOS4 if sharpen is not None else cv2.INTER_CUBIC
+        interp = up if s > 1.05 else cv2.INTER_AREA if s < 0.7 else cv2.INTER_LINEAR
         img = cv2.warpAffine(src.astype(np.float32), m, (W, H), flags=interp,
                              borderMode=cv2.BORDER_REFLECT)
-        if s > 1.3:  # gentle restore of upscaled detail
+        if sharpen is not None:  # base crispness + restore detail lost to the upscale
+            amt = min(0.6, sharpen + max(0.0, s - 1.0) * 0.9)
+            if amt > 0.02:
+                img = cv2.addWeighted(img, 1 + amt, cv2.GaussianBlur(img, (0, 0), 1.0), -amt, 0)
+        elif s > 1.3:  # gentle restore of upscaled detail
             img = cv2.addWeighted(img, 1.35, cv2.GaussianBlur(img, (0, 0), 1.2), -0.35, 0)
         # ---- grade
         u = (t - self.clock(shot.s["t0"])) / max(1e-6, self.clock(shot.s["t1"]) - self.clock(shot.s["t0"]))
@@ -592,6 +685,8 @@ class Renderer:
             img = np.power(np.clip(img, 0, 1), 1 + dip * 7) * (1 - 0.6 * dip)
         if flash > 0:
             img = img + (1 - img) * flash
+        for f, u in overlays:  # titles sit above the grade and the effects, under the grain
+            img = self.overlay(img, f, u)
         # ---- finishing: vignette + luma-weighted grain + dither, straight to 8-bit
         self.prev = img
         n = self.grain_rng.standard_normal((H // 2 + 1, W // 2 + 1), dtype=np.float32)
@@ -623,19 +718,24 @@ class Renderer:
                 "-color_range", "tv", "-g", str(fps * 2), "-movflags", "+faststart"]
         if music:
             fade = tl.get("fade_out", 0.12)
-            cmd += ["-af", f"afade=t=out:st={max(0, t_to - t_from - fade):.3f}:d={fade}",
-                    "-c:a", "aac", "-b:a", "320k", "-ar", "48000"]
+            af = [f"afade=t=in:d={tl.get('fade_in', 0.02)}",
+                  f"afade=t=out:st={max(0, t_to - t_from - fade):.3f}:d={fade}"]
+            if tl.get("loudness") is not None:
+                af.insert(0, loudnorm(music, mstart, t_to - t_from, tl["loudness"],
+                                      tl.get("true_peak", -1.0)))
+            cmd += ["-af", ",".join(af), "-c:a", "aac", "-b:a", "320k", "-ar", "48000"]
         cmd += ["-shortest", out]
         enc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
         cache = {}
         for fi in range(f0, f1):
             t = fi / fps
-            k = self.shot_at(t)
+            k = self.shot_at(fi)
             if k not in cache:
                 cache.clear()
                 spec = self.shots[k]
                 spec["t0"] = self.clock(spec["t0"])
-                cache[k] = Shot(spec, self.clock, W, H, fps, self.preview)
+                cache[k] = Shot(spec, self.clock, W, H, fps, self.preview,
+                                tl.get("src_max_h", int(H * 1.5)), tl.get("frame_blend", "always"))
                 sys.stderr.write(f"\r[{t:6.2f}s] shot {k + 1}/{len(self.shots)} "
                                  f"{os.path.basename(spec['src'])}          ")
             shot = cache[k]
@@ -657,14 +757,18 @@ def main():
     ap.add_argument("--preview", action="store_true", help="half resolution, fast encode")
     ap.add_argument("--from", dest="t_from", type=float, default=0.0)
     ap.add_argument("--to", dest="t_to", type=float, default=None)
+    ap.add_argument("--no-fx", action="store_true",
+                    help="skip the fx list (QC: cut positions without dips/flashes around them)")
     a = ap.parse_args()
     with open(a.timeline) as fh:
         tl = json.load(fh)
+    if a.no_fx:
+        tl["fx"] = []
     base = os.path.dirname(os.path.abspath(a.timeline))
     for key in ("beats", "music"):
         if tl.get(key) and not os.path.isabs(tl[key]):
             tl[key] = os.path.join(base, tl[key])
-    for s in tl["shots"]:
+    for s in tl["shots"] + [f for f in tl.get("fx", []) if "src" in f]:
         if not os.path.isabs(s["src"]):
             s["src"] = os.path.join(base, s["src"])
     Renderer(tl, a.preview).run(a.out, a.t_from, a.t_to)
