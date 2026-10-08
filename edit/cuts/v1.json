@@ -7,6 +7,9 @@
  "frames": ["../../media/work/sr/x4", "../../media/selected"],
  "end": "b87",
  "fade_out": 1.2,
+ "crf": 17,
+ "maxrate": "20M",
+ "bufsize": "40M",
  "grain": 0.045,
  "grade": "base",
  "shots": [

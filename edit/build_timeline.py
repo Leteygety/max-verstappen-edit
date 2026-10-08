@@ -159,7 +159,8 @@ def main():
               music_start=spec.get("music_start", 0.0), duration=round(end, 4),
               fade_out=spec.get("fade_out", 0.3), grain=spec.get("grain", 0.04),
               loudness=spec.get("loudness", -10.0), true_peak=spec.get("true_peak", -1.0),
-              crf=spec.get("crf", 15), shots=shots, fx=sorted(fx, key=lambda f: f["t"]))
+              crf=spec.get("crf", 15), maxrate=spec.get("maxrate", "40M"),
+              bufsize=spec.get("bufsize", "80M"), shots=shots, fx=sorted(fx, key=lambda f: f["t"]))
     with open(a.out, "w") as fh:
         json.dump(tl, fh, indent=1)
     lens = np.diff([s["t0"] for s in shots] + [end])

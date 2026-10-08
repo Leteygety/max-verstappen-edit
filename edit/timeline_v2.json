@@ -9,7 +9,9 @@
  "grain": 0.05,
  "loudness": -10.0,
  "true_peak": -1.0,
- "crf": 15,
+ "crf": 17,
+ "maxrate": "20M",
+ "bufsize": "40M",
  "shots": [
   {
    "src": "../media/work/sr/x4/rb_car_4k__vxysg1Qptqc_035.png",
