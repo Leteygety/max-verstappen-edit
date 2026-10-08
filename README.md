@@ -57,3 +57,10 @@ edit/verify_render.py edit/timeline_v1.json media/output/verstappen_edit_v1.mp4 
 `edit/cuts/v1.json` (FUNK CRIMINAL 2, slowed) and `edit/cuts/v2.json` (FALL FROM THE SKY PT. 2)
 are separate cut lists built on each track's own beat grid and structure; see their `_doc` notes.
 Audio is loudness-normalised per segment (`loudness`, default -10 LUFS, -1 dBTP).
+
+## Video fragments (local)
+
+`edit/fetch_fragments.sh` downloads the 6 source videos behind `media/selected` once (best
+quality, up to 4K) and cuts 4-16 s fragments around every approved moment into
+`media/fragments/<name>__<start>-<end>.mp4` (<=1080p, CRF 16, original fps, no audio).
+Run it locally (Git Bash on Windows): `bash edit/fetch_fragments.sh`.
