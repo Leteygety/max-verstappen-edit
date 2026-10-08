@@ -4,3 +4,6 @@ media/
 *.wav
 __pycache__/
 cookies.txt
+# cover images contain photos / video frames: built locally, not published
+cover_max_verstappen.png
+edit/cover/*.png

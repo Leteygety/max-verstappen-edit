@@ -85,6 +85,18 @@ every shot against the source's scene cuts (from `scan_motion.py`) and keeps the
 clear of burned-in broadcast graphics (`keepout` boxes). `render.py --no-fx` renders without the
 effect list, which `verify_render.py` uses to confirm every cut sits on its beat frame.
 
+## TikTok cover
+
+`edit/cover/cover.html` is the 1080x1920 layout (title, years, light streaks); behind it sits
+Max showing four fingers for title #4 (Las Vegas 2024), a 1:1 frame from his own champion video.
+
+```
+edit/cover/prep_max.py edit/cover/max_4.png        # frame -> local contrast, grade, light pool
+edit/cover/build_cover.py cover_max_verstappen.png  # headless Chrome render + cover_fx.py finish
+```
+
+The images (`max_4.png`, the cover) are built locally and kept out of git, like `media/`.
+
 ## Video fragments (local)
 
 `edit/fetch_fragments.sh` downloads the 6 source videos behind `media/selected` once (best

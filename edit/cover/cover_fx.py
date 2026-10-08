@@ -2,7 +2,7 @@
 """Finish the rendered cover layout with the edit's look: highlight bloom,
 glitch slices through the title, radial chromatic aberration, vignette, grain.
 
-Usage: cover_fx.py base.png out.png [--seed N]
+Usage: cover_fx.py base.png out.png [--seed N] [--glitch 0.28,0.43]
 """
 import argparse
 import os
@@ -35,11 +35,13 @@ def main():
     ap.add_argument("base")
     ap.add_argument("out")
     ap.add_argument("--seed", type=int, default=33)
+    ap.add_argument("--glitch", default="0.28,0.43", help="title band for the glitch slices")
     a = ap.parse_args()
     img = cv2.cvtColor(cv2.imread(a.base), cv2.COLOR_BGR2RGB).astype(np.float32) / 255
     H, W = img.shape[:2]
     rng = np.random.default_rng(a.seed)
-    img = slice_glitch(img, rng, int(H * 0.28), int(H * 0.43), 3)
+    g0, g1 = (float(v) for v in a.glitch.split(","))
+    img = slice_glitch(img, rng, int(H * g0), int(H * g1), 3)
     img = bloom(img, 0.18)
     img = rgb_split(img, 0.0, 0.0018)
     yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
