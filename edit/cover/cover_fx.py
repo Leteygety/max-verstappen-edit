@@ -39,7 +39,7 @@ def main():
     img = cv2.cvtColor(cv2.imread(a.base), cv2.COLOR_BGR2RGB).astype(np.float32) / 255
     H, W = img.shape[:2]
     rng = np.random.default_rng(a.seed)
-    img = slice_glitch(img, rng, int(H * 0.35), int(H * 0.50), 3)
+    img = slice_glitch(img, rng, int(H * 0.28), int(H * 0.43), 3)
     img = bloom(img, 0.18)
     img = rgb_split(img, 0.0, 0.0018)
     yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
