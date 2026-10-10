@@ -1,0 +1,21 @@
+# name | yt-dlp target (URL or ytsearchN:query) [|| alternate target ...]
+# Real races / moments only. Prefer official FORMULA 1 / Oracle Red Bull Racing uploads (1080p50-4K).
+# fetch_sources.sh keeps the first candidate that is >=720p and 20 s..25 min long.
+music          | ytsearch5:FUNK CRIMINAL 2 slowed || ytsearch5:FUNK CRIMINAL 2 slowed reverb
+brazil24_wet   | ytsearch5:Max Verstappen Sao Paulo 2024 wet race highlights P17 to win || ytsearch5:2024 Sao Paulo Grand Prix race highlights F1
+brazil24_ext   | ytsearch5:Extended Highlights 2024 Sao Paulo Grand Prix
+brazil24_ob    | ytsearch5:Verstappen onboard Sao Paulo 2024 rain || ytsearch5:Verstappen best onboard overtakes Brazil 2024
+abudhabi21     | ytsearch5:Abu Dhabi 2021 final lap Verstappen world champion || ytsearch5:2021 Abu Dhabi Grand Prix race highlights
+zandvoort21    | ytsearch5:Verstappen wins Dutch Grand Prix 2021 Zandvoort crowd || ytsearch5:2021 Dutch Grand Prix race highlights
+suzuka23_pole  | ytsearch5:Verstappen pole lap onboard Suzuka 2023 || ytsearch5:Max Verstappen pole lap 2023 Japanese Grand Prix
+suzuka22_title | ytsearch5:Verstappen champion Suzuka 2022 rain || ytsearch5:2022 Japanese Grand Prix race highlights
+vegas23_night  | ytsearch5:Verstappen Las Vegas Grand Prix 2023 highlights night || ytsearch5:2023 Las Vegas Grand Prix race highlights
+brazil19_ovt   | ytsearch5:Verstappen overtakes Hamilton Brazil 2019 || ytsearch5:2019 Brazilian Grand Prix race highlights
+austria19      | ytsearch5:Verstappen overtakes Leclerc Austria 2019 || ytsearch5:2019 Austrian Grand Prix race highlights
+brazil16_wet   | ytsearch5:Verstappen Brazil 2016 wet masterclass || ytsearch5:Verstappen Brazil 2016 rain overtakes
+rb_car_4k      | ytsearch5:Red Bull Racing RB19 4K cinematic || ytsearch5:Red Bull RB20 4K cinematic
+rb_car_4k_b    | ytsearch5:Red Bull F1 car 4K slow motion || ytsearch5:Oracle Red Bull Racing car launch 4K
+max_helmet     | ytsearch5:Max Verstappen helmet close up cinematic 4K || ytsearch5:Max Verstappen cinematic 4K
+podium_trophy  | ytsearch5:Max Verstappen podium trophy celebration champagne 4K || ytsearch5:Max Verstappen podium celebration
+pitstop        | ytsearch5:Red Bull Racing pit stop slow motion 4K || ytsearch5:Red Bull pit stop slow motion
+start_launch   | ytsearch5:Verstappen race start onboard launch || ytsearch5:Verstappen best starts onboard
