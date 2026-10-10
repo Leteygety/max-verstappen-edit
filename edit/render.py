@@ -16,6 +16,17 @@ Title layers are "overlay" fx: an RGBA PNG ("src"), width "w" (fraction of the
 frame), "x"/"y" centre, "opacity", "fade_in"/"fade_out" (s), "blur" (px at the
 fade edges) and "scale" keyframes.
 
+Effects ("fx": {type, t, dur | t_end, amt, env: decay|hold|tri|in|out, pulse: s}):
+punch push shake whip zoomtrans dirblur zoomblur rgb glitch flash dip bloom
+exposure strobe flicker ghost invert threshold scanline smear boxinvert blocks
+desat wave (mode h|ripple) mirror (mode h|tri|kaleido) leak (color) freeze
+overlay, and the two-shot transitions crossfade / lumamix / strobecut / bandmix,
+which run right after a cut with the outgoing shot continuing under the
+incoming one (every shot is decoded with a short tail handle for this). "pulse"
+re-triggers an effect every N seconds (1/8-note radial pulses, colour flicker).
+Grades: base cold warm bw teal bleach night xpro (cross-processed colour pop)
+faded (washed teal, lifted blacks) none; "halation": N adds a warm highlight glow.
+
 Time fields in the timeline accept seconds (1.25), beat positions ("b12",
 "b12.5" -- fractional beats interpolate the grid) or bass hits ("h7").
 
@@ -139,7 +150,7 @@ def auto_focus(path, start, length):
 # ---------------------------------------------------------------- shot prep
 
 class Shot:
-    def __init__(self, spec, clock, W, H, fps, preview, src_max_h=None, blend="always"):
+    def __init__(self, spec, clock, W, H, fps, preview, src_max_h=None, blend="always", handle=0.55):
         self.s = spec
         self.blend = blend
         self.t0, self.t1 = clock(spec["t0"]), clock(spec["t1"])
@@ -163,6 +174,14 @@ class Shot:
         self.sw, self.sh = sw, sh
         t_in = clock(spec.get("in", 0.0))
         lo, hi = t_in + off.min(), t_in + off.max()
+        # tail handle: source past the out-point, so a two-shot transition can keep
+        # the outgoing shot running under the incoming one for a few frames
+        tail = (off[-1] - off[-2]) if n > 1 else 1.0 / fps
+        if tail >= 0:
+            hi += handle * max(abs(sp[-1]), 0.3)
+        else:
+            lo -= handle * max(abs(sp[-1]), 0.3)
+        lo = max(lo, 0.0)
         margin = 2.0 / sfps
         self.load_t = max(0.0, lo - margin)
         # focus window (horizontal pan); y focus used when zoomed in
@@ -192,17 +211,25 @@ class Shot:
         self.x0 = x0
         self.t_in = t_in
 
+    def offset(self, i):
+        """Source offset for output frame i; past the end it keeps the last speed."""
+        if i <= self.n:
+            return self.off[max(i, 0)]
+        last = self.off[self.n] - self.off[self.n - 1] if self.n > 0 else 0.0
+        return self.off[self.n] + (i - self.n) * last
+
     def sample(self, i):
-        """Source frame for output frame i (0..n-1), motion-blurred when fast."""
-        ts = self.t_in + self.off[i] - self.load_t
+        """Source frame for output frame i (0..n-1, beyond n inside the tail handle),
+        motion-blurred when fast."""
+        ts = self.t_in + self.offset(i) - self.load_t
         idx = ts * self.sfps
         nf = len(self.frames)
-        step = abs(self.off[min(i + 1, self.n)] - self.off[i]) * self.sfps
+        step = abs(self.offset(i + 1) - self.offset(i)) * self.sfps
         blur = self.s.get("mblur", 1.0)
         taps = int(round(step * 0.75 * blur)) if step > 2.5 and blur > 0 else 1
         taps = min(taps, 16)
         if taps > 1:
-            d = 1 if self.off[min(i + 1, self.n)] >= self.off[i] else -1
+            d = 1 if self.offset(i + 1) >= self.offset(i) else -1
             ids = np.clip(np.round(idx + d * np.arange(taps) * (step * 0.75 * blur / taps)),
                           0, nf - 1).astype(int)
             acc = self.frames[ids].astype(np.float32).mean(0)
@@ -243,6 +270,12 @@ GRADES = {
                    tint=(-0.16, 0.07, 0.05)),
     "bleach": dict(sat=0.25, keep=0.5, con=3.5, pivot=0.35, cool=0.03, warm=0.05, gain=0.9, black=0.0),
     "night":  dict(sat=0.6, keep=1.0, con=6.0, pivot=0.4, cool=0.1, warm=0.06, gain=-0.1, black=0.03),
+    # xpro: the reference's colour pop (pink helmet on cyan crowd); faded: washed
+    # teal with lifted blacks (the smoke shot)
+    "xpro":   dict(sat=1.1, keep=1.2, con=5.5, pivot=0.42, cool=0.04, warm=0.0, gain=0.15, black=0.02,
+                   post="xpro", lift=0.03),
+    "faded":  dict(sat=0.4, keep=0.7, con=3.2, pivot=0.4, cool=0.07, warm=0.02, gain=0.25, black=0.0,
+                   tint=(-0.05, 0.02, 0.04), lift=0.08),
     "none":   None,
 }
 
@@ -321,6 +354,8 @@ def grade(img, name, extra_stops=0.0):
     _grade_kernel(np.ascontiguousarray(img, dtype=np.float32), out,
                   2 ** float(g["gain"] + extra_stops), g["sat"], g["keep"], g["con"],
                   g["pivot"], g["cool"], g["warm"], g["black"], *g.get("tint", (0.0, 0.0, 0.0)))
+    if g.get("post") or g.get("lift"):
+        out = post_grade(out, g)
     return out
 
 
@@ -344,6 +379,8 @@ def envelope(fx, t, fps):
         e = (1 - u) ** 2
     else:
         e = 1.0
+    if fx.get("pulse"):  # re-trigger every `pulse` seconds with a fast decay (1/8-note pulses)
+        e *= math.exp(-5.0 * (((t - t0) / fx["pulse"]) % 1.0))
     return e, u
 
 
@@ -437,6 +474,163 @@ def bloom(img, amt):
     return np.where(x < knee, x, knee + (1 - knee) * (1 - np.exp(-(x - knee) / (1 - knee))))
 
 
+def scanlines(img, amt, fi):
+    """Picture breaking up into crawling horizontal bands while it crashes to
+    black (the reference's dark break-up between shots)."""
+    H, W = img.shape[:2]
+    bh = max(2, H // 90)
+    rng = np.random.default_rng(fi * 31 + 7)
+    band = (np.arange(H) // bh + fi) % 2 == 1
+    drop = rng.random(H // bh + 1) < 0.35 * amt  # extra random dropouts
+    band |= drop[np.arange(H) // bh]
+    shift = int(amt * W * 0.03) * (1 if fi % 2 else -1)
+    out = img.copy()
+    out[band] = np.roll(img, shift, axis=1)[band] * (1 - 0.95 * amt)
+    return np.power(np.clip(out, 0, 1), 1 + amt * 2.5) * (1 - 0.35 * amt)
+
+
+def smear(img, amt, rng):
+    """Pixel stretch: in random horizontal bands one column is dragged across
+    the rest of the band (datamosh-style streaks)."""
+    H, W = img.shape[:2]
+    out = img.copy()
+    for _ in range(int(3 + amt * 18)):
+        h = max(2, int(rng.uniform(0.01, 0.12) * H))
+        y = int(rng.uniform(0, H - h))
+        x = int(rng.uniform(0.1, 0.9) * W)
+        if rng.random() < 0.5:
+            out[y:y + h, x:] = out[y:y + h, x:x + 1]
+        else:
+            out[y:y + h, :x] = out[y:y + h, x - 1:x]
+    return out
+
+
+def box_invert(img, amt, rng, cx=0.5, cy=0.5):
+    """Negative rectangle around the subject, jittering frame to frame, with a
+    sideways slip (the reference's boxed-negative glitch on passing cars)."""
+    if amt < 0.05:
+        return img
+    H, W = img.shape[:2]
+    bw, bh = rng.uniform(0.35, 0.6) * W, rng.uniform(0.25, 0.45) * H
+    x0 = int(np.clip(cx * W - bw / 2 + rng.normal(0, 0.04) * W, 0, W - bw))
+    y0 = int(np.clip(cy * H - bh / 2 + rng.normal(0, 0.04) * H, 0, H - bh))
+    x1, y1 = x0 + int(bw), y0 + int(bh)
+    out = img.copy()
+    reg = np.roll(img[y0:y1], int(rng.normal(0, 0.03) * W), axis=1)[:, x0:x1]
+    out[y0:y1, x0:x1] = reg * (1 - amt) + (1 - reg) * amt
+    return out
+
+
+def blocks(img, amt):
+    """Big-block break-up with posterised luma (block glitch into black)."""
+    H, W = img.shape[:2]
+    blk = int(8 + amt * 40) * W // 1920 + 2
+    small = cv2.resize(img, (max(1, W // blk), max(1, H // blk)), interpolation=cv2.INTER_AREA)
+    levels = 3 + int((1 - amt) * 5)
+    small = np.round(small * levels) / levels
+    big = cv2.resize(small, (W, H), interpolation=cv2.INTER_NEAREST)
+    return img * (1 - amt) + big * (1 - 0.45 * amt) * amt
+
+
+def mirror(img, mode):
+    H, W = img.shape[:2]
+    out = img.copy()
+    if mode == "tri":  # centre third repeated mirrored on both sides
+        w3 = W // 3
+        c = img[:, w3:2 * w3]
+        out[:, :w3] = c[:, ::-1][:, :w3]
+        out[:, 2 * w3:] = c[:, ::-1][:, :W - 2 * w3]
+        out[:, w3:2 * w3] = c
+    elif mode == "kaleido":
+        q = img[:H // 2, :W // 2]
+        out[:H // 2, :W // 2] = q
+        out[:H // 2, W - W // 2:] = q[:, ::-1][:, :W // 2]
+        out[H - H // 2:, :] = out[:H // 2, :][::-1][:H - H // 2]
+    else:  # "h": left half folded onto the right
+        out[:, W - W // 2:] = img[:, :W // 2][:, ::-1]
+    return out
+
+
+def leak(shape, amt, t, seed, color):
+    """Procedural light leak: two soft drifting glows (screen-blended later)."""
+    H, W = shape[:2]
+    h, w = max(8, H // 8), max(8, W // 8)
+    rng = np.random.default_rng(seed)
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    acc = np.zeros((h, w), np.float32)
+    for _ in range(2):
+        cx0, cy0 = rng.uniform(-0.1, 1.1) * w, rng.uniform(-0.2, 0.5) * h
+        vx, vy = rng.uniform(-0.6, 0.6) * w, rng.uniform(-0.2, 0.3) * h
+        r = rng.uniform(0.14, 0.3) * w
+        cx, cy = cx0 + vx * t, cy0 + vy * t
+        acc += np.exp(-((xx - cx) ** 2 + (yy - cy) ** 2) / (2 * r * r))
+    col = {"warm": (1.0, 0.55, 0.22), "cyan": (0.35, 0.85, 1.0),
+           "red": (1.0, 0.18, 0.12)}.get(color, (1.0, 0.95, 0.88))
+    glow = cv2.resize(np.clip(acc, 0, 1), (W, H), interpolation=cv2.INTER_CUBIC)
+    return glow[..., None] * np.float32(col) * amt * 0.75
+
+
+def halation(img, amt):
+    """Film halation: a warm-red glow bleeding out of the brightest highlights."""
+    H, W = img.shape[:2]
+    hi = np.clip((img.max(-1) - 0.72) * 3.5, 0, 1)
+    small = cv2.resize(hi, (W // 4, H // 4), interpolation=cv2.INTER_AREA)
+    small = cv2.GaussianBlur(small, (0, 0), max(1.0, W / 400))
+    glow = cv2.resize(small, (W, H), interpolation=cv2.INTER_LINEAR)[..., None]
+    return img + glow * np.float32((1.0, 0.32, 0.12)) * amt
+
+
+def post_grade(img, g):
+    """Grade steps the per-pixel kernel does not do: lifted (faded) blacks and the
+    cross-processed look (reds -> pink, yellows/greens -> cyan) of the colour pop."""
+    post = g.get("post")
+    if post == "xpro":
+        hsv = cv2.cvtColor(np.clip(img, 0, 1), cv2.COLOR_RGB2HSV)
+        h = hsv[..., 0]
+        warm = (h < 70) | (h > 300)
+        h2 = np.where(warm, (h - 32) % 360, np.where(h < 180, h + 0.5 * (185 - h), h))
+        hsv[..., 0] = h2
+        hsv[..., 1] = np.clip(hsv[..., 1] * 1.35, 0, 1)
+        img = cv2.cvtColor(hsv, cv2.COLOR_HSV2RGB)
+        y = img.mean(-1, keepdims=True)
+        img = img + (1 - y) ** 2 * np.float32((-0.05, 0.05, 0.07))  # teal shadows
+    lift = g.get("lift", 0.0)
+    if lift:
+        img = lift + img * (1 - lift)
+    return np.clip(img, 0, 1).astype(np.float32)
+
+
+MIXES = ("crossfade", "lumamix", "strobecut", "bandmix")
+
+
+def mix_shots(b, a, kind, u, fi, rng):
+    """Two-shot transition right after a cut: b = incoming (current), a = the
+    outgoing shot running on past its out-point. u: 0..1 through the mix."""
+    if kind == "crossfade":
+        w = smooth(u)
+        return b * w + a * (1 - w)
+    if kind == "lumamix":  # outgoing highlights burn over the incoming shot, then fade
+        k = (1 - smooth(u))
+        return 1 - (1 - b) * (1 - np.clip(a * 1.15 - 0.1, 0, 1) * k)
+    if kind == "strobecut":  # A / B alternating frame by frame, A thinning out
+        if fi % 2 == 0 and u < 0.75:
+            return 1 - a if (fi // 2) % 3 == 2 else a
+        return b
+    if kind == "bandmix":  # horizontal bands from both shots, some negative
+        H, W = b.shape[:2]
+        out = b.copy()
+        y = 0
+        pa = (1 - u) ** 1.2
+        while y < H:
+            h = max(2, int(rng.uniform(0.02, 0.12) * H))
+            if rng.random() < pa:
+                band = np.roll(a[y:y + h], int(rng.normal(0, 0.05) * W), axis=1)
+                out[y:y + h] = 1 - band if rng.random() < 0.12 else band
+            y += h
+        return out
+    return b
+
+
 @njit(parallel=True, cache=True, fastmath=True)
 def _finish(img, vig, noise, dither, grain, out):
     H, W = img.shape[0], img.shape[1]
@@ -504,6 +698,7 @@ class Renderer:
         yy, xx = np.mgrid[0:self.H, 0:self.W].astype(np.float32)
         r = np.sqrt(((xx / self.W - 0.5) * 1.1) ** 2 + ((yy / self.H - 0.5) * 0.9) ** 2)
         self.vignette = (1 - np.clip((r - 0.35) * 0.9, 0, 0.45))[..., None].astype(np.float32)
+        self.yy, self.xx = yy, xx  # pixel grids for wave / ripple remaps
         self.prev = None
         self.layers = {}
         self.grain_rng = np.random.default_rng(7)
@@ -562,12 +757,52 @@ class Renderer:
             if e > 0 or (0 <= u < 1):
                 yield f, e, u
 
-    def frame(self, shot, i, t, fi):
+    def base(self, shot, i, t, zoom_mul, dx, dy, rot, stops, desat):
+        """One shot's frame: time-remapped sample, single resample (crop + zoom +
+        shake + rotation), sharpen, grade. Shared by both sides of a two-shot mix."""
         W, H = self.W, self.H
-        zoom, fx, fy, u_shot = shot.geometry(i)
+        zoom, fx, fy, _ = shot.geometry(min(max(i, 0), shot.n - 1))
+        zoom *= zoom_mul
+        src = shot.sample(i)
+        k = shot.k
+        cw, ch = shot.cw * k / zoom, shot.ch * k / zoom
+        cx = fx * shot.sw * k - shot.x0 * k
+        cy = shot.sh * k * (0.5 + (fy - 0.5) * (1 - 1 / zoom))
+        cx = float(np.clip(cx, cw / 2, src.shape[1] - cw / 2)) if src.shape[1] >= cw else src.shape[1] / 2
+        cy = float(np.clip(cy, ch / 2, src.shape[0] - ch / 2))
+        s = W / cw
+        m = cv2.getRotationMatrix2D((cx, cy), rot, s)
+        m[0, 2] += W / 2 - cx + dx
+        m[1, 2] += H / 2 - cy + dy
+        sharpen = self.tl.get("sharpen")
+        up = cv2.INTER_LANCZOS4 if sharpen is not None else cv2.INTER_CUBIC
+        interp = up if s > 1.05 else cv2.INTER_AREA if s < 0.7 else cv2.INTER_LINEAR
+        img = cv2.warpAffine(src.astype(np.float32), m, (W, H), flags=interp,
+                             borderMode=cv2.BORDER_REFLECT)
+        if sharpen is not None:  # base crispness + restore detail lost to the upscale
+            amt = min(0.6, sharpen + max(0.0, s - 1.0) * 0.9)
+            if amt > 0.02:
+                img = cv2.addWeighted(img, 1 + amt, cv2.GaussianBlur(img, (0, 0), 1.0), -amt, 0)
+        elif s > 1.3:  # gentle restore of upscaled detail
+            img = cv2.addWeighted(img, 1.35, cv2.GaussianBlur(img, (0, 0), 1.2), -0.35, 0)
+        t0, t1 = self.clock(shot.s["t0"]), self.clock(shot.s["t1"])
+        u = min(max((t - t0) / max(1e-6, t1 - t0), 0.0), 1.0)
+        img = grade(img, shot.s.get("grade", "base"), kf(shot.s.get("exposure", 0.0), u) + stops)
+        if desat > 0:  # colour flicker: drop to monochrome on the pulse
+            y = img @ np.float32([0.2126, 0.7152, 0.0722])
+            img = img * (1 - desat) + y[..., None] * desat
+        return img
+
+    def frame(self, shot, i, t, fi, prev=None):
+        W, H = self.W, self.H
+        zoom = 1.0
         dx = dy = rot = 0.0
         dblur, dangle, rblur, rgb_px, rgb_rad = 0.0, 0.0, 0.0, 0.0, 0.0
         stops, flash, dip, bl, gl, ghost, inv, thr = 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0
+        scan = smr = binv = blk = desat = 0.0
+        bctr = (0.5, 0.5)
+        wave = mir = freeze = mix = None
+        leaks = []
         act = list(self.active(t))
         overlays = []
         for f, e, u in act:
@@ -588,12 +823,13 @@ class Renderer:
                 dblur = max(dblur, a * W * 0.02)
             elif typ in ("whip", "zoomtrans"):
                 # centred on a cut: outgoing accelerates away, incoming settles in
-                side = -1 if u < 0.5 else 1
                 v = (u / 0.5) if u < 0.5 else ((1 - u) / 0.5)
                 amt = f.get("amt", 1.0)
                 if typ == "whip":
                     ang = f.get("angle", 0.0)
-                    mag = v ** 3 * amt * 0.45 * W * (-side if u < 0.5 else side)
+                    # image motion along `angle` on both sides of the cut: the outgoing
+                    # shot exits that way, the incoming one arrives from behind
+                    mag = v ** 3 * amt * 0.45 * W * (1 if u < 0.5 else -1)
                     dx += mag * math.cos(math.radians(ang))
                     dy += mag * math.sin(math.radians(ang))
                     dblur = max(dblur, v ** 2 * amt * W * 0.18)
@@ -625,52 +861,79 @@ class Renderer:
                     stops -= a * 3.5
                 else:
                     stops += a * 0.4
+            elif typ == "flicker":  # irregular light flicker: crushed and blown frames
+                r = np.random.default_rng(fi * 977 + int(f["_t"] * 100)).random()
+                stops += -2.0 * a if r < 0.18 else (1.5 * a if r < 0.48 else 0.15 * a * (r - 0.8))
             elif typ == "ghost":
                 ghost = max(ghost, a * 0.6)
             elif typ == "invert":
                 inv = max(inv, a)
             elif typ == "threshold":
                 thr = max(thr, a)
+            elif typ == "scanline":
+                scan = max(scan, a)
+            elif typ == "smear":
+                smr = max(smr, a)
+            elif typ == "boxinvert":
+                binv = max(binv, a)
+                bctr = (f.get("cx", 0.5), f.get("cy", 0.5))
+            elif typ == "blocks":
+                blk = max(blk, a)
+            elif typ == "desat":
+                desat = max(desat, a)
+            elif typ == "wave":
+                wave = (f.get("mode", "h"), a, t - f["_t"])
+            elif typ == "mirror":
+                mir = (f.get("mode", "h"), a)
+            elif typ == "leak":
+                leaks.append((f, a, t - f["_t"]))
+            elif typ == "freeze":
+                freeze = f
+            elif typ in MIXES:
+                mix = (typ, u, f)
             elif typ == "overlay":
                 overlays.append((f, u))
-        # ---- one resample: crop window + zoom + shake + rotation
-        src = shot.sample(i)
-        k = shot.k
-        cw, ch = shot.cw * k / zoom, shot.ch * k / zoom
-        cx = fx * shot.sw * k - shot.x0 * k
-        cy = shot.sh * k * (0.5 + (fy - 0.5) * (1 - 1 / zoom))
-        cx = float(np.clip(cx, cw / 2, src.shape[1] - cw / 2)) if src.shape[1] >= cw else src.shape[1] / 2
-        cy = float(np.clip(cy, ch / 2, src.shape[0] - ch / 2))
-        s = W / cw
-        m = cv2.getRotationMatrix2D((cx, cy), rot, s)
-        m[0, 2] += W / 2 - cx + dx
-        m[1, 2] += H / 2 - cy + dy
-        sharpen = self.tl.get("sharpen")
-        up = cv2.INTER_LANCZOS4 if sharpen is not None else cv2.INTER_CUBIC
-        interp = up if s > 1.05 else cv2.INTER_AREA if s < 0.7 else cv2.INTER_LINEAR
-        img = cv2.warpAffine(src.astype(np.float32), m, (W, H), flags=interp,
-                             borderMode=cv2.BORDER_REFLECT)
-        if sharpen is not None:  # base crispness + restore detail lost to the upscale
-            amt = min(0.6, sharpen + max(0.0, s - 1.0) * 0.9)
-            if amt > 0.02:
-                img = cv2.addWeighted(img, 1 + amt, cv2.GaussianBlur(img, (0, 0), 1.0), -amt, 0)
-        elif s > 1.3:  # gentle restore of upscaled detail
-            img = cv2.addWeighted(img, 1.35, cv2.GaussianBlur(img, (0, 0), 1.2), -0.35, 0)
-        # ---- grade
-        u = (t - self.clock(shot.s["t0"])) / max(1e-6, self.clock(shot.s["t1"]) - self.clock(shot.s["t0"]))
-        img = grade(img, shot.s.get("grade", "base"),
-                    kf(shot.s.get("exposure", 0.0), u) + stops)
+        # ---- freeze frame: hold the source frame under the freeze's first frame
+        if freeze is not None:
+            i = min(max(int(round(freeze["_t"] * self.fps)) - int(round(self.clock(shot.s["t0"]) * self.fps)),
+                        0), shot.n - 1)
+        img = self.base(shot, i, t, zoom, dx, dy, rot, stops, desat)
+        # ---- two-shot transition after the cut: the outgoing shot keeps running
+        if mix is not None and prev is not None:
+            ip = fi - int(round(self.clock(prev.s["t0"]) * self.fps))
+            other = self.base(prev, ip, t, zoom, dx, dy, rot, stops, desat)
+            img = mix_shots(img, other, mix[0], mix[1], fi,
+                            np.random.default_rng(fi * 4099 + 5))
         # ---- blur fx
         if dblur > 2:
             img = dir_blur(img, dblur, dangle)
         if rblur > 0.005:
             img = zoom_blur(img, rblur)
+        if wave is not None:
+            mode, a, tt = wave
+            if mode == "ripple":
+                r = np.sqrt((self.xx - W / 2) ** 2 + (self.yy - H / 2) ** 2) + 1e-3
+                d = a * W * 0.012 * np.sin(r / (W * 0.03) - tt * 28)
+                mx, my = self.xx + d * (self.xx - W / 2) / r, self.yy + d * (self.yy - H / 2) / r
+            else:
+                mx = self.xx + a * W * 0.03 * np.sin(2 * math.pi * self.yy / (H * 0.18) + tt * 14)
+                my = self.yy
+            img = cv2.remap(img, mx.astype(np.float32), my.astype(np.float32), cv2.INTER_LINEAR,
+                            borderMode=cv2.BORDER_REFLECT)
+        if mir is not None and mir[1] > 0.05:
+            img = img * (1 - mir[1]) + mirror(img, mir[0]) * mir[1]
         if bl > 0:
             img = bloom(img, bl)
+        rng = np.random.default_rng(fi * 7919 + 13)
+        if smr > 0:
+            img = smear(img, smr, rng)
+        if blk > 0:
+            img = blocks(img, blk)
         if gl > 0:
-            rng = np.random.default_rng(fi * 7919 + 13)
             img = glitch(img, gl, rng, self.prev)
             rgb_px += gl * W * 0.01 * (1 if fi % 2 else -1)
+        if binv > 0:
+            img = box_invert(img, binv, rng, *bctr)
         if abs(rgb_px) > 0.5 or rgb_rad > 0.001:
             img = rgb_split(img, rgb_px, rgb_rad)
         if ghost > 0 and self.prev is not None:
@@ -681,13 +944,21 @@ class Renderer:
             img = img * (1 - thr) + hard * thr
         if inv > 0:
             img = img * (1 - inv) + (1 - img) * inv
+        for f, a, tt in leaks:  # screen-blended light leaks
+            lk = leak(img.shape, a, tt, int(f["_t"] * 1000) + 3, f.get("color", "white"))
+            img = 1 - (1 - np.clip(img, 0, 1)) * (1 - np.clip(lk, 0, 1))
+        if scan > 0:
+            img = scanlines(img, scan, fi)
         if dip > 0:  # exposure crash that keeps the brightest highlights
             img = np.power(np.clip(img, 0, 1), 1 + dip * 7) * (1 - 0.6 * dip)
         if flash > 0:
             img = img + (1 - img) * flash
+        if self.tl.get("halation"):
+            img = halation(img, float(self.tl["halation"]))
         for f, u in overlays:  # titles sit above the grade and the effects, under the grain
             img = self.overlay(img, f, u)
         # ---- finishing: vignette + luma-weighted grain + dither, straight to 8-bit
+        img = np.clip(img, 0, 1).astype(np.float32)
         self.prev = img
         n = self.grain_rng.standard_normal((H // 2 + 1, W // 2 + 1), dtype=np.float32)
         d = self.grain_rng.random((H, W), dtype=np.float32)
@@ -731,7 +1002,11 @@ class Renderer:
             t = fi / fps
             k = self.shot_at(fi)
             if k not in cache:
-                cache.clear()
+                # keep the outgoing shot only when a two-shot transition starts on this cut
+                t_cut = self.clock(self.shots[k]["t0"])
+                keep = any(f["type"] in MIXES and abs(f["_t"] - t_cut) < 1.5 / fps for f in self.fx)
+                for old_k in [c for c in cache if not (keep and c == k - 1)]:
+                    del cache[old_k]
                 spec = self.shots[k]
                 spec["t0"] = self.clock(spec["t0"])
                 cache[k] = Shot(spec, self.clock, W, H, fps, self.preview,
@@ -741,7 +1016,7 @@ class Renderer:
             shot = cache[k]
             i = int(round(t * fps)) - int(round(self.clock(shot.s["t0"]) * fps))
             i = min(max(i, 0), shot.n - 1)
-            img = self.frame(shot, i, t, fi)
+            img = self.frame(shot, i, t, fi, cache.get(k - 1))
             enc.stdin.write(img.tobytes())
         enc.stdin.close()
         enc.wait()

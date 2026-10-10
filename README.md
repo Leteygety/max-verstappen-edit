@@ -79,6 +79,24 @@ out of a blur and dissolve into the drop. v2 also sets the renderer's quality ke
 `frame_blend: slowmo` (whole source frames at real-time speed, no ghosting), `sharpen` (Lanczos
 upscales with adaptive sharpening), lighter grain and CRF 14 / 40 Mb/s.
 
+**Shot-to-shot logic (v3).** Both cut lists set `"transitions": "auto"`: `edit/transitions.py`
+measures every shot's first and last ~0.3 s (optical flow: pan direction, approach/zoom,
+brightness, where the subject is) and weighs every cut by the music (drop / build / silence /
+phrase / bar / beat / off-beat from `marks`, bass strength from the track). From both it picks
+the transition (whip along the shared motion, zoomtrans on approaches, smear into black after a
+fast pass, whiteout into a brighter shot or a phrase start, the 2-4 frame luma dip, scan-line
+break-up between static close-ups, two-shot band glitch / A-B strobe / boxed negative in builds,
+highlight burn-through in silences, white frame on the drop, clean cuts off the beat), avoids
+repeating itself, adds punch / shake / RGB by the weight of the hit, reframes shots without a
+fixed focus so the subject lands where the last one was, and ramps shots into the big hits. The
+builder prints the decision table; a transition named in a shot's own `fx` stays manual.
+Effects added from the reference: scan-line break-up, pixel smear, boxed negative, band mix of
+two shots, A/B strobe cut, highlight burn-through, block break-up, ripple / wave, mirrored
+panels, light flicker, light leaks, halation, freeze frames, colour flicker and radial-blur
+pulses on 1/8 notes, the cross-processed colour pop (`xpro`) and the washed teal (`faded`).
+The committed `timeline_*_16x9.json` are from v2 of the cut lists; rebuild them locally (the
+planner needs the real clips): see `edit/LOCAL_AGENT_V3.md`.
+
 A video cut list places source moments on the song's fixed beat grid
 (`[beat, source, in-point, options]`, beats are song beats such as `"b15"`); the builder checks
 every shot against the source's scene cuts (from `scan_motion.py`) and keeps the reframed window
