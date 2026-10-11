@@ -1,0 +1,1879 @@
+{
+ "fps": 30,
+ "width": 1920,
+ "height": 1080,
+ "music": "../media/music/DVRST - Close Eyes.wav",
+ "music_start": 17.5476,
+ "duration": 24.9667,
+ "fade_in": 0.02,
+ "fade_out": 0.35,
+ "grain": 0.03,
+ "loudness": -10.0,
+ "true_peak": -1.5,
+ "crf": 15,
+ "maxrate": "40M",
+ "bufsize": "80M",
+ "src_max_h": 1620,
+ "frame_blend": "slowmo",
+ "sharpen": 0.15,
+ "halation": 0.2,
+ "shots": [
+  {
+   "src": "../media/clips/teamline25__W-apW7grV1o.mkv",
+   "t0": 0.0,
+   "t1": 1.2333,
+   "in": 0.2,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.16
+    ]
+   ],
+   "grade": "cold",
+   "exposure": 0.7
+  },
+  {
+   "src": "../media/clips/teamline25__W-apW7grV1o.mkv",
+   "t0": 1.2333,
+   "t1": 1.8667,
+   "in": 3.5,
+   "focus": 0.52,
+   "zoom": [
+    [
+     0,
+     1.08
+    ],
+    [
+     1,
+     1.3
+    ]
+   ],
+   "grade": "cold",
+   "exposure": 1.3
+  },
+  {
+   "src": "../media/clips/teamline25__W-apW7grV1o.mkv",
+   "t0": 1.8667,
+   "t1": 2.2,
+   "in": 7.34,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.12
+    ]
+   ],
+   "grade": "cold",
+   "exposure": 0.7
+  },
+  {
+   "src": "../media/clips/helmet25__ju2osEGjR6g.mkv",
+   "t0": 2.2,
+   "t1": 2.5,
+   "in": 1.54,
+   "focus": 0.476,
+   "zoom": [
+    [
+     0,
+     1.05
+    ],
+    [
+     1,
+     1.12
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 2.5,
+   "t1": 3.1333,
+   "in": 302.0,
+   "speed": [
+    [
+     0,
+     0.55
+    ],
+    [
+     0.3,
+     1.2
+    ],
+    [
+     1,
+     1.0
+    ]
+   ],
+   "focus": 0.56,
+   "zoom": [
+    [
+     0,
+     1.22
+    ],
+    [
+     1,
+     1.336
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rb_car_4k__vxysg1Qptqc.mkv",
+   "t0": 3.1333,
+   "t1": 3.4333,
+   "in": 72.85,
+   "speed": 1.4,
+   "mblur": 1.2,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.1
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 3.4333,
+   "t1": 3.7333,
+   "in": 300.7,
+   "focus": 0.56,
+   "zoom": 1.22,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 3.7333,
+   "t1": 4.3667,
+   "in": 429.0,
+   "speed": 1.2,
+   "focus": 0.56,
+   "zoom": 1.22,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/abudhabi21__MTe12fH2xtQ.mkv",
+   "t0": 4.3667,
+   "t1": 4.6667,
+   "in": 2.95,
+   "focus": 0.59,
+   "fy": 0.3,
+   "zoom": 1.22,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 4.6667,
+   "t1": 5.0,
+   "in": 307.0,
+   "focus": 0.56,
+   "zoom": 1.22,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 5.0,
+   "t1": 5.6,
+   "in": 933.0,
+   "focus": 0.56,
+   "fy": 0.62,
+   "zoom": 1.22,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/zandvoort21_win__i5z2ydjQJEQ.mp4",
+   "t0": 5.6,
+   "t1": 5.9333,
+   "in": 6.2,
+   "focus": 0.59,
+   "fy": 0.3,
+   "zoom": 1.22,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rb_car_4k__vxysg1Qptqc.mkv",
+   "t0": 5.9333,
+   "t1": 6.2333,
+   "in": 76.55,
+   "speed": 1.5,
+   "focus": 0.524,
+   "zoom": [
+    [
+     0,
+     1.05
+    ],
+    [
+     1,
+     1.15
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 6.2333,
+   "t1": 6.8667,
+   "in": 443.3,
+   "focus": 0.56,
+   "zoom": [
+    [
+     0,
+     1.22
+    ],
+    [
+     1,
+     1.336
+    ]
+   ],
+   "grade": "cold",
+   "exposure": 0.05
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 6.8667,
+   "t1": 7.1667,
+   "in": 891.2,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.08
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/helmet25__ju2osEGjR6g.mkv",
+   "t0": 7.1667,
+   "t1": 7.5,
+   "in": 34.05,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.18
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 7.5,
+   "t1": 8.4333,
+   "in": 1105.2,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.12
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 8.4333,
+   "t1": 8.7333,
+   "in": 952.2,
+   "focus": 0.56,
+   "zoom": 1.22,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 8.7333,
+   "t1": 9.3667,
+   "in": 950.5,
+   "focus": 0.56,
+   "zoom": [
+    [
+     0,
+     1.22
+    ],
+    [
+     1,
+     1.342
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 9.3667,
+   "t1": 10.0,
+   "in": 947.4,
+   "focus": 0.524,
+   "zoom": 1.05,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/zandvoort21_win__i5z2ydjQJEQ.mp4",
+   "t0": 10.0,
+   "t1": 10.6,
+   "in": 29.6,
+   "focus": 0.615,
+   "fy": 0.3,
+   "zoom": [
+    [
+     0,
+     1.3
+    ],
+    [
+     1,
+     1.4
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/teamline25__W-apW7grV1o.mkv",
+   "t0": 10.6,
+   "t1": 10.9333,
+   "in": 8.07,
+   "focus": 0.476,
+   "zoom": [
+    [
+     0,
+     1.05
+    ],
+    [
+     1,
+     1.25
+    ]
+   ],
+   "grade": "cold",
+   "exposure": 1.3
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 10.9333,
+   "t1": 11.2333,
+   "in": 945.85,
+   "focus": 0.56,
+   "zoom": 1.22,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/zandvoort21_win__i5z2ydjQJEQ.mp4",
+   "t0": 11.2333,
+   "t1": 11.8667,
+   "in": 24.3,
+   "focus": 0.528,
+   "fy": 0.3,
+   "zoom": 1.22,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 11.8667,
+   "t1": 12.4667,
+   "in": 954.55,
+   "speed": [
+    [
+     0,
+     1.0
+    ],
+    [
+     0.5,
+     1.5
+    ],
+    [
+     0.78,
+     1.5
+    ],
+    [
+     1,
+     0.45
+    ]
+   ],
+   "mblur": 1.2,
+   "focus": 0.56,
+   "zoom": [
+    [
+     0,
+     1.22
+    ],
+    [
+     1,
+     1.342
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/zandvoort21_win__i5z2ydjQJEQ.mp4",
+   "t0": 12.4667,
+   "t1": 13.1,
+   "in": 40.5,
+   "focus": 0.59,
+   "fy": 0.3,
+   "zoom": 1.22,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/zandvoort23_fans__qwlVVbjmbUo.mkv",
+   "t0": 13.1,
+   "t1": 13.4,
+   "in": 16.55,
+   "focus": 0.524,
+   "zoom": 1.05,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 13.4,
+   "t1": 13.7333,
+   "in": 740.1,
+   "focus": 0.56,
+   "zoom": 1.22,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/zandvoort21_win__i5z2ydjQJEQ.mp4",
+   "t0": 13.7333,
+   "t1": 14.3667,
+   "in": 33.4,
+   "focus": 0.583,
+   "fy": 0.3,
+   "zoom": [
+    [
+     0,
+     1.2
+    ],
+    [
+     1,
+     1.28
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 14.3667,
+   "t1": 14.9667,
+   "in": 973.0,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.1
+    ]
+   ],
+   "grade": "xpro"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 14.9667,
+   "t1": 15.6,
+   "in": 1020.0,
+   "focus": 0.476,
+   "zoom": 1.05,
+   "exposure": 0.35,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/zandvoort23_fans__qwlVVbjmbUo.mkv",
+   "t0": 15.6,
+   "t1": 16.2333,
+   "in": 22.4,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.1
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 16.2333,
+   "t1": 16.8333,
+   "in": 1110.0,
+   "focus": 0.524,
+   "zoom": 1.05,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 16.8333,
+   "t1": 17.1667,
+   "in": 976.0,
+   "focus": 0.51,
+   "zoom": 1.05,
+   "exposure": 0.35,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 17.1667,
+   "t1": 17.4667,
+   "in": 742.1,
+   "focus": 0.56,
+   "zoom": 1.22,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 17.4667,
+   "t1": 18.1,
+   "in": 930.0,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.1
+    ]
+   ],
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/zandvoort23_fans__qwlVVbjmbUo.mkv",
+   "t0": 18.1,
+   "t1": 18.7333,
+   "in": 30.2,
+   "focus": 0.524,
+   "zoom": 1.05,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/zandvoort21_win__i5z2ydjQJEQ.mp4",
+   "t0": 18.7333,
+   "t1": 19.3333,
+   "in": 68.3,
+   "focus": 0.589,
+   "fy": 0.3,
+   "zoom": 1.22,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 19.3333,
+   "t1": 19.9667,
+   "in": 1114.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.2
+    ]
+   ],
+   "exposure": 0.4,
+   "grade": "base"
+  },
+  {
+   "src": "../media/clips/teamline25__W-apW7grV1o.mkv",
+   "t0": 19.9667,
+   "t1": 21.2,
+   "in": 17.55,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.45
+    ]
+   ],
+   "grade": "cold",
+   "exposure": 1.3
+  },
+  {
+   "src": "../media/clips/teamline25__W-apW7grV1o.mkv",
+   "t0": 21.2,
+   "t1": 21.8333,
+   "in": 11.0,
+   "focus": 0.476,
+   "zoom": [
+    [
+     0,
+     1.05
+    ],
+    [
+     1,
+     1.25
+    ]
+   ],
+   "grade": "cold",
+   "exposure": 1.2
+  },
+  {
+   "src": "../media/clips/helmet25__ju2osEGjR6g.mkv",
+   "t0": 21.8333,
+   "t1": 22.4667,
+   "in": 54.75,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.22
+    ]
+   ],
+   "grade": "cold",
+   "exposure": 0.3
+  },
+  {
+   "src": "../media/clips/helmet25__ju2osEGjR6g.mkv",
+   "t0": 22.4667,
+   "t1": 22.7667,
+   "in": 0.8,
+   "focus": 0.476,
+   "zoom": [
+    [
+     0,
+     1.05
+    ],
+    [
+     1,
+     1.15
+    ]
+   ],
+   "grade": "bw"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 22.7667,
+   "t1": 23.1,
+   "in": 162.3,
+   "focus": 0.524,
+   "zoom": 1.05,
+   "grade": "bw",
+   "exposure": 0.65
+  },
+  {
+   "src": "../media/clips/zandvoort23_fans__qwlVVbjmbUo.mkv",
+   "t0": 23.1,
+   "t1": 23.7,
+   "in": 9.5,
+   "zoom": [
+    [
+     0,
+     1.0
+    ],
+    [
+     1,
+     1.1
+    ]
+   ],
+   "grade": "bw"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 23.7,
+   "t1": 24.0333,
+   "in": 935.0,
+   "focus": 0.524,
+   "zoom": 1.05,
+   "grade": "bw"
+  },
+  {
+   "src": "../media/clips/rbr_journey__NBto2iPKc_A.mp4",
+   "t0": 24.0333,
+   "t1": 24.3333,
+   "in": 1021.0,
+   "focus": 0.524,
+   "zoom": 1.05,
+   "grade": "bw",
+   "exposure": 0.35
+  },
+  {
+   "src": "../media/clips/teamline25__W-apW7grV1o.mkv",
+   "t0": 24.3333,
+   "t1": 24.9667,
+   "in": 4.3,
+   "focus": 0.52,
+   "zoom": [
+    [
+     0,
+     1.1
+    ],
+    [
+     1,
+     1.35
+    ]
+   ],
+   "grade": "bw",
+   "exposure": 1.3
+  }
+ ],
+ "fx": [
+  {
+   "type": "exposure",
+   "t": 0.0,
+   "dur": 0.35,
+   "amt": -4.0,
+   "env": "out"
+  },
+  {
+   "type": "letterbox",
+   "t": 0.0,
+   "amt": 1.0,
+   "env": "in",
+   "dur": 0.312
+  },
+  {
+   "type": "letterbox",
+   "t": 0.312,
+   "amt": 1.0,
+   "env": "hold",
+   "dur": 2.028
+  },
+  {
+   "type": "dip",
+   "t": 1.1667,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "dip",
+   "t": 1.8667,
+   "dur": 0.0667,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "strobe",
+   "t": 2.184,
+   "amt": 0.6,
+   "period": 1,
+   "env": "hold",
+   "dur": 0.312
+  },
+  {
+   "type": "rgb",
+   "t": 2.2,
+   "dur": 0.25,
+   "amt": 0.8,
+   "jitter": true
+  },
+  {
+   "type": "letterbox",
+   "t": 2.34,
+   "amt": 1.0,
+   "env": "out",
+   "dur": 0.156
+  },
+  {
+   "type": "rgb",
+   "t": 2.34,
+   "amt": 1.0,
+   "jitter": true,
+   "env": "hold",
+   "dur": 0.156
+  },
+  {
+   "type": "zoomtrans",
+   "t": 2.38,
+   "dur": 0.24,
+   "amt": 1.0
+  },
+  {
+   "type": "shake",
+   "t": 2.496,
+   "amt": 0.12,
+   "freq": 0.8,
+   "env": "hold",
+   "dur": 17.472
+  },
+  {
+   "type": "flash",
+   "t": 2.5,
+   "dur": 0.16,
+   "amt": 1.0,
+   "env": "decay"
+  },
+  {
+   "type": "bloom",
+   "t": 2.5,
+   "dur": 0.6,
+   "amt": 0.6,
+   "env": "decay"
+  },
+  {
+   "type": "punch",
+   "t": 2.5,
+   "dur": 0.3,
+   "amt": 1.0,
+   "env": "decay"
+  },
+  {
+   "type": "shake",
+   "t": 2.5,
+   "dur": 0.6333,
+   "amt": 1.0,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "rgb",
+   "t": 2.5,
+   "dur": 0.25,
+   "amt": 1.0,
+   "jitter": true
+  },
+  {
+   "type": "zoomtrans",
+   "t": 3.0133,
+   "dur": 0.24,
+   "amt": 0.81
+  },
+  {
+   "type": "shake",
+   "t": 3.1333,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "invert",
+   "t": 3.588,
+   "dur": 0.067,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "dip",
+   "t": 3.6667,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "invert",
+   "amt": 1.0,
+   "env": "hold",
+   "t": 4.05,
+   "dur": 0.3167
+  },
+  {
+   "type": "invert",
+   "t": 4.056,
+   "dur": 0.067,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "scanline",
+   "t": 4.2367,
+   "dur": 0.13,
+   "amt": 1.0,
+   "env": "in"
+  },
+  {
+   "type": "scanline",
+   "t": 4.3667,
+   "dur": 0.1,
+   "amt": 1.0,
+   "env": "out"
+  },
+  {
+   "type": "shake",
+   "t": 4.3667,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "spin",
+   "t": 4.5467,
+   "dur": 0.24,
+   "amt": 1.0,
+   "dir": 1
+  },
+  {
+   "type": "dip",
+   "t": 4.9333,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "shake",
+   "t": 5.0,
+   "dur": 0.6,
+   "amt": 0.4,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "punch",
+   "t": 5.0,
+   "dur": 0.3,
+   "amt": 0.4,
+   "env": "decay"
+  },
+  {
+   "type": "invert",
+   "t": 5.304,
+   "dur": 0.067,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "dip",
+   "t": 5.5333,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "invert",
+   "t": 5.6,
+   "dur": 0.3333,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "shake",
+   "t": 5.6,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "flash",
+   "t": 6.084,
+   "dur": 0.067,
+   "amt": 0.6,
+   "env": "decay"
+  },
+  {
+   "type": "exposure",
+   "t": 6.0983,
+   "dur": 0.135,
+   "amt": 1.7,
+   "env": "in"
+  },
+  {
+   "type": "bloom",
+   "t": 6.0983,
+   "dur": 0.135,
+   "amt": 0.8,
+   "env": "in"
+  },
+  {
+   "type": "leak",
+   "t": 6.0983,
+   "dur": 0.315,
+   "amt": 0.45,
+   "env": "tri",
+   "color": "white"
+  },
+  {
+   "type": "exposure",
+   "t": 6.2333,
+   "dur": 0.18,
+   "amt": 1.5,
+   "env": "out"
+  },
+  {
+   "type": "bloom",
+   "t": 6.2333,
+   "dur": 0.288,
+   "amt": 0.7,
+   "env": "out"
+  },
+  {
+   "type": "invert",
+   "t": 6.552,
+   "dur": 0.067,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "dip",
+   "t": 6.8,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "shake",
+   "t": 6.8667,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "zoomtrans",
+   "t": 7.0467,
+   "dur": 0.24,
+   "amt": 0.86
+  },
+  {
+   "type": "rgb",
+   "t": 7.1667,
+   "dur": 0.25,
+   "amt": 1.0,
+   "jitter": true
+  },
+  {
+   "type": "strobe",
+   "t": 7.176,
+   "amt": 0.6,
+   "period": 1,
+   "env": "hold",
+   "dur": 0.312
+  },
+  {
+   "type": "flash",
+   "t": 7.5,
+   "dur": 0.16,
+   "amt": 0.6,
+   "env": "decay"
+  },
+  {
+   "type": "bloom",
+   "t": 7.5,
+   "dur": 0.6,
+   "amt": 0.6,
+   "env": "decay"
+  },
+  {
+   "type": "shake",
+   "t": 7.5,
+   "dur": 0.9333,
+   "amt": 0.5,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "punch",
+   "t": 7.5,
+   "dur": 0.3,
+   "amt": 0.7,
+   "env": "decay"
+  },
+  {
+   "type": "exposure",
+   "t": 8.1333,
+   "dur": 0.3,
+   "amt": 1.8,
+   "env": "in"
+  },
+  {
+   "type": "bloom",
+   "t": 8.1333,
+   "dur": 0.3,
+   "amt": 0.85,
+   "env": "in"
+  },
+  {
+   "type": "leak",
+   "t": 8.1333,
+   "dur": 0.3,
+   "amt": 0.4,
+   "env": "in",
+   "color": "white"
+  },
+  {
+   "type": "dip",
+   "t": 8.6667,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "echo",
+   "t": 8.7333,
+   "dur": 0.6333,
+   "amt": 0.5,
+   "env": "hold"
+  },
+  {
+   "type": "shake",
+   "t": 8.7333,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "flash",
+   "t": 8.736,
+   "dur": 0.067,
+   "amt": 0.5,
+   "env": "decay"
+  },
+  {
+   "type": "scanline",
+   "t": 9.2367,
+   "dur": 0.13,
+   "amt": 1.0,
+   "env": "in"
+  },
+  {
+   "type": "scanline",
+   "t": 9.3667,
+   "dur": 0.1,
+   "amt": 1.0,
+   "env": "out"
+  },
+  {
+   "type": "shake",
+   "t": 9.3667,
+   "dur": 0.6333,
+   "amt": 0.4,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "invert",
+   "t": 9.672,
+   "dur": 0.067,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "dip",
+   "t": 9.9333,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "flash",
+   "t": 9.984,
+   "dur": 0.067,
+   "amt": 0.5,
+   "env": "decay"
+  },
+  {
+   "type": "punch",
+   "t": 10.0,
+   "dur": 0.3,
+   "amt": 0.6,
+   "env": "decay"
+  },
+  {
+   "type": "shake",
+   "t": 10.0,
+   "dur": 0.3,
+   "amt": 0.45,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "zoomtrans",
+   "t": 10.48,
+   "dur": 0.24,
+   "amt": 0.86
+  },
+  {
+   "type": "shake",
+   "t": 10.6,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "rgb",
+   "t": 10.9333,
+   "dur": 0.25,
+   "amt": 1.0,
+   "jitter": true
+  },
+  {
+   "type": "split",
+   "t": 11.2333,
+   "dur": 0.35,
+   "amt": 1.0,
+   "mode": "slide",
+   "env": "hold"
+  },
+  {
+   "type": "split",
+   "t": 11.5833,
+   "dur": 0.12,
+   "amt": 1.0,
+   "env": "out"
+  },
+  {
+   "type": "dip",
+   "t": 11.8,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "bloom",
+   "t": 11.8667,
+   "dur": 0.6,
+   "amt": 0.4,
+   "env": "decay"
+  },
+  {
+   "type": "invert",
+   "t": 12.168,
+   "dur": 0.067,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "flash",
+   "t": 12.4667,
+   "dur": 0.16,
+   "amt": 0.8,
+   "env": "decay"
+  },
+  {
+   "type": "bloom",
+   "t": 12.4667,
+   "dur": 0.6,
+   "amt": 0.6,
+   "env": "decay"
+  },
+  {
+   "type": "punch",
+   "t": 12.4667,
+   "dur": 0.3,
+   "amt": 0.8,
+   "env": "decay"
+  },
+  {
+   "type": "shake",
+   "t": 12.4667,
+   "dur": 0.6333,
+   "amt": 0.7,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "scanline",
+   "t": 12.97,
+   "dur": 0.13,
+   "amt": 1.0,
+   "env": "in"
+  },
+  {
+   "type": "scanline",
+   "t": 13.1,
+   "dur": 0.1,
+   "amt": 1.0,
+   "env": "out"
+  },
+  {
+   "type": "shake",
+   "t": 13.1,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "dip",
+   "t": 13.6667,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "leak",
+   "t": 13.7333,
+   "dur": 0.6333,
+   "amt": 0.5,
+   "env": "tri",
+   "color": "warm"
+  },
+  {
+   "type": "invert",
+   "t": 14.04,
+   "dur": 0.067,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "exposure",
+   "t": 14.1467,
+   "dur": 0.22,
+   "amt": 1.7,
+   "env": "in"
+  },
+  {
+   "type": "bloom",
+   "t": 14.1467,
+   "dur": 0.22,
+   "amt": 0.8,
+   "env": "in"
+  },
+  {
+   "type": "leak",
+   "t": 14.1467,
+   "dur": 0.4,
+   "amt": 0.45,
+   "env": "tri",
+   "color": "white"
+  },
+  {
+   "type": "exposure",
+   "t": 14.3667,
+   "dur": 0.18,
+   "amt": 1.5,
+   "env": "out"
+  },
+  {
+   "type": "bloom",
+   "t": 14.3667,
+   "dur": 0.288,
+   "amt": 0.7,
+   "env": "out"
+  },
+  {
+   "type": "punch",
+   "t": 14.3667,
+   "dur": 0.3,
+   "amt": 0.6,
+   "env": "decay"
+  },
+  {
+   "type": "rgb",
+   "t": 14.3667,
+   "dur": 0.25,
+   "amt": 1.0,
+   "jitter": true
+  },
+  {
+   "type": "freeze",
+   "t": 14.3667,
+   "dur": 0.1,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "shake",
+   "t": 14.3667,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "dip",
+   "t": 14.9,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "shake",
+   "t": 14.9667,
+   "dur": 0.6333,
+   "amt": 0.4,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "punch",
+   "t": 14.9667,
+   "dur": 0.3,
+   "amt": 0.4,
+   "env": "decay"
+  },
+  {
+   "type": "invert",
+   "t": 15.288,
+   "dur": 0.067,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "scanline",
+   "t": 15.47,
+   "dur": 0.13,
+   "amt": 1.0,
+   "env": "in"
+  },
+  {
+   "type": "scanline",
+   "t": 15.6,
+   "dur": 0.1,
+   "amt": 1.0,
+   "env": "out"
+  },
+  {
+   "type": "shake",
+   "t": 15.6,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "flash",
+   "t": 15.912,
+   "dur": 0.067,
+   "amt": 0.5,
+   "env": "decay"
+  },
+  {
+   "type": "dip",
+   "t": 16.1667,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "bloom",
+   "t": 16.2333,
+   "dur": 0.6,
+   "amt": 0.4,
+   "env": "decay"
+  },
+  {
+   "type": "invert",
+   "t": 16.536,
+   "dur": 0.067,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "dip",
+   "t": 16.7667,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "shake",
+   "t": 16.8333,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "strobe",
+   "t": 17.16,
+   "amt": 0.6,
+   "period": 1,
+   "env": "hold",
+   "dur": 0.312
+  },
+  {
+   "type": "glitch",
+   "t": 17.3467,
+   "dur": 0.12,
+   "amt": 0.8,
+   "env": "hold"
+  },
+  {
+   "type": "rgb",
+   "t": 17.3467,
+   "dur": 0.12,
+   "amt": 1.0,
+   "jitter": true,
+   "env": "hold"
+  },
+  {
+   "type": "duotone",
+   "t": 17.4667,
+   "dur": 0.6333,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "punch",
+   "t": 17.4667,
+   "dur": 0.3,
+   "amt": 0.7,
+   "env": "decay"
+  },
+  {
+   "type": "shake",
+   "t": 17.4667,
+   "dur": 0.6333,
+   "amt": 0.6,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "flash",
+   "t": 17.472,
+   "dur": 0.1,
+   "amt": 0.5,
+   "env": "decay"
+  },
+  {
+   "type": "dip",
+   "t": 18.0333,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "duotone",
+   "t": 18.1,
+   "dur": 0.6333,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "chromadelay",
+   "t": 18.1,
+   "dur": 0.6333,
+   "amt": 0.8,
+   "env": "hold"
+  },
+  {
+   "type": "shake",
+   "t": 18.1,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "invert",
+   "t": 18.408,
+   "dur": 0.067,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "scanline",
+   "t": 18.6033,
+   "dur": 0.13,
+   "amt": 1.0,
+   "env": "in"
+  },
+  {
+   "type": "scanline",
+   "t": 18.7333,
+   "dur": 0.1,
+   "amt": 1.0,
+   "env": "out"
+  },
+  {
+   "type": "duotone",
+   "t": 18.7333,
+   "dur": 0.6,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "invert",
+   "t": 19.032,
+   "dur": 0.067,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "dip",
+   "t": 19.2667,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "duotone",
+   "t": 19.3333,
+   "dur": 0.6333,
+   "amt": 0.85,
+   "env": "hold"
+  },
+  {
+   "type": "shake",
+   "t": 19.3333,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "lumamix",
+   "t": 19.9667,
+   "dur": 0.5,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "echo",
+   "t": 19.9667,
+   "dur": 1.2333,
+   "amt": 0.7,
+   "env": "hold"
+  },
+  {
+   "type": "chromadelay",
+   "t": 19.9667,
+   "dur": 1.2333,
+   "amt": 0.6,
+   "env": "hold"
+  },
+  {
+   "type": "letterbox",
+   "t": 19.968,
+   "amt": 1.0,
+   "env": "in",
+   "dur": 0.312
+  },
+  {
+   "type": "letterbox",
+   "t": 20.28,
+   "amt": 1.0,
+   "env": "hold",
+   "dur": 2.028
+  },
+  {
+   "type": "dip",
+   "t": 21.1333,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "split",
+   "t": 21.2,
+   "dur": 0.6333,
+   "amt": 1.0,
+   "mode": "3",
+   "env": "hold"
+  },
+  {
+   "type": "lumamix",
+   "t": 21.8333,
+   "dur": 0.38,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "strobe",
+   "t": 22.152,
+   "amt": 0.7,
+   "period": 1,
+   "env": "hold",
+   "dur": 0.312
+  },
+  {
+   "type": "letterbox",
+   "t": 22.308,
+   "amt": 1.0,
+   "env": "out",
+   "dur": 0.156
+  },
+  {
+   "type": "glitch",
+   "t": 22.308,
+   "amt": 0.6,
+   "env": "hold",
+   "dur": 0.156
+  },
+  {
+   "type": "rgb",
+   "t": 22.308,
+   "amt": 1.0,
+   "jitter": true,
+   "env": "hold",
+   "dur": 0.156
+  },
+  {
+   "type": "spin",
+   "t": 22.3467,
+   "dur": 0.24,
+   "amt": 1.0,
+   "dir": -1
+  },
+  {
+   "type": "shake",
+   "t": 22.464,
+   "amt": 0.2,
+   "freq": 0.8,
+   "env": "hold",
+   "dur": 2.496
+  },
+  {
+   "type": "flash",
+   "t": 22.4667,
+   "dur": 0.16,
+   "amt": 1.0,
+   "env": "decay"
+  },
+  {
+   "type": "bloom",
+   "t": 22.4667,
+   "dur": 0.3,
+   "amt": 0.6,
+   "env": "decay"
+  },
+  {
+   "type": "punch",
+   "t": 22.4667,
+   "dur": 0.3,
+   "amt": 1.0,
+   "env": "decay"
+  },
+  {
+   "type": "shake",
+   "t": 22.4667,
+   "dur": 0.3,
+   "amt": 0.9,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "rgb",
+   "t": 22.4667,
+   "dur": 0.25,
+   "amt": 1.0,
+   "jitter": true
+  },
+  {
+   "type": "exposure",
+   "t": 22.95,
+   "dur": 0.15,
+   "amt": 1.7,
+   "env": "in"
+  },
+  {
+   "type": "bloom",
+   "t": 22.95,
+   "dur": 0.15,
+   "amt": 0.8,
+   "env": "in"
+  },
+  {
+   "type": "leak",
+   "t": 22.95,
+   "dur": 0.33,
+   "amt": 0.45,
+   "env": "tri",
+   "color": "white"
+  },
+  {
+   "type": "exposure",
+   "t": 23.1,
+   "dur": 0.18,
+   "amt": 1.5,
+   "env": "out"
+  },
+  {
+   "type": "bloom",
+   "t": 23.1,
+   "dur": 0.288,
+   "amt": 0.7,
+   "env": "out"
+  },
+  {
+   "type": "zoomblur",
+   "t": 23.1,
+   "dur": 0.6,
+   "amt": 0.9,
+   "env": "hold",
+   "pulse": 0.312
+  },
+  {
+   "type": "shake",
+   "t": 23.1,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "invert",
+   "t": 23.4,
+   "dur": 0.067,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "dip",
+   "t": 23.6333,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "mirror",
+   "t": 23.7,
+   "dur": 0.1,
+   "amt": 1.0,
+   "mode": "tri",
+   "env": "hold"
+  },
+  {
+   "type": "flash",
+   "t": 23.712,
+   "dur": 0.08,
+   "amt": 0.5,
+   "env": "decay"
+  },
+  {
+   "type": "flicker",
+   "t": 24.0333,
+   "dur": 0.3,
+   "amt": 0.6,
+   "env": "hold"
+  },
+  {
+   "type": "dip",
+   "t": 24.2667,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
+   "type": "shake",
+   "t": 24.3333,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "invert",
+   "t": 24.648,
+   "dur": 0.067,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "exposure",
+   "t": 24.6667,
+   "dur": 0.3,
+   "amt": -5.0,
+   "env": "in"
+  }
+ ]
+}

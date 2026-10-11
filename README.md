@@ -103,6 +103,17 @@ every shot against the source's scene cuts (from `scan_motion.py`) and keeps the
 clear of burned-in broadcast graphics (`keepout` boxes). `render.py --no-fx` renders without the
 effect list, which `verify_render.py` uses to confirm every cut sits on its beat frame.
 
+### v4: DVRST - Close Eyes, new footage
+
+`edit/cuts_video/v4.json` is a separate edit on a new track (96.15 BPM, b28 -> b68, 25 s) cut
+mostly from new sources (Oracle Red Bull Racing's 4K season film, Max's 2025 teamline and helmet
+films, Zandvoort 2021 / 2023) with a different structure: letterboxed cold open on Max -> drop
+into cars -> Max in the cockpit -> celebration -> Red Bull duotone phrase -> pause -> second drop,
+black-and-white finale. It adds six effects to `render.py` and macros to the builder: `spin`
+(roll through a cut), `splitcut` / `split` (three panels), `letterbox`, `echo` (light trails),
+`duotone` (navy -> red -> yellow) and `chromadelay` (red channel one frame late). Broadcast
+F1 bugs in the archive race clips of the film are kept out per shot (`keepout` on the shot).
+
 ## TikTok cover
 
 `edit/cover/cover.html` is the 1080x1920 layout (title, years, light streaks); behind it sits

@@ -51,7 +51,7 @@ AW = 192            # analysis width
 # transition macros a shot's own fx list may already name (manual override)
 MANUAL = {"dip", "black", "whip", "zoomtrans", "whiteout", "flash", "flashcut",
           "scanline", "smeardip", "bandmix", "strobecut", "lumamix", "crossfade",
-          "boxinvert", "cut", "fadein"}
+          "boxinvert", "cut", "fadein", "spin", "splitcut"}
 # tail macros on the outgoing shot already shape the cut out of it
 TAIL = {"white", "fadeout", "glitchend", "smearend", "blocksend"}
 

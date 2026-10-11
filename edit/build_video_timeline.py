@@ -108,6 +108,24 @@ def fx_macro(kind, amt, t0, t1, fps, pd=None, p=None):
         return [dict(type="boxinvert", t=t0, dur=w, amt=1.0, env="hold",
                      cx=p.get("cx", 0.5), cy=p.get("cy", 0.5)),
                 dict(type="smear", t=t0, dur=w, amt=0.6, env="hold")]
+    if kind == "spin":  # roll through the cut (amt = strength, sign = direction)
+        a = amt or 1.0
+        return [dict(type="spin", t=t0 - 0.12, dur=0.24, amt=abs(a), dir=1 if a > 0 else -1)]
+    if kind == "splitcut":  # the incoming shot arrives as three sliding panels
+        w = min(0.35, 0.7 * d)
+        return [dict(type="split", t=t0, dur=w, amt=1.0, mode="slide", env="hold"),
+                dict(type="split", t=t0 + w, dur=min(0.12, d - w) if d > w else 0.03, amt=1.0, env="out")]
+    if kind == "split":  # three-panel look over the whole shot
+        return [dict(type="split", t=t0, dur=d, amt=amt or 1.0, mode="3", env="hold")]
+    if kind == "letterbox":  # bars close in at the start and hold
+        return [dict(type="letterbox", t=t0, dur=min(0.25, d), amt=amt or 1.0, env="in"),
+                dict(type="letterbox", t=t0 + min(0.25, d), dur=max(0.0, d - min(0.25, d)), amt=amt or 1.0, env="hold")]
+    if kind == "echo":
+        return [dict(type="echo", t=t0, dur=d, amt=amt or 0.8, env="hold")]
+    if kind == "duotone":
+        return [dict(type="duotone", t=t0, dur=d, amt=amt or 1.0, env="hold")]
+    if kind == "chromadelay":
+        return [dict(type="chromadelay", t=t0, dur=d, amt=amt or 1.0, env="hold")]
     if kind == "shakehit":  # short hit on a bar line (lighter than "shake")
         return [dict(type="shake", t=t0, dur=min(0.3, d), amt=amt or 0.3, freq=1.8, env="decay")]
     # ---- looks inside a shot

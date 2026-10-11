@@ -580,6 +580,48 @@ def halation(img, amt):
     return img + glow * np.float32((1.0, 0.32, 0.12)) * amt
 
 
+def split_panels(img, amt, u, mode="3"):
+    """Three panels of the same frame (each re-centred on the middle third), black
+    gutters; the side panels slide in from the edges and sit slightly darker."""
+    H, W = img.shape[:2]
+    w3 = W // 3
+    c = img[:, w3:2 * w3]
+    gut = max(2, W // 320)
+    out = np.zeros_like(img)
+    slide = (1 - smooth(min(1.0, u * 2.5))) * w3 if mode == "slide" else 0.0
+    for k, (x0, dark) in enumerate(((0, 0.7), (w3, 1.0), (2 * w3, 0.7))):
+        panel = c * dark
+        off = int(-slide if k == 0 else slide if k == 2 else 0)
+        xa, xb = max(0, x0 + off), min(W, x0 + off + w3)
+        if xb > xa:
+            out[:, xa:xb] = panel[:, xa - (x0 + off):xb - (x0 + off)]
+    out[:, w3 - gut:w3 + gut] = 0
+    out[:, 2 * w3 - gut:2 * w3 + gut] = 0
+    return img * (1 - amt) + out * amt
+
+
+def letterbox(img, amt):
+    """Cinema bars closing in (amt 1 = 2.39:1 inside the 16:9 frame)."""
+    H = img.shape[0]
+    bar = int(round(H * 0.128 * amt))
+    if bar > 0:
+        img = img.copy()
+        img[:bar] = 0
+        img[H - bar:] = 0
+    return img
+
+
+def duotone(img, amt, lo=(0.02, 0.03, 0.12), mid=(0.85, 0.08, 0.16), hi=(1.0, 0.86, 0.32)):
+    """Map luma onto navy -> Red Bull red -> yellow-white."""
+    y = np.clip(img @ np.float32([0.2126, 0.7152, 0.0722]), 0, 1)[..., None]
+    lo, mid, hi = (np.float32(c) for c in (lo, mid, hi))
+    a = np.clip(y * 2, 0, 1)
+    b = np.clip(y * 2 - 1, 0, 1)
+    tone = lo * (1 - a) + mid * a
+    tone = tone * (1 - b) + hi * b
+    return img * (1 - amt) + tone * amt
+
+
 def post_grade(img, g):
     """Grade steps the per-pixel kernel does not do: lifted (faded) blacks and the
     cross-processed look (reds -> pink, yellows/greens -> cyan) of the colour pop."""
@@ -700,6 +742,7 @@ class Renderer:
         self.vignette = (1 - np.clip((r - 0.35) * 0.9, 0, 0.45))[..., None].astype(np.float32)
         self.yy, self.xx = yy, xx  # pixel grids for wave / ripple remaps
         self.prev = None
+        self.echo_buf = None
         self.layers = {}
         self.grain_rng = np.random.default_rng(7)
 
@@ -802,6 +845,8 @@ class Renderer:
         scan = smr = binv = blk = desat = 0.0
         bctr = (0.5, 0.5)
         wave = mir = freeze = mix = None
+        split = None
+        lbox = echo = duo = cdel = 0.0
         leaks = []
         act = list(self.active(t))
         overlays = []
@@ -821,6 +866,15 @@ class Renderer:
                 rot += noise1(tt, seed + 2) * a * 1.8
                 zoom *= 1 + amp * 2.2
                 dblur = max(dblur, a * W * 0.02)
+            elif typ == "spin":
+                # roll through the cut: the outgoing frame spins away, the incoming
+                # one spins in from the other side, zoomed and radially blurred
+                v = (u / 0.5) if u < 0.5 else ((1 - u) / 0.5)
+                amt = f.get("amt", 1.0)
+                sgn = f.get("dir", 1)
+                rot += sgn * v ** 2.2 * amt * 55 * (1 if u < 0.5 else -1)
+                zoom *= 1 + v ** 2 * amt * 0.35
+                rblur = max(rblur, v ** 2 * amt * 0.25)
             elif typ in ("whip", "zoomtrans"):
                 # centred on a cut: outgoing accelerates away, incoming settles in
                 v = (u / 0.5) if u < 0.5 else ((1 - u) / 0.5)
@@ -893,6 +947,16 @@ class Renderer:
                 mix = (typ, u, f)
             elif typ == "overlay":
                 overlays.append((f, u))
+            elif typ == "split":
+                split = (a, u, f.get("mode", "3"))
+            elif typ == "letterbox":
+                lbox = max(lbox, a)
+            elif typ == "echo":
+                echo = max(echo, a)
+            elif typ == "duotone":
+                duo = max(duo, a)
+            elif typ == "chromadelay":
+                cdel = max(cdel, a)
         # ---- freeze frame: hold the source frame under the freeze's first frame
         if freeze is not None:
             i = min(max(int(round(freeze["_t"] * self.fps)) - int(round(self.clock(shot.s["t0"]) * self.fps)),
@@ -922,6 +986,10 @@ class Renderer:
                             borderMode=cv2.BORDER_REFLECT)
         if mir is not None and mir[1] > 0.05:
             img = img * (1 - mir[1]) + mirror(img, mir[0]) * mir[1]
+        if split is not None and split[0] > 0.02:
+            img = split_panels(img, split[0], split[1], split[2])
+        if duo > 0.02:
+            img = duotone(img, duo)
         if bl > 0:
             img = bloom(img, bl)
         rng = np.random.default_rng(fi * 7919 + 13)
@@ -936,6 +1004,17 @@ class Renderer:
             img = box_invert(img, binv, rng, *bctr)
         if abs(rgb_px) > 0.5 or rgb_rad > 0.001:
             img = rgb_split(img, rgb_px, rgb_rad)
+        if echo > 0.02:  # light trails: a decaying buffer of past frames, lighten-blended
+            if self.echo_buf is None or self.echo_buf.shape != img.shape:
+                self.echo_buf = img.copy()
+            self.echo_buf = np.maximum(img, self.echo_buf * (0.55 + 0.35 * echo))
+            img = img * (1 - 0.8 * echo) + np.maximum(img, self.echo_buf) * 0.8 * echo
+        else:
+            self.echo_buf = None
+        if cdel > 0.02 and self.prev is not None:  # red channel one frame late
+            img = img.copy()
+            img[..., 0] = img[..., 0] * (1 - cdel) + self.prev[..., 0] * cdel
+            img[..., 2] = np.maximum(img[..., 2], self.prev[..., 2] * 0.6 * cdel)
         if ghost > 0 and self.prev is not None:
             img = img * (1 - ghost) + np.maximum(img, self.prev) * ghost
         if thr > 0:
@@ -955,6 +1034,8 @@ class Renderer:
             img = img + (1 - img) * flash
         if self.tl.get("halation"):
             img = halation(img, float(self.tl["halation"]))
+        if lbox > 0.01:
+            img = letterbox(img, lbox)
         for f, u in overlays:  # titles sit above the grade and the effects, under the grain
             img = self.overlay(img, f, u)
         # ---- finishing: vignette + luma-weighted grain + dither, straight to 8-bit
