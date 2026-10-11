@@ -14,6 +14,7 @@
  "maxrate": "20M",
  "bufsize": "40M",
  "src_max_h": 1620,
+ "halation": 0.2,
  "shots": [
   {
    "src": "../media/clips/rb_car_4k__vxysg1Qptqc.mkv",
@@ -55,6 +56,7 @@
    "t0": 1.0333,
    "t1": 1.2667,
    "in": 29.55,
+   "focus": 0.583,
    "fy": 0.3,
    "zoom": 1.2,
    "grade": "base"
@@ -65,6 +67,7 @@
    "t1": 1.5333,
    "in": 25.95,
    "speed": 1.1,
+   "focus": 0.453,
    "fy": 0.3,
    "zoom": 1.2,
    "grade": "base"
@@ -110,6 +113,7 @@
    "t0": 2.0667,
    "t1": 2.5667,
    "in": 102.85,
+   "focus": 0.59,
    "fy": 0.3,
    "zoom": 1.22,
    "grade": "base"
@@ -120,6 +124,7 @@
    "t1": 2.8333,
    "in": 76.55,
    "speed": 1.5,
+   "focus": 0.524,
    "zoom": [
     [
      0,
@@ -193,6 +198,7 @@
    "t0": 4.1,
    "t1": 4.3667,
    "in": 21.1,
+   "focus": 0.482,
    "fy": 0.3,
    "zoom": 1.2,
    "exposure": -0.8,
@@ -204,6 +210,7 @@
    "t1": 4.8667,
    "in": 41.2,
    "speed": 1.3,
+   "focus": 0.505,
    "fy": 0.3,
    "zoom": [
     [
@@ -268,6 +275,7 @@
    "t0": 6.1667,
    "t1": 6.6667,
    "in": 76.5,
+   "focus": 0.524,
    "zoom": [
     [
      0,
@@ -278,7 +286,7 @@
      1.14
     ]
    ],
-   "grade": "cold",
+   "grade": "faded",
    "exposure": -0.3
   },
   {
@@ -306,6 +314,7 @@
    "in": 73.5,
    "speed": 1.6,
    "mblur": 1.3,
+   "focus": 0.476,
    "zoom": 1.05,
    "grade": "base"
   },
@@ -397,7 +406,7 @@
      1.28
     ]
    ],
-   "grade": "teal"
+   "grade": "xpro"
   },
   {
    "src": "../media/clips/max_helmet__RkpQvhg-IWw.mkv",
@@ -476,6 +485,7 @@
    "t0": 12.3,
    "t1": 12.8333,
    "in": 44.6,
+   "focus": 0.583,
    "fy": 0.3,
    "zoom": 1.2,
    "grade": "bw"
@@ -503,6 +513,7 @@
    "t0": 13.0667,
    "t1": 13.3333,
    "in": 114.0,
+   "focus": 0.4,
    "fy": 0.5,
    "zoom": 1.25,
    "grade": "bw"
@@ -547,31 +558,46 @@
  "fx": [
   {
    "type": "dip",
-   "t": 0.5,
-   "dur": 0.1333,
-   "amt": 1.0,
-   "env": "hold"
-  },
-  {
-   "type": "dip",
-   "t": 0.9667,
+   "t": 0.4333,
    "dur": 0.1333,
    "amt": 0.9,
    "env": "tri"
   },
   {
+   "type": "strobecut",
+   "t": 1.0333,
+   "dur": 0.14,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "rgb",
+   "t": 1.2667,
+   "dur": 0.25,
+   "amt": 0.8,
+   "jitter": true
+  },
+  {
    "type": "exposure",
    "t": 1.3333,
    "dur": 0.2,
-   "amt": 2.6,
+   "amt": 1.8,
    "env": "in"
   },
   {
    "type": "bloom",
    "t": 1.3333,
    "dur": 0.2,
-   "amt": 1.0,
+   "amt": 0.85,
    "env": "in"
+  },
+  {
+   "type": "leak",
+   "t": 1.3333,
+   "dur": 0.2,
+   "amt": 0.4,
+   "env": "in",
+   "color": "white"
   },
   {
    "type": "strobe",
@@ -580,13 +606,6 @@
    "period": 1,
    "env": "hold",
    "dur": 0.1282
-  },
-  {
-   "type": "dip",
-   "t": 1.4667,
-   "dur": 0.1333,
-   "amt": 0.9,
-   "env": "tri"
   },
   {
    "type": "rgb",
@@ -654,6 +673,13 @@
    "env": "decay"
   },
   {
+   "type": "rgb",
+   "t": 2.0667,
+   "dur": 0.25,
+   "amt": 1.0,
+   "jitter": true
+  },
+  {
    "type": "dip",
    "t": 2.5,
    "dur": 0.1333,
@@ -668,18 +694,32 @@
    "env": "hold"
   },
   {
-   "type": "whip",
-   "t": 2.9667,
-   "dur": 0.2,
-   "amt": 0.8,
-   "angle": 0
+   "type": "shake",
+   "t": 2.5667,
+   "dur": 0.2667,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
   },
   {
-   "type": "invert",
-   "t": 3.3333,
-   "dur": 0.2667,
+   "type": "zoomtrans",
+   "t": 2.9467,
+   "dur": 0.24,
+   "amt": 0.79
+  },
+  {
+   "type": "boxinvert",
    "amt": 1.0,
-   "env": "hold"
+   "env": "hold",
+   "t": 3.3333,
+   "dur": 0.2667
+  },
+  {
+   "type": "smear",
+   "amt": 0.6,
+   "env": "hold",
+   "t": 3.3333,
+   "dur": 0.2667
   },
   {
    "type": "dip",
@@ -689,13 +729,6 @@
    "env": "tri"
   },
   {
-   "type": "dip",
-   "t": 4.1,
-   "dur": 0.1,
-   "amt": 1.0,
-   "env": "hold"
-  },
-  {
    "type": "dirblur",
    "amt": 0.5,
    "env": "tri",
@@ -703,11 +736,19 @@
    "dur": 0.2667
   },
   {
-   "type": "whip",
-   "t": 4.2667,
-   "dur": 0.2,
-   "amt": 0.8,
-   "angle": 0
+   "type": "shake",
+   "t": 4.1,
+   "dur": 0.2667,
+   "amt": 0.4,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "punch",
+   "t": 4.1,
+   "dur": 0.2667,
+   "amt": 0.35,
+   "env": "decay"
   },
   {
    "type": "shake",
@@ -725,6 +766,12 @@
    "env": "hold"
   },
   {
+   "type": "zoomtrans",
+   "t": 4.7467,
+   "dur": 0.24,
+   "amt": 0.78
+  },
+  {
    "type": "rgb",
    "t": 4.8667,
    "dur": 0.25,
@@ -739,12 +786,56 @@
    "env": "tri"
   },
   {
+   "type": "shake",
+   "t": 5.1333,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "exposure",
+   "t": 5.4133,
+   "dur": 0.22,
+   "amt": 1.7,
+   "env": "in"
+  },
+  {
+   "type": "bloom",
+   "t": 5.4133,
+   "dur": 0.22,
+   "amt": 0.8,
+   "env": "in"
+  },
+  {
+   "type": "leak",
+   "t": 5.4133,
+   "dur": 0.4,
+   "amt": 0.45,
+   "env": "tri",
+   "color": "white"
+  },
+  {
    "type": "strobe",
    "t": 5.5128,
    "amt": 0.5,
    "period": 1,
    "env": "hold",
    "dur": 0.1282
+  },
+  {
+   "type": "exposure",
+   "t": 5.6333,
+   "dur": 0.18,
+   "amt": 1.5,
+   "env": "out"
+  },
+  {
+   "type": "bloom",
+   "t": 5.6333,
+   "dur": 0.288,
+   "amt": 0.7,
+   "env": "out"
   },
   {
    "type": "punch",
@@ -772,15 +863,23 @@
    "type": "exposure",
    "t": 5.8667,
    "dur": 0.3,
-   "amt": 2.6,
+   "amt": 1.8,
    "env": "in"
   },
   {
    "type": "bloom",
    "t": 5.8667,
    "dur": 0.3,
-   "amt": 1.0,
+   "amt": 0.85,
    "env": "in"
+  },
+  {
+   "type": "leak",
+   "t": 5.8667,
+   "dur": 0.3,
+   "amt": 0.4,
+   "env": "in",
+   "color": "white"
   },
   {
    "type": "shake",
@@ -798,6 +897,21 @@
    "env": "hold"
   },
   {
+   "type": "punch",
+   "t": 6.1667,
+   "dur": 0.3,
+   "amt": 0.63,
+   "env": "decay"
+  },
+  {
+   "type": "shake",
+   "t": 6.1667,
+   "dur": 0.5,
+   "amt": 0.61,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
    "type": "dip",
    "t": 6.6,
    "dur": 0.1333,
@@ -805,25 +919,19 @@
    "env": "tri"
   },
   {
+   "type": "shake",
+   "t": 6.6667,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
    "type": "invert",
    "t": 6.9231,
    "dur": 0.067,
    "amt": 1.0,
    "env": "hold"
-  },
-  {
-   "type": "dip",
-   "t": 7.1,
-   "dur": 0.1333,
-   "amt": 0.9,
-   "env": "tri"
-  },
-  {
-   "type": "whip",
-   "t": 7.3333,
-   "dur": 0.2,
-   "amt": 1.0,
-   "angle": 0
   },
   {
    "type": "dirblur",
@@ -845,6 +953,14 @@
    "dur": 0.0667,
    "amt": 1.0,
    "env": "hold"
+  },
+  {
+   "type": "shake",
+   "t": 7.7,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
   },
   {
    "type": "dip",
@@ -869,17 +985,25 @@
    "env": "decay"
   },
   {
-   "type": "flash",
-   "t": 8.7333,
-   "dur": 0.16,
-   "amt": 0.6,
-   "env": "decay"
+   "type": "scanline",
+   "t": 8.6033,
+   "dur": 0.13,
+   "amt": 1.0,
+   "env": "in"
   },
   {
-   "type": "bloom",
+   "type": "scanline",
    "t": 8.7333,
-   "dur": 0.6,
-   "amt": 0.6,
+   "dur": 0.1,
+   "amt": 1.0,
+   "env": "out"
+  },
+  {
+   "type": "shake",
+   "t": 8.7333,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
    "env": "decay"
   },
   {
@@ -901,15 +1025,23 @@
    "type": "exposure",
    "t": 9.5333,
    "dur": 0.2,
-   "amt": 2.6,
+   "amt": 1.8,
    "env": "in"
   },
   {
    "type": "bloom",
    "t": 9.5333,
    "dur": 0.2,
-   "amt": 1.0,
+   "amt": 0.85,
    "env": "in"
+  },
+  {
+   "type": "leak",
+   "t": 9.5333,
+   "dur": 0.2,
+   "amt": 0.4,
+   "env": "in",
+   "color": "white"
   },
   {
    "type": "punch",
@@ -934,6 +1066,13 @@
    "jitter": true
   },
   {
+   "type": "freeze",
+   "t": 9.7333,
+   "dur": 0.1,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
    "type": "flash",
    "t": 9.7436,
    "dur": 0.12,
@@ -948,6 +1087,21 @@
    "env": "tri"
   },
   {
+   "type": "punch",
+   "t": 10.2667,
+   "dur": 0.3,
+   "amt": 0.7,
+   "env": "decay"
+  },
+  {
+   "type": "shake",
+   "t": 10.2667,
+   "dur": 0.5,
+   "amt": 0.7,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
    "type": "flash",
    "t": 10.5128,
    "dur": 0.067,
@@ -955,10 +1109,62 @@
    "env": "decay"
   },
   {
+   "type": "exposure",
+   "t": 10.5467,
+   "dur": 0.22,
+   "amt": 1.7,
+   "env": "in"
+  },
+  {
+   "type": "bloom",
+   "t": 10.5467,
+   "dur": 0.22,
+   "amt": 0.8,
+   "env": "in"
+  },
+  {
+   "type": "leak",
+   "t": 10.5467,
+   "dur": 0.4,
+   "amt": 0.45,
+   "env": "tri",
+   "color": "white"
+  },
+  {
+   "type": "exposure",
+   "t": 10.7667,
+   "dur": 0.18,
+   "amt": 1.5,
+   "env": "out"
+  },
+  {
+   "type": "bloom",
+   "t": 10.7667,
+   "dur": 0.288,
+   "amt": 0.7,
+   "env": "out"
+  },
+  {
    "type": "bloom",
    "t": 10.7667,
    "dur": 0.5,
    "amt": 0.5,
+   "env": "decay"
+  },
+  {
+   "type": "leak",
+   "t": 10.7667,
+   "dur": 0.5,
+   "amt": 0.6,
+   "env": "tri",
+   "color": "warm"
+  },
+  {
+   "type": "shake",
+   "t": 10.7667,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
    "env": "decay"
   },
   {
@@ -976,11 +1182,33 @@
    "env": "hold"
   },
   {
+   "type": "scanline",
+   "t": 11.67,
+   "dur": 0.13,
+   "amt": 1.0,
+   "env": "in"
+  },
+  {
+   "type": "scanline",
+   "t": 11.8,
+   "dur": 0.1,
+   "amt": 1.0,
+   "env": "out"
+  },
+  {
    "type": "rgb",
    "t": 11.8,
    "dur": 0.25,
    "amt": 1.0,
    "jitter": true
+  },
+  {
+   "type": "shake",
+   "t": 11.8,
+   "dur": 0.3,
+   "amt": 0.23,
+   "freq": 1.8,
+   "env": "decay"
   },
   {
    "type": "glitch",
@@ -998,39 +1226,56 @@
    "env": "hold"
   },
   {
-   "type": "dip",
-   "t": 12.2333,
-   "dur": 0.1333,
-   "amt": 0.9,
-   "env": "tri"
-  },
-  {
    "type": "zoomblur",
-   "amt": 0.7,
-   "env": "tri",
    "t": 12.3,
-   "dur": 0.5333
+   "dur": 0.5333,
+   "amt": 0.9,
+   "env": "hold",
+   "pulse": 0.25641
   },
   {
-   "type": "flash",
-   "t": 12.8333,
-   "dur": 0.16,
-   "amt": 0.5,
+   "type": "flicker",
+   "t": 12.3,
+   "dur": 0.5333,
+   "amt": 0.6,
+   "env": "hold"
+  },
+  {
+   "type": "shake",
+   "t": 12.3,
+   "dur": 0.3,
+   "amt": 0.4,
+   "freq": 1.8,
    "env": "decay"
   },
   {
-   "type": "bloom",
+   "type": "punch",
+   "t": 12.3,
+   "dur": 0.3,
+   "amt": 0.35,
+   "env": "decay"
+  },
+  {
+   "type": "zoomtrans",
+   "t": 12.7133,
+   "dur": 0.24,
+   "amt": 0.78
+  },
+  {
+   "type": "shake",
    "t": 12.8333,
    "dur": 0.2333,
-   "amt": 0.6,
+   "amt": 0.25,
+   "freq": 1.8,
    "env": "decay"
   },
   {
-   "type": "dip",
-   "t": 13.0,
-   "dur": 0.1333,
-   "amt": 0.9,
-   "env": "tri"
+   "type": "mirror",
+   "t": 13.0667,
+   "dur": 0.1,
+   "amt": 1.0,
+   "mode": "tri",
+   "env": "hold"
   },
   {
    "type": "dip",
@@ -1038,6 +1283,50 @@
    "dur": 0.1333,
    "amt": 0.9,
    "env": "tri"
+  },
+  {
+   "type": "wave",
+   "t": 13.3333,
+   "dur": 0.5,
+   "amt": 0.7,
+   "mode": "ripple",
+   "env": "tri"
+  },
+  {
+   "type": "exposure",
+   "t": 13.6133,
+   "dur": 0.22,
+   "amt": 1.7,
+   "env": "in"
+  },
+  {
+   "type": "bloom",
+   "t": 13.6133,
+   "dur": 0.22,
+   "amt": 0.8,
+   "env": "in"
+  },
+  {
+   "type": "leak",
+   "t": 13.6133,
+   "dur": 0.4,
+   "amt": 0.45,
+   "env": "tri",
+   "color": "white"
+  },
+  {
+   "type": "exposure",
+   "t": 13.8333,
+   "dur": 0.18,
+   "amt": 1.5,
+   "env": "out"
+  },
+  {
+   "type": "bloom",
+   "t": 13.8333,
+   "dur": 0.288,
+   "amt": 0.7,
+   "env": "out"
   },
   {
    "type": "punch",

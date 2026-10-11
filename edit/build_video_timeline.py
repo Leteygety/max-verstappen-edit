@@ -142,8 +142,10 @@ def fx_macro(kind, amt, t0, t1, fps, pd=None, p=None):
                 dict(type="bloom", t=t0, dur=min(0.6, d), amt=0.6, env="decay")]
     if kind == "white":    # blow out to white over the end of the shot, amt = seconds
         w = min(amt or 0.3, d)
-        return [dict(type="exposure", t=t1 - w, dur=w, amt=2.6, env="in"),
-                dict(type="bloom", t=t1 - w, dur=w, amt=1.0, env="in")]
+        # strong but never flat: the picture keeps reading through the blow-out
+        return [dict(type="exposure", t=t1 - w, dur=w, amt=1.8, env="in"),
+                dict(type="bloom", t=t1 - w, dur=w, amt=0.85, env="in"),
+                dict(type="leak", t=t1 - w, dur=w, amt=0.4, env="in", color="white")]
     if kind == "bloom":
         return [dict(type="bloom", t=t0, dur=min(0.9, d), amt=amt or 0.6, env="decay")]
     if kind == "punch":

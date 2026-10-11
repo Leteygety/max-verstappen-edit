@@ -16,6 +16,7 @@
  "src_max_h": 1620,
  "frame_blend": "slowmo",
  "sharpen": 0.15,
+ "halation": 0.2,
  "shots": [
   {
    "src": "../media/clips/rb_car_4k__vxysg1Qptqc.mkv",
@@ -40,6 +41,7 @@
    "t0": 0.8,
    "t1": 1.0667,
    "in": 29.5,
+   "focus": 0.417,
    "fy": 0.3,
    "zoom": 1.2,
    "grade": "base"
@@ -104,6 +106,7 @@
    "t0": 2.7,
    "t1": 2.9667,
    "in": 2.95,
+   "focus": 0.59,
    "fy": 0.3,
    "zoom": 1.22,
    "grade": "base"
@@ -113,6 +116,7 @@
    "t0": 2.9667,
    "t1": 3.2333,
    "in": 103.0,
+   "focus": 0.41,
    "fy": 0.3,
    "zoom": 1.22,
    "grade": "base"
@@ -142,6 +146,7 @@
    "t1": 3.7667,
    "in": 76.6,
    "speed": 1.5,
+   "focus": 0.476,
    "zoom": [
     [
      0,
@@ -174,6 +179,7 @@
     ]
    ],
    "mblur": 1.2,
+   "focus": 0.499,
    "zoom": [
     [
      0,
@@ -235,6 +241,7 @@
    "in": 73.3,
    "speed": 1.2,
    "mblur": 1.2,
+   "focus": 0.476,
    "zoom": [
     [
      0,
@@ -270,6 +277,7 @@
    "t0": 8.1,
    "t1": 8.3667,
    "in": 36.2,
+   "focus": 0.41,
    "fy": 0.3,
    "zoom": 1.22,
    "grade": "base"
@@ -279,6 +287,7 @@
    "t0": 8.3667,
    "t1": 8.6333,
    "in": 74.9,
+   "focus": 0.447,
    "fy": 0.3,
    "zoom": 1.22,
    "grade": "base"
@@ -308,6 +317,7 @@
    "t1": 9.7,
    "in": 41.3,
    "speed": 1.3,
+   "focus": 0.546,
    "fy": 0.3,
    "zoom": [
     [
@@ -326,6 +336,7 @@
    "t0": 9.7,
    "t1": 9.9667,
    "in": 49.2,
+   "focus": 0.553,
    "fy": 0.3,
    "zoom": 1.22,
    "exposure": -0.3,
@@ -344,6 +355,7 @@
    "t1": 10.7667,
    "in": 75.5,
    "speed": 1.2,
+   "focus": 0.41,
    "fy": 0.3,
    "zoom": 1.22,
    "grade": "base"
@@ -370,6 +382,7 @@
    "t0": 11.3333,
    "t1": 11.8667,
    "in": 112.6,
+   "focus": 0.443,
    "fy": 0.5,
    "zoom": 1.25,
    "grade": "base"
@@ -397,6 +410,7 @@
    "t0": 12.4,
    "t1": 12.9333,
    "in": 20.3,
+   "focus": 0.41,
    "fy": 0.3,
    "zoom": 1.22,
    "grade": "base"
@@ -426,6 +440,7 @@
    "in": 103.3,
    "speed": 1.5,
    "mblur": 1.3,
+   "focus": 0.524,
    "zoom": 1.05,
    "grade": "base"
   },
@@ -434,6 +449,7 @@
    "t0": 13.7333,
    "t1": 14.0333,
    "in": 29.7,
+   "focus": 0.503,
    "fy": 0.3,
    "zoom": 1.2,
    "grade": "base"
@@ -574,7 +590,7 @@
      1.28
     ]
    ],
-   "grade": "teal"
+   "grade": "xpro"
   },
   {
    "src": "../media/clips/max_helmet__RkpQvhg-IWw.mkv",
@@ -599,6 +615,7 @@
    "t0": 18.8667,
    "t1": 19.4,
    "in": 45.6,
+   "focus": 0.59,
    "fy": 0.3,
    "zoom": 1.22,
    "grade": "base"
@@ -662,6 +679,7 @@
    "t0": 21.0333,
    "t1": 21.5667,
    "in": 125.0,
+   "focus": 0.587,
    "fy": 0.3,
    "zoom": 1.22,
    "grade": "bw"
@@ -689,6 +707,7 @@
    "t0": 22.1,
    "t1": 22.3667,
    "in": 115.0,
+   "focus": 0.457,
    "fy": 0.5,
    "zoom": 1.25,
    "grade": "bw"
@@ -751,24 +770,46 @@
  "fx": [
   {
    "type": "dip",
-   "t": 0.8,
-   "dur": 0.1,
-   "amt": 1.0,
-   "env": "hold"
-  },
-  {
-   "type": "dip",
    "t": 1.0,
    "dur": 0.1333,
    "amt": 0.9,
    "env": "tri"
   },
   {
-   "type": "whip",
-   "t": 1.5333,
-   "dur": 0.2,
+   "type": "exposure",
+   "t": 1.4133,
+   "dur": 0.22,
+   "amt": 1.7,
+   "env": "in"
+  },
+  {
+   "type": "bloom",
+   "t": 1.4133,
+   "dur": 0.22,
    "amt": 0.8,
-   "angle": 0
+   "env": "in"
+  },
+  {
+   "type": "leak",
+   "t": 1.4133,
+   "dur": 0.4,
+   "amt": 0.45,
+   "env": "tri",
+   "color": "white"
+  },
+  {
+   "type": "exposure",
+   "t": 1.6333,
+   "dur": 0.18,
+   "amt": 1.5,
+   "env": "out"
+  },
+  {
+   "type": "bloom",
+   "t": 1.6333,
+   "dur": 0.288,
+   "amt": 0.7,
+   "env": "out"
   },
   {
    "type": "invert",
@@ -778,11 +819,11 @@
    "env": "hold"
   },
   {
-   "type": "dip",
-   "t": 2.1,
-   "dur": 0.1333,
-   "amt": 0.9,
-   "env": "tri"
+   "type": "strobecut",
+   "t": 2.1667,
+   "dur": 0.16,
+   "amt": 1.0,
+   "env": "hold"
   },
   {
    "type": "invert",
@@ -790,6 +831,13 @@
    "dur": 0.2667,
    "amt": 1.0,
    "env": "hold"
+  },
+  {
+   "type": "rgb",
+   "t": 2.4333,
+   "dur": 0.25,
+   "amt": 0.8,
+   "jitter": true
   },
   {
    "type": "dip",
@@ -806,18 +854,17 @@
    "env": "decay"
   },
   {
-   "type": "whip",
-   "t": 2.8667,
-   "dur": 0.2,
+   "type": "rgb",
+   "t": 2.9667,
+   "dur": 0.25,
    "amt": 0.8,
-   "angle": 0
+   "jitter": true
   },
   {
-   "type": "dip",
-   "t": 3.2333,
-   "dur": 0.0667,
-   "amt": 1.0,
-   "env": "hold"
+   "type": "zoomtrans",
+   "t": 3.1133,
+   "dur": 0.24,
+   "amt": 0.81
   },
   {
    "type": "rgb",
@@ -834,6 +881,13 @@
    "env": "hold"
   },
   {
+   "type": "rgb",
+   "t": 3.5,
+   "dur": 0.25,
+   "amt": 0.8,
+   "jitter": true
+  },
+  {
    "type": "strobe",
    "t": 3.6392,
    "amt": 0.6,
@@ -842,11 +896,10 @@
    "dur": 0.1348
   },
   {
-   "type": "dip",
-   "t": 3.7,
-   "dur": 0.1333,
-   "amt": 0.9,
-   "env": "tri"
+   "type": "zoomtrans",
+   "t": 3.6467,
+   "dur": 0.24,
+   "amt": 0.8
   },
   {
    "type": "strobe",
@@ -972,6 +1025,20 @@
    "env": "decay"
   },
   {
+   "type": "rgb",
+   "t": 7.0,
+   "dur": 0.25,
+   "amt": 1.0,
+   "jitter": true
+  },
+  {
+   "type": "dip",
+   "t": 7.4667,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
    "type": "shake",
    "t": 7.5333,
    "dur": 0.5667,
@@ -988,17 +1055,10 @@
   },
   {
    "type": "dip",
-   "t": 8.0333,
+   "t": 8.5667,
    "dur": 0.1333,
    "amt": 0.9,
    "env": "tri"
-  },
-  {
-   "type": "whip",
-   "t": 8.2667,
-   "dur": 0.2,
-   "amt": 0.7,
-   "angle": 0
   },
   {
    "type": "punch",
@@ -1023,25 +1083,63 @@
    "env": "decay"
   },
   {
-   "type": "whip",
-   "t": 9.0667,
-   "dur": 0.2,
-   "amt": 0.8,
-   "angle": 0
+   "type": "shake",
+   "t": 9.1667,
+   "dur": 0.3,
+   "amt": 0.32,
+   "freq": 1.8,
+   "env": "decay"
   },
   {
-   "type": "invert",
+   "type": "boxinvert",
    "amt": 1.0,
    "env": "hold",
    "t": 9.4333,
-   "dur": 0.2667
+   "dur": 0.1867
+  },
+  {
+   "type": "smear",
+   "amt": 0.6,
+   "env": "hold",
+   "t": 9.4333,
+   "dur": 0.1867
+  },
+  {
+   "type": "dirblur",
+   "t": 9.54,
+   "dur": 0.16,
+   "amt": 0.9,
+   "angle": -176.7,
+   "env": "in"
+  },
+  {
+   "type": "smear",
+   "t": 9.604,
+   "dur": 0.096,
+   "amt": 0.8,
+   "env": "in"
   },
   {
    "type": "dip",
-   "t": 9.6333,
-   "dur": 0.1333,
+   "t": 9.62,
+   "dur": 0.08,
+   "amt": 0.95,
+   "env": "in"
+  },
+  {
+   "type": "dip",
+   "t": 9.7,
+   "dur": 0.0667,
    "amt": 0.9,
-   "env": "tri"
+   "env": "out"
+  },
+  {
+   "type": "shake",
+   "t": 9.7,
+   "dur": 0.2667,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
   },
   {
    "type": "flash",
@@ -1056,6 +1154,13 @@
    "dur": 0.25,
    "amt": 1.0,
    "jitter": true
+  },
+  {
+   "type": "dip",
+   "t": 10.1667,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
   },
   {
    "type": "shake",
@@ -1074,18 +1179,40 @@
    "dur": 0.1348
   },
   {
+   "type": "zoomtrans",
+   "t": 10.6467,
+   "dur": 0.24,
+   "amt": 0.78
+  },
+  {
+   "type": "shake",
+   "t": 10.7667,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
    "type": "exposure",
    "t": 10.9833,
    "dur": 0.35,
-   "amt": 2.6,
+   "amt": 1.8,
    "env": "in"
   },
   {
    "type": "bloom",
    "t": 10.9833,
    "dur": 0.35,
-   "amt": 1.0,
+   "amt": 0.85,
    "env": "in"
+  },
+  {
+   "type": "leak",
+   "t": 10.9833,
+   "dur": 0.35,
+   "amt": 0.4,
+   "env": "in",
+   "color": "white"
   },
   {
    "type": "rgb",
@@ -1110,24 +1237,69 @@
    "env": "hold"
   },
   {
-   "type": "flash",
-   "t": 11.8667,
-   "dur": 0.16,
+   "type": "punch",
+   "t": 11.3333,
+   "dur": 0.3,
    "amt": 0.7,
    "env": "decay"
   },
   {
+   "type": "shake",
+   "t": 11.3333,
+   "dur": 0.5333,
+   "amt": 0.7,
+   "freq": 1.6,
+   "env": "decay"
+  },
+  {
+   "type": "exposure",
+   "t": 11.6467,
+   "dur": 0.22,
+   "amt": 1.7,
+   "env": "in"
+  },
+  {
+   "type": "bloom",
+   "t": 11.6467,
+   "dur": 0.22,
+   "amt": 0.8,
+   "env": "in"
+  },
+  {
+   "type": "leak",
+   "t": 11.6467,
+   "dur": 0.4,
+   "amt": 0.45,
+   "env": "tri",
+   "color": "white"
+  },
+  {
+   "type": "exposure",
+   "t": 11.8667,
+   "dur": 0.18,
+   "amt": 1.5,
+   "env": "out"
+  },
+  {
    "type": "bloom",
    "t": 11.8667,
-   "dur": 0.5333,
-   "amt": 0.6,
-   "env": "decay"
+   "dur": 0.288,
+   "amt": 0.7,
+   "env": "out"
   },
   {
    "type": "punch",
    "t": 11.8667,
    "dur": 0.3,
    "amt": 0.6,
+   "env": "decay"
+  },
+  {
+   "type": "shake",
+   "t": 11.8667,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
    "env": "decay"
   },
   {
@@ -1160,11 +1332,41 @@
    "env": "tri"
   },
   {
-   "type": "whip",
-   "t": 13.3667,
-   "dur": 0.2,
+   "type": "shake",
+   "t": 12.9333,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "scanline",
+   "t": 13.3367,
+   "dur": 0.13,
    "amt": 1.0,
-   "angle": 0
+   "env": "in"
+  },
+  {
+   "type": "scanline",
+   "t": 13.4667,
+   "dur": 0.0933,
+   "amt": 1.0,
+   "env": "out"
+  },
+  {
+   "type": "shake",
+   "t": 13.4667,
+   "dur": 0.2667,
+   "amt": 0.45,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "punch",
+   "t": 13.4667,
+   "dur": 0.2667,
+   "amt": 0.4,
+   "env": "decay"
   },
   {
    "type": "dirblur",
@@ -1186,6 +1388,14 @@
    "dur": 0.0667,
    "amt": 1.0,
    "env": "hold"
+  },
+  {
+   "type": "shake",
+   "t": 14.0333,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
   },
   {
    "type": "flash",
@@ -1217,17 +1427,18 @@
    "env": "hold"
   },
   {
-   "type": "flash",
-   "t": 15.1,
-   "dur": 0.16,
-   "amt": 0.5,
-   "env": "decay"
+   "type": "dip",
+   "t": 15.0333,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
   },
   {
-   "type": "bloom",
+   "type": "shake",
    "t": 15.1,
-   "dur": 0.5333,
-   "amt": 0.6,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
    "env": "decay"
   },
   {
@@ -1260,18 +1471,70 @@
    "env": "decay"
   },
   {
-   "type": "dip",
-   "t": 16.1,
-   "dur": 0.1333,
-   "amt": 0.9,
-   "env": "tri"
+   "type": "scanline",
+   "t": 16.0367,
+   "dur": 0.13,
+   "amt": 1.0,
+   "env": "in"
   },
   {
-   "type": "dip",
-   "t": 16.6333,
-   "dur": 0.1333,
-   "amt": 0.9,
-   "env": "tri"
+   "type": "scanline",
+   "t": 16.1667,
+   "dur": 0.1,
+   "amt": 1.0,
+   "env": "out"
+  },
+  {
+   "type": "leak",
+   "t": 16.1667,
+   "dur": 0.5333,
+   "amt": 0.6,
+   "env": "tri",
+   "color": "warm"
+  },
+  {
+   "type": "shake",
+   "t": 16.1667,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "exposure",
+   "t": 16.48,
+   "dur": 0.22,
+   "amt": 1.7,
+   "env": "in"
+  },
+  {
+   "type": "bloom",
+   "t": 16.48,
+   "dur": 0.22,
+   "amt": 0.8,
+   "env": "in"
+  },
+  {
+   "type": "leak",
+   "t": 16.48,
+   "dur": 0.4,
+   "amt": 0.45,
+   "env": "tri",
+   "color": "white"
+  },
+  {
+   "type": "exposure",
+   "t": 16.7,
+   "dur": 0.18,
+   "amt": 1.5,
+   "env": "out"
+  },
+  {
+   "type": "bloom",
+   "t": 16.7,
+   "dur": 0.288,
+   "amt": 0.7,
+   "env": "out"
   },
   {
    "type": "glitch",
@@ -1296,12 +1559,35 @@
    "env": "decay"
   },
   {
+   "type": "desat",
+   "t": 17.2667,
+   "dur": 0.5333,
+   "amt": 1.0,
+   "env": "hold",
+   "pulse": 0.26957
+  },
+  {
+   "type": "shake",
+   "t": 17.2667,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
    "type": "strobe",
    "t": 17.522,
    "amt": 0.6,
    "period": 1,
    "env": "hold",
    "dur": 0.2696
+  },
+  {
+   "type": "dip",
+   "t": 17.7333,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
   },
   {
    "type": "flash",
@@ -1333,11 +1619,25 @@
    "jitter": true
   },
   {
-   "type": "dip",
-   "t": 18.2667,
-   "dur": 0.1333,
-   "amt": 0.9,
-   "env": "tri"
+   "type": "freeze",
+   "t": 17.8,
+   "dur": 0.1,
+   "amt": 1.0,
+   "env": "hold"
+  },
+  {
+   "type": "scanline",
+   "t": 18.2033,
+   "dur": 0.13,
+   "amt": 1.0,
+   "env": "in"
+  },
+  {
+   "type": "scanline",
+   "t": 18.3333,
+   "dur": 0.1,
+   "amt": 1.0,
+   "env": "out"
   },
   {
    "type": "dip",
@@ -1362,6 +1662,13 @@
    "env": "hold"
   },
   {
+   "type": "dip",
+   "t": 19.3333,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
    "type": "bloom",
    "t": 19.4,
    "dur": 0.5333,
@@ -1369,11 +1676,33 @@
    "env": "decay"
   },
   {
-   "type": "dip",
-   "t": 19.8667,
-   "dur": 0.1333,
-   "amt": 0.9,
-   "env": "tri"
+   "type": "scanline",
+   "t": 19.8033,
+   "dur": 0.13,
+   "amt": 1.0,
+   "env": "in"
+  },
+  {
+   "type": "scanline",
+   "t": 19.9333,
+   "dur": 0.1,
+   "amt": 1.0,
+   "env": "out"
+  },
+  {
+   "type": "punch",
+   "t": 19.9333,
+   "dur": 0.3,
+   "amt": 0.7,
+   "env": "decay"
+  },
+  {
+   "type": "shake",
+   "t": 19.9333,
+   "dur": 0.5667,
+   "amt": 0.7,
+   "freq": 1.6,
+   "env": "decay"
   },
   {
    "type": "flash",
@@ -1383,6 +1712,13 @@
    "env": "decay"
   },
   {
+   "type": "dip",
+   "t": 20.4333,
+   "dur": 0.1333,
+   "amt": 0.9,
+   "env": "tri"
+  },
+  {
    "type": "bloom",
    "t": 20.5,
    "dur": 0.5333,
@@ -1390,18 +1726,34 @@
    "env": "decay"
   },
   {
+   "type": "shake",
+   "t": 20.5,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
    "type": "exposure",
    "t": 20.8333,
    "dur": 0.2,
-   "amt": 2.6,
+   "amt": 1.8,
    "env": "in"
   },
   {
    "type": "bloom",
    "t": 20.8333,
    "dur": 0.2,
-   "amt": 1.0,
+   "amt": 0.85,
    "env": "in"
+  },
+  {
+   "type": "leak",
+   "t": 20.8333,
+   "dur": 0.2,
+   "amt": 0.4,
+   "env": "in",
+   "color": "white"
   },
   {
    "type": "flash",
@@ -1425,6 +1777,21 @@
    "env": "tri"
   },
   {
+   "type": "flicker",
+   "t": 21.5667,
+   "dur": 0.5333,
+   "amt": 0.6,
+   "env": "hold"
+  },
+  {
+   "type": "shake",
+   "t": 21.5667,
+   "dur": 0.3,
+   "amt": 0.25,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
    "type": "invert",
    "t": 21.8352,
    "dur": 0.067,
@@ -1432,22 +1799,53 @@
    "env": "hold"
   },
   {
-   "type": "dip",
-   "t": 22.0333,
-   "dur": 0.1333,
-   "amt": 0.9,
-   "env": "tri"
+   "type": "scanline",
+   "t": 21.97,
+   "dur": 0.13,
+   "amt": 1.0,
+   "env": "in"
+  },
+  {
+   "type": "scanline",
+   "t": 22.1,
+   "dur": 0.0933,
+   "amt": 1.0,
+   "env": "out"
   },
   {
    "type": "zoomblur",
-   "amt": 0.5,
-   "env": "tri",
    "t": 22.1,
-   "dur": 0.2667
+   "dur": 0.2667,
+   "amt": 0.9,
+   "env": "hold",
+   "pulse": 0.26957
+  },
+  {
+   "type": "shake",
+   "t": 22.1,
+   "dur": 0.2667,
+   "amt": 0.45,
+   "freq": 1.8,
+   "env": "decay"
+  },
+  {
+   "type": "punch",
+   "t": 22.1,
+   "dur": 0.2667,
+   "amt": 0.4,
+   "env": "decay"
+  },
+  {
+   "type": "mirror",
+   "t": 22.3667,
+   "dur": 0.1,
+   "amt": 1.0,
+   "mode": "tri",
+   "env": "hold"
   },
   {
    "type": "dip",
-   "t": 22.3,
+   "t": 22.5667,
    "dur": 0.1333,
    "amt": 0.9,
    "env": "tri"
@@ -1475,6 +1873,14 @@
    "env": "decay"
   },
   {
+   "type": "wave",
+   "t": 22.6333,
+   "dur": 0.5333,
+   "amt": 0.6,
+   "mode": "ripple",
+   "env": "tri"
+  },
+  {
    "type": "flash",
    "t": 22.6439,
    "dur": 0.12,
@@ -1482,11 +1888,11 @@
    "env": "decay"
   },
   {
-   "type": "dip",
-   "t": 23.1,
-   "dur": 0.1333,
-   "amt": 0.9,
-   "env": "tri"
+   "type": "lumamix",
+   "t": 23.1667,
+   "dur": 0.5,
+   "amt": 1.0,
+   "env": "hold"
   },
   {
    "type": "exposure",
